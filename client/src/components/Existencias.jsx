@@ -61,7 +61,7 @@ class existencias extends Component {
             method: 'GET',
             headers : {'Content-type':'application/json'}    
           }      
-          fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://44.202.85.162:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
                 this.setState({
@@ -121,7 +121,7 @@ class existencias extends Component {
             method: 'GET',
             headers : {'Content-type':'application/json'}    
           }      
-          fetch('http://localhost:3001/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
+          fetch('http://44.202.85.162:3001/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
               .then(response => response.json())
               .then(data => {
                 this.setState({
@@ -264,7 +264,7 @@ class existencias extends Component {
                     })
                   }
               
-                  fetch('http://localhost:3001/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://44.202.85.162:3001/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         this.setState({
@@ -277,7 +277,7 @@ class existencias extends Component {
                             method: 'GET',
                             headers : {'Content-type':'application/json'}    
                         }      
-                        fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                        fetch('http://44.202.85.162:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                             .then(response => response.json())
                             .then(data => {
                                 this.setState({
@@ -327,7 +327,7 @@ class existencias extends Component {
                     })
                   }
               
-                  fetch('http://localhost:3001/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://44.202.85.162:3001/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                             this.setState({
@@ -338,7 +338,7 @@ class existencias extends Component {
                                 method: 'GET',
                                 headers : {'Content-type':'application/json'}    
                             }      
-                            fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                            fetch('http://44.202.85.162:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                                 .then(response => response.json())
                                 .then(data => {
                                     this.setState({

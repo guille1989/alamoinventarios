@@ -29,7 +29,7 @@ class AlamoDashboard extends Component {
             headers : {'Content-type':'application/json'}    
           }
       
-          fetch('http://localhost:3001/api/leerexistenciasalamofiltro/'+ this.state.itemFiltro + '/' + this.state.fechaInicio + '/' + this.state.fechaFinal, requestOptions)
+          fetch('http://44.202.85.162:3001/api/leerexistenciasalamofiltro/'+ this.state.itemFiltro + '/' + this.state.fechaInicio + '/' + this.state.fechaFinal, requestOptions)
               .then(response => response.json())
               .then(data => {
                   this.setState({
@@ -50,7 +50,7 @@ class AlamoDashboard extends Component {
             headers : {'Content-type':'application/json'}    
           }
       
-          fetch('http://localhost:3001/api/leerexistenciasalamofiltro/'+ e.target.value, requestOptions)
+          fetch('http://44.202.85.162:3001/api/leerexistenciasalamofiltro/'+ e.target.value, requestOptions)
               .then(response => response.json())
               .then(data => {
                   console.log(data)
@@ -84,7 +84,7 @@ class AlamoDashboard extends Component {
             headers : {'Content-type':'application/json'}    
           }
       
-          fetch('http://localhost:3001/api/leerexistenciasalamogeneral', requestOptions)
+          fetch('http://44.202.85.162:3001/api/leerexistenciasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {
                   this.setState({
