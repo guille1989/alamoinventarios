@@ -64,7 +64,7 @@ class existencias extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -132,7 +132,7 @@ class existencias extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -284,7 +284,7 @@ class existencias extends Component {
                     })
                   }
               
-                  fetch('http://44.202.85.162:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://localhost:3001/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
 
@@ -306,7 +306,7 @@ class existencias extends Component {
                                 'Content-type':'application/json'
                               })    
                         }      
-                        fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                        fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                             .then(response => response.json())
                             .then(data => {
 
@@ -366,7 +366,7 @@ class existencias extends Component {
                     })
                   }
               
-                  fetch('http://44.202.85.162:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://localhost:3001/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
 
@@ -386,7 +386,7 @@ class existencias extends Component {
                                     'Content-type':'application/json'
                                   })    
                             }      
-                            fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                            fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                                 .then(response => response.json())
                                 .then(data => {
 
@@ -480,12 +480,27 @@ class existencias extends Component {
             <Modal isOpen={this.state.revExistencia}>
             <ModalHeader>Revision de Existencia {this.state.existenciasAlamo}  Lote {this.state.existenciaLote}</ModalHeader>
             <ModalBody>
+            {/*
             <Input
                 bsSize="sm"
                 className="mb-3"
                 placeholder="Responsable Revision"
                 onChange={this.onChangeResponsableRevision}                
               />
+            */}
+
+            <Input
+                bsSize="sm"
+                className="mb-3"
+                type="select"
+                onChange={this.onChangeResponsableRevision}>
+                <option>
+                  Responsable Revision Existencia
+                </option>  
+                <option>ALEYDA ORTIZ</option>    
+                <option>MAURICIO SANCHEZ</option>
+                <option>EDINSON DAVILA</option>           
+              </Input>
 
             {/*<Input
                 bsSize="sm"

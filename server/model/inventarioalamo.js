@@ -8,6 +8,8 @@ ExistenciasProductoTerminado:   {type: String},
 ExistenciasDaniadas:            {type: String},
 ExistenciasLote:                {type: String},
 ExistenciasRecepcion:           {type: Date},
+FechaRevisionExistencia:        {type: Date},
+FechaRegistroIngresoExistencia: {type: Date},
 NoMuestras:                     {type: String},
 OlorExtraño:                    {type: String},
 Apariencia:                     {type: String},
@@ -33,6 +35,7 @@ tapa_liner:                     {type: String},
 nivel_inspeccion_s4:            {type: String},
 tamanio_muestra:                {type: String},
 aceptar_inspeccion_s4:          {type: String},
-rechazar_inspeccion_s4:         {type: String}
+rechazar_inspeccion_s4:         {type: String},
+ResponsableRecepcionExistencia:  {type: String}
 })
 module.exports = mongose.model('inventarios', inventarioShema)

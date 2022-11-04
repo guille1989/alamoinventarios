@@ -23,6 +23,7 @@ async function insertExistencias(body){
     let result = [];
     result = await Existencias.updateMany({ExistenciasLote: body.ExistenciasLote, PresentacionInsumo: body.PresentacionInsumo}, 
         {$set: {
+        FechaRevisionExistencia:        new Date(),
         ResponsableRevision:            body.ResponsableRevision,
         Altura_mm:                      body.Altura_mm,
         Peso_g:                         body.Peso_g,                

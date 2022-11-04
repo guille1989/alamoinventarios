@@ -18,8 +18,15 @@ class Alamoexistencias extends Component {
           ExistenciasFecha: '',
           loteRepetido: 'none',
           ExistenciaCosto: '',
-          token: ''
+          token: '',
+          responsableRecepcionExistencia: ''
         }
+      }
+
+      onChangeExistenciaAlamoResponsable = (e) => {
+        this.setState({
+          responsableRecepcionExistencia: e.target.value
+        })
       }
     
       //Funciones del formulario para agregar existencias
@@ -66,7 +73,7 @@ class Alamoexistencias extends Component {
     
       //Agregar nueva existencia
       insertExistenciaAlamo = () => {
-        if(this.state.tipoExistencia === '' || this.state.ExistenciasCantidad === '' || this.state.ExistenciasLote === '' || this.state.ExistenciasFecha === ''){
+        if(this.state.responsableRecepcionExistencia === '' || this.state.tipoExistencia === '' || this.state.ExistenciasCantidad === '' || this.state.ExistenciasLote === '' || this.state.ExistenciasFecha === ''){
           alert('Ingresar todos los CAMPOS !')
         }else{
           //
@@ -77,6 +84,7 @@ class Alamoexistencias extends Component {
               'Content-type':'application/json'
             }),
             body: JSON.stringify({
+                  ResponsableRecepcionExistencia: this.state.responsableRecepcionExistencia,
                   PresentacionInsumo: this.state.tipoExistencia, 
                   //ProveedorInsumo: this.state.tipoExistenciaProveedor, 
                   CostoExistencia: this.state.ExistenciaCosto,
@@ -85,7 +93,7 @@ class Alamoexistencias extends Component {
                   ExistenciasRecepcion: this.state.ExistenciasFecha})
           }
       
-          fetch('http://44.202.85.162:80/api/insertarexistenciasalamo', requestOptions)
+          fetch('http://localhost:3001/api/insertarexistenciasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 console.log(data)
@@ -117,7 +125,7 @@ class Alamoexistencias extends Component {
                   }),    
                 }
             
-                fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+                fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                       if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -153,7 +161,7 @@ class Alamoexistencias extends Component {
 
         }
     
-        fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+        fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 //console.log(data)
@@ -234,11 +242,27 @@ class Alamoexistencias extends Component {
                 bsSize="sm"
                 className="mb-3"
                 type="select"
+                onChange={this.onChangeExistenciaAlamoResponsable}>
+                <option>
+                  Responsable Recepcion Existencia
+                </option>  
+                <option>ADRIAN HERRAN</option>    
+                <option>JUAN DAVID HUERTAS</option>
+                <option>JHON FENER RODRIGUEZ</option>
+                              
+              </Input>
+
+
+              <Input
+                bsSize="sm"
+                className="mb-3"
+                type="select"
                 onChange={this.onChangeExistenciaAlamo}>
                 <option>
                   Seleccione tipo Existencia
-                </option>                
-                <option>350 ML - ENVASE</option>
+                </option>  
+                <option>250 ML - ALAMO</option>    
+                <option>350 ML - ALAMO</option>
                 <option>500 ML - ALAMO</option>
                 <option>500 ML - GOTA</option>
                 <option>600 ML - ALAMO</option>
@@ -247,15 +271,15 @@ class Alamoexistencias extends Component {
                 <option>600 ML - GLACIARES</option>
                 <option>600 ML - CILINDRO</option>
                 <option>1 LT - ENVASE</option>
-                <option>1.1 LT - ENVASE</option>
+                
                 <option>1.1 LT - GLACIARES</option>
-                <option>5 LT - MAS ASA OMI</option>
+                <option>1.5	LT - CLARITY</option>
+
                 <option>5 LT - MAS ASA TECPACK</option>
                 <option>5 LT - MAS ASA CLARITY</option>
-                <option>5 LT - PETCARIBE</option>
-                <option>5 LT - OCCIDENTAL PLASTICOS</option>
-                <option>18.9 LT - BOTELLONES</option>
-                <option>1.5	LT - CLARITY</option>
+                <option>5 LT - MAS ASA PETCARIBE</option>
+                <option>5 LT - MAS ASA OCCIDENTAL PLASTICOS</option>
+                <option>18.9 LT - BOTELLONES</option>                
               </Input>
         
               <Input

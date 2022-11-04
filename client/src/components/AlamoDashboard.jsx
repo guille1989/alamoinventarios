@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as 
+  ChartJS, 
+  ArcElement, 
+  Tooltip, 
+  Legend, 
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title, } from 'chart.js';
+
 import { Pie } from 'react-chartjs-2';
+
+import { Bar } from 'react-chartjs-2';
 
 import { Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Table } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, 
+  Tooltip, 
+  Legend, 
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,);
 
 class AlamoDashboard extends Component {
     constructor(props) {
@@ -14,8 +31,23 @@ class AlamoDashboard extends Component {
             dataExistencias: [],
             fechaInicio: '1900-01-01',
             fechaFinal: '1900-01-01',
-            itemFiltro: 'item'
-
+            itemFiltro: 'item',
+            options : {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Estado llegada existencias',
+                },
+              },
+            },
+            label_barras: [],
+            data_barras_aux_01: [],
+            data_barras_aux_02: [],
+            data_barras_aux_03: [],
         }
     }
 
@@ -32,7 +64,7 @@ class AlamoDashboard extends Component {
             }),    
           }
       
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamofiltro/'+ this.state.itemFiltro + '/' + this.state.fechaInicio + '/' + this.state.fechaFinal, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamofiltro/'+ this.state.itemFiltro + '/' + this.state.fechaInicio + '/' + this.state.fechaFinal, requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -44,6 +76,7 @@ class AlamoDashboard extends Component {
                   this.setState({
                     dataExistencias : data.data
                 })
+
               })
               .catch(err => console.log(err))
     }
@@ -59,7 +92,7 @@ class AlamoDashboard extends Component {
             headers : {'Content-type':'application/json'}    
           }
       
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamofiltro/'+ e.target.value, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamofiltro/'+ e.target.value, requestOptions)
               .then(response => response.json())
               .then(data => {
                   console.log(data)
@@ -96,7 +129,7 @@ class AlamoDashboard extends Component {
             }),    
           }
       
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamogeneral', requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {
                 
@@ -123,7 +156,7 @@ class AlamoDashboard extends Component {
             </>)   
         })  
     }
-
+  
     render() {
         return (
             <div>
@@ -181,6 +214,8 @@ class AlamoDashboard extends Component {
                 </div>
                 <h3 className='tituloPieBotellas'>Estado recepcion existencias - Alamo</h3>
                 {this.state.dataExistencias.map((item, index) => {
+                    //BARRAS                    
+                    //PIE
                     let dataAux = []
                     dataAux = [...dataAux, item.SumNoExistencia, item.SumSiExistencia, item.SumRevExistencia]            
                     const data = {
@@ -215,7 +250,8 @@ class AlamoDashboard extends Component {
                             </div>
                                                 
                     )
-                })}                
+                })}  
+                        
             </div>
         );
     }
