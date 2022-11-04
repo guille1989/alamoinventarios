@@ -91,7 +91,7 @@ class AlamoInventario extends Component {
                   ExistenciasRecepcion: this.state.ExistenciasFecha})
           }
       
-          fetch('http://localhost:3001/api/insertarexistenciasalamo', requestOptions)
+          fetch('http://44.202.85.162:80/api/insertarexistenciasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -122,7 +122,7 @@ class AlamoInventario extends Component {
                   }),   
                 }
             
-                fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
+                fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         
@@ -151,7 +151,7 @@ class AlamoInventario extends Component {
           }), 
         }
     
-        fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
+        fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
 
