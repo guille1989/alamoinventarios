@@ -1,8 +1,9 @@
 const express = require('express');
 const ruta = express();
 const Existencias = require('../model/inventarioalamo');
+const verificarToken = require('../middlewares/auth');
 
-ruta.post('/', (req, res) => {
+ruta.post('/',verificarToken, (req, res) => {
     let body = req.body;
     let result = insertExistencias(body);
 

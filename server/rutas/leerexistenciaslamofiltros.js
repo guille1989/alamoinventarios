@@ -1,8 +1,9 @@
 const express = require('express');
 const ruta = express();
 const Existencias = require('../model/inventarioalamo');
+const verificarToken = require('../middlewares/auth');
 
-ruta.get('/:item/:fechai/:fechaf', (req, res) => {
+ruta.get('/:item/:fechai/:fechaf',verificarToken, (req, res) => {
     let item = req.params.item;
     let fechainicio = new Date(req.params.fechai);
     let fechafinal = new Date(req.params.fechaf);

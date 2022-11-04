@@ -59,11 +59,19 @@ class existencias extends Component {
         //Fetch para enviar informacion al backend:
         const requestOptions ={
             method: 'GET',
-            headers : {'Content-type':'application/json'}    
+            headers : new Headers({
+                'Authorization': localStorage.getItem( 'token' ),
+                'Content-type':'application/json'
+              }),    
           }      
-          fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                    localStorage.clear();
+                    this.props.logoutHandler();
+                  }
+
                 this.setState({
                     data: data.data
                 })
@@ -119,11 +127,20 @@ class existencias extends Component {
         //Fetch para enviar informacion al backend:
         const requestOptions ={
             method: 'GET',
-            headers : {'Content-type':'application/json'}    
+            headers : new Headers({
+                'Authorization': localStorage.getItem( 'token' ),
+                'Content-type':'application/json'
+              }),    
           }      
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
               .then(response => response.json())
               .then(data => {
+
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                    localStorage.clear();
+                    this.props.logoutHandler();
+                  }
+
                 this.setState({
                     dataRev: data.data
                 })
@@ -232,7 +249,10 @@ class existencias extends Component {
                     //Aqui enviamos informacion al backend
                 const requestOptions ={
                     method: 'POST',
-                    headers : {'Content-type':'application/json'},
+                    headers : new Headers({
+                        'Authorization': localStorage.getItem( 'token' ),
+                        'Content-type':'application/json'
+                      }),
                     body: JSON.stringify({
                         ResponsableRevision:            this.state.ResponsableRevisionAlamo,
                         NoMuestras:                     this.state.NumeroMuestrasExistencias,
@@ -264,9 +284,15 @@ class existencias extends Component {
                     })
                   }
               
-                  fetch('http://44.202.85.162:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://localhost:3001/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
+
+                        if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }
+
                         this.setState({
                             revExistencia: !this.state.revExistencia
                         }) 
@@ -275,11 +301,21 @@ class existencias extends Component {
                         //Fetch para enviar informacion al backend:
                         const requestOptions ={
                             method: 'GET',
-                            headers : {'Content-type':'application/json'}    
+                            headers : new Headers({
+                                'Authorization': localStorage.getItem( 'token' ),
+                                'Content-type':'application/json'
+                              })    
                         }      
-                        fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                        fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                             .then(response => response.json())
                             .then(data => {
+
+                                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                                    localStorage.clear();
+                                    this.props.logoutHandler();
+                                  }
+
+
                                 this.setState({
                                     data: data.data
                                 })
@@ -295,7 +331,10 @@ class existencias extends Component {
                 //Aqui enviamos informacion al backend
                 const requestOptions ={
                     method: 'POST',
-                    headers : {'Content-type':'application/json'},
+                    headers : new Headers({
+                        'Authorization': localStorage.getItem( 'token' ),
+                        'Content-type':'application/json'
+                      }),
                     body: JSON.stringify({
                         ResponsableRevision:            this.state.ResponsableRevisionAlamo,
                         NoMuestras:                     this.state.NumeroMuestrasExistencias,
@@ -327,20 +366,35 @@ class existencias extends Component {
                     })
                   }
               
-                  fetch('http://44.202.85.162:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://localhost:3001/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
+
+                        if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }
+
                             this.setState({
                                 revExistencia: !this.state.revExistencia
                             }) 
                             //Fetch para enviar informacion al backend:
                             const requestOptions ={
                                 method: 'GET',
-                                headers : {'Content-type':'application/json'}    
+                                headers : new Headers({
+                                    'Authorization': localStorage.getItem( 'token' ),
+                                    'Content-type':'application/json'
+                                  })    
                             }      
-                            fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                            fetch('http://localhost:3001/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                                 .then(response => response.json())
                                 .then(data => {
+
+                                    if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                                        localStorage.clear();
+                                        this.props.logoutHandler();
+                                      }
+
                                     this.setState({
                                         data: data.data
                                     })

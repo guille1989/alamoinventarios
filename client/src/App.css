@@ -50,6 +50,12 @@
   margin-bottom: 10px;
 }
 
+.botonAgregarExistenciaSalir{
+  margin-right: 15px;
+  margin-bottom: 10px;
+  float: right
+}
+
 .tituloAlamo{
   margin-left: 15px;
   margin-bottom: 10px;
@@ -147,4 +153,17 @@ td{
 
 .menuFoto{
   line-height:0px;
+}
+
+
+.loginCentro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.imgLogo{
+  padding: 5%;
 }

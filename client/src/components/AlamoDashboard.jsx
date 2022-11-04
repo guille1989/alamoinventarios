@@ -26,12 +26,21 @@ class AlamoDashboard extends Component {
 
         const requestOptions ={
             method: 'GET',
-            headers : {'Content-type':'application/json'}    
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),    
           }
       
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamofiltro/'+ this.state.itemFiltro + '/' + this.state.fechaInicio + '/' + this.state.fechaFinal, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamofiltro/'+ this.state.itemFiltro + '/' + this.state.fechaInicio + '/' + this.state.fechaFinal, requestOptions)
               .then(response => response.json())
               .then(data => {
+
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+
                   this.setState({
                     dataExistencias : data.data
                 })
@@ -50,7 +59,7 @@ class AlamoDashboard extends Component {
             headers : {'Content-type':'application/json'}    
           }
       
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamofiltro/'+ e.target.value, requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamofiltro/'+ e.target.value, requestOptions)
               .then(response => response.json())
               .then(data => {
                   console.log(data)
@@ -81,12 +90,21 @@ class AlamoDashboard extends Component {
         //Fetch para enviar informacion al backend:
           const requestOptions ={
             method: 'GET',
-            headers : {'Content-type':'application/json'}    
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),    
           }
       
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamogeneral', requestOptions)
+          fetch('http://localhost:3001/api/leerexistenciasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {
+                
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+
                   this.setState({
                       dataExistencias : data.data
                   })

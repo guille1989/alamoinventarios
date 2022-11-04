@@ -11,6 +11,9 @@ const InsertRevisionExistenciasAlamo = require('./rutas/realizarrevision');
 const LeerExistenciasRevisionAlamo = require('./rutas/leerexistenciaitemalamorev');
 const LeerExistenciasAlamoG = require('./rutas/leerexistenciasalamo');
 const LeerExistenciasAlamoFiltro = require('./rutas/leerexistenciaslamofiltros');
+const IngresarUsuariosAlamo = require('./rutas/ingresarusuario');
+const LeerusuariosAlamo = require('./rutas/leerusuarios');
+const AutenticacionusuarioAlamo = require('./rutas/usuarioautenticacion');
 //
 //middlewares
 const corse = require('cors');
@@ -29,6 +32,7 @@ mongose.connect('mongodb+srv://root:123@cluster0.jwxt0.mongodb.net/alamo?retryWr
     .catch(() => console.log('No se puedo conectar con DB'))
 
 //
+app.use('/api/autenticacionusuario', AutenticacionusuarioAlamo)
 app.use('/api/leerexistenciasalamo', LeerExistenciasAlamo);
 app.use('/api/insertarexistenciasalamo', InsertExistenciasAlamo);
 app.use('/api/leerexistenciasitemalamo', LeerExistenciasItemAlamo);
@@ -36,6 +40,9 @@ app.use('/api/insertrevisionexistencias', InsertRevisionExistenciasAlamo);
 app.use('/api/leerexistenciasalamorevision', LeerExistenciasRevisionAlamo);
 app.use('/api/leerexistenciasalamogeneral', LeerExistenciasAlamoG);
 app.use('/api/leerexistenciasalamofiltro', LeerExistenciasAlamoFiltro);
+app.use('/api/leerusuariosalamo', LeerusuariosAlamo)
+app.use('/api/ingresarusuarioalamo', IngresarUsuariosAlamo)
+
 
 //Iniciamos Server
 const port = process.env.PORT || 3001;

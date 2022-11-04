@@ -1,8 +1,9 @@
 const express = require('express');
 const ruta = express();
 const Existencias = require('../model/inventarioalamo');
+const verificarToken = require('../middlewares/auth');
 
-ruta.get('/:item', (req, res) => {
+ruta.get('/:item', verificarToken,  (req, res) => {
     let itemAlamo = req.params.item
     //console.log(itemAlamo)
 

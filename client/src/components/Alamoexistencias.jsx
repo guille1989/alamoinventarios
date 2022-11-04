@@ -1,6 +1,6 @@
 import '../App.css';
 import {React, Component} from 'react'
-import { Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Table } from 'reactstrap';
+import { Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Table, Nav, NavLink, NavItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -18,6 +18,7 @@ class Alamoexistencias extends Component {
           ExistenciasFecha: '',
           loteRepetido: 'none',
           ExistenciaCosto: '',
+          token: ''
         }
       }
     
@@ -68,9 +69,13 @@ class Alamoexistencias extends Component {
         if(this.state.tipoExistencia === '' || this.state.ExistenciasCantidad === '' || this.state.ExistenciasLote === '' || this.state.ExistenciasFecha === ''){
           alert('Ingresar todos los CAMPOS !')
         }else{
+          //
           const requestOptions ={
             method: 'POST',
-            headers : {'Content-type':'application/json'},
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
             body: JSON.stringify({
                   PresentacionInsumo: this.state.tipoExistencia, 
                   //ProveedorInsumo: this.state.tipoExistenciaProveedor, 
@@ -80,10 +85,16 @@ class Alamoexistencias extends Component {
                   ExistenciasRecepcion: this.state.ExistenciasFecha})
           }
       
-          fetch('http://44.202.85.162:80/api/insertarexistenciasalamo', requestOptions)
+          fetch('http://localhost:3001/api/insertarexistenciasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 console.log(data)
+
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+
                 if(data.dato === 'Lote ya registrado'){
                   //alert('Existencia con LOTE ya ingresado, Revisar !!')
                   this.setState({
@@ -99,14 +110,27 @@ class Alamoexistencias extends Component {
                 //Actualizamos DATA
                 const requestOptions ={
                   method: 'GET',
-                  headers : {'Content-type':'application/json'}    
+                  headers : new Headers({
+                    'Authorization': localStorage.getItem( 'token' ),
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-type':'application/json'
+                  }),    
                 }
             
-                fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+                fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
                     .then(response => response.json())
-                    .then(data => this.setState({
+                    .then(data => {
+                      if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                        localStorage.clear();
+                        this.props.logoutHandler();
+                      }else{
+                          
+                      }
+                      
+                      this.setState({
                       dataExistencias : data.data
-                    }))
+                    })
+                  })
                     .catch(err => console.log(err))
               })
               .catch(err => console.log(err))
@@ -114,21 +138,38 @@ class Alamoexistencias extends Component {
       }
     
       componentDidMount(){
+      //Traemos el token
+      this.setState({
+        token: localStorage.getItem( 'token' ) 
+      })
       //Fetch para enviar informacion al backend:
         const requestOptions ={
           method: 'GET',
-          headers : {'Content-type':'application/json'}    
+          headers : new Headers({
+            'Authorization': localStorage.getItem( 'token' ),
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-type':'application/json'
+          }),
+
         }
     
-        fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+        fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                //console.log(data)
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }else{
+                    
+                }   
                 this.setState({
-                    dataExistencias : data.data
-                })
+                  dataExistencias : data.data
+              })             
             })
-            .catch(err => console.log(err))
+            .catch(err => {                 
+                console.log(err)
+            })
       //
       }
 
@@ -140,8 +181,23 @@ class Alamoexistencias extends Component {
         return (
           <div>
             <h1 className='tituloAlamo'>Alamo - Inventario E.</h1>   
+
+            <br></br>
+
             <Button className='botonAgregarExistencia' color="success" onClick={() => {this.setState({modalAgregarExistencia: !this.state.modalAgregarExistencia})}}>Ingresar Existencia</Button>
             <Button className='botonAgregarExistencia' color="warning" onClick={() => {this.props.alamoDash()}}>Dashboard</Button>
+            <Button className='botonAgregarExistenciaSalir' color="danger" onClick={() => {
+              if(window.confirm('Seguro quiere salir ?')){
+                localStorage.clear();
+                this.props.logoutHandler();
+              }else{
+
+              }
+            }}>Salir</Button>
+
+            <br></br>
+            <br></br>
+
             <Table    
               bordered   
               borderless

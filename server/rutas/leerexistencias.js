@@ -1,8 +1,9 @@
 const express = require('express');
 const ruta = express();
 const Existencias = require('../model/inventarioalamo');
+const verificarToken = require('../middlewares/auth');
 
-ruta.get('/', (req, res) => {
+ruta.get('/',verificarToken, (req, res) => {
     let result = leerExistencias()
     result.then(dato =>{
         
