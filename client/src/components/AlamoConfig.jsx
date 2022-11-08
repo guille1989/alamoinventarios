@@ -409,7 +409,6 @@ class AlamoConfig extends Component {
     render() {
         return (
             <div>
-                <h1>Datos - Alamo</h1>
                 <div className='configTablas'>                
                     <br></br>
                     <br></br>
