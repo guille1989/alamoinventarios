@@ -90,7 +90,7 @@ class AlamoInventarioCalidad extends Component {
                     localStorage.clear();
                     this.props.logoutHandler();
                   }
-                console.log(data)
+                //console.log(data)
                 if(data.dato === 'Lote ya registrado'){
                   //alert('Existencia con LOTE ya ingresado, Revisar !!')
                   this.setState({
@@ -146,7 +146,7 @@ class AlamoInventarioCalidad extends Component {
                     localStorage.clear();
                     this.props.logoutHandler();
                   }
-                console.log(data)
+                //console.log(data)
                 this.setState({
                     dataExistencias : data.data
                 })

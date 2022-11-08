@@ -35,7 +35,6 @@ class App extends Component {
   existenciaAlamoRevisionInventarios(item){
     this.setState({
       opcion: 'INVENTARIO_EXISTENCIAS',
-      user: 'INVENTARIO',
       existenciaItem: item
     })
   }
@@ -43,7 +42,6 @@ class App extends Component {
   existenciaAlamoRevisionCalidad(item){
     this.setState({
       opcion: 'CALIDAD_EXISTENCIAS',
-      user: 'CALIDAD',
       existenciaItem: item
     })
   }
@@ -92,12 +90,24 @@ class App extends Component {
 
   handleInicioAlamo(){
     this.setState({
-      opcion: 'INICIO',
-      user: 'INICIO'
+      opcion: 'INICIO'
+    })
+  }
+
+  handleCalidadAlamo(){
+    this.setState({
+      opcion: 'CALIDAD',
+    })
+  }
+
+  handleInventariolamo(){
+    this.setState({
+      opcion: 'INVENTARIO',
     })
   }
   
-  componentDidMount(){
+  componentDidMount(){   
+
     const usertAuth = localStorage.getItem( 'usuario' )
     if(usertAuth === 'admin'){
       this.setState({
@@ -158,7 +168,7 @@ class App extends Component {
                         <span className="line line3"></span>
                     </div>
                     <ul className="menu-items">
-                        <li><a href="#" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>
+                        <li><a href="#" onClick={() => {this.handleCalidadAlamo()}}>Inventario Alamo</a></li>
                         <li><a href="#" onClick={() => {
                                                     if(window.confirm('Seguro quiere salir ?')){
                                                       localStorage.clear();
@@ -187,7 +197,7 @@ class App extends Component {
                         <span className="line line3"></span>
                     </div>
                     <ul className="menu-items">
-                        <li><a href="#" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>
+                        <li><a href="#" onClick={() => {this.handleInventariolamo()}}>Inventario Alamo</a></li>
                         <li><a href="#" onClick={() => {
                                                     if(window.confirm('Seguro quiere salir ?')){
                                                       localStorage.clear();
@@ -236,8 +246,7 @@ class App extends Component {
           </>
           )
         }
-      })()}
-        
+      })()}        
       </div>
     );
   }

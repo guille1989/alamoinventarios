@@ -14,7 +14,11 @@ class AlamoConfig extends Component {
             modalRevision: false,
             nombreRevision: '',
             modalBotellas: false,
-            nombreBotella: ''
+            nombreBotella: '',
+            modalBotellasActualizar: false,
+            actualizarBotellas: '',
+            botellaActualizar: '',
+            botellaActualizarID: ''
         }
     }
     
@@ -406,6 +410,82 @@ class AlamoConfig extends Component {
         })
       }
 
+
+      onChangeBotellasActualizar = (e) => {
+        this.setState({
+            actualizarBotellas: e.target.value.toUpperCase()
+        })
+      }
+
+      actualizarBotellaAlamo = (botella, id) => {
+
+        this.setState({
+            modalBotellasActualizar: !this.state.modalBotellasActualizar,
+            botellaActualizar: botella,
+            botellaActualizarID: id
+        })
+
+      }
+
+
+      actualizarBotellasAlamo = () => {
+
+        const requestOptions ={
+            method: 'PUT',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                  botella: this.state.actualizarBotellas,
+                    id: this.state.botellaActualizarID})
+          }
+      
+          fetch('http://44.202.85.162:80/api/leerbotellas', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('existencia actualizada !!')
+                this.setState({
+                modalBotellasActualizar: !this.state.modalBotellasActualizar
+                })
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://44.202.85.162:80/api/leerbotellas', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          this.setState({
+                            dataBotellas : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err))
+      }
+
     render() {
         return (
             <div>
@@ -484,7 +564,7 @@ class AlamoConfig extends Component {
                             <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{item.botella}</td>
-                                <td className='titulotabla'>Actualizar</td>
+                                <td className='titulotabla' onClick={() => {this.actualizarBotellaAlamo(item.botella, item._id)}}>Actualizar</td>
                             </tr>
                             </>
                             
@@ -552,6 +632,30 @@ class AlamoConfig extends Component {
                         Agregar Existencia
                         </Button>
                         <Button color="secondary" onClick={() => this.setState({modalBotellas: !this.state.modalBotellas})}>
+                        Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+
+
+                <Modal isOpen={this.state.modalBotellasActualizar}>
+                    <ModalHeader>Actualizar existencia - Alamo</ModalHeader>
+                    <ModalBody>
+                        <p>Existencia: {this.state.botellaActualizar}</p>
+
+                        <h3>Ingrese cambio en la Existencia:</h3>
+                        <Input
+                            bsSize="sm"
+                            className="mb-3"
+                            placeholder={this.state.botellaActualizar}
+                            onChange={this.onChangeBotellasActualizar}
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.actualizarBotellasAlamo}>
+                        Actualizar Existencia
+                        </Button>
+                        <Button color="secondary" onClick={() => this.setState({modalBotellasActualizar: !this.state.modalBotellasActualizar})}>
                         Cancel
                         </Button>
                     </ModalFooter>

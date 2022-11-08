@@ -162,7 +162,7 @@ class AlamoInventario extends Component {
                     this.props.logoutHandler();
                   }
                   
-                console.log(data)
+                //console.log(data)
                 this.setState({
                     dataExistencias : data.data
                 })
