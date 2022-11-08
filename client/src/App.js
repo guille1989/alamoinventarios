@@ -158,6 +158,7 @@ class App extends Component {
                         <span className="line line3"></span>
                     </div>
                     <ul className="menu-items">
+                        <li><a href="#" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>
                         <li><a href="#" onClick={() => {
                                                     if(window.confirm('Seguro quiere salir ?')){
                                                       localStorage.clear();
@@ -186,6 +187,7 @@ class App extends Component {
                         <span className="line line3"></span>
                     </div>
                     <ul className="menu-items">
+                        <li><a href="#" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>
                         <li><a href="#" onClick={() => {
                                                     if(window.confirm('Seguro quiere salir ?')){
                                                       localStorage.clear();
