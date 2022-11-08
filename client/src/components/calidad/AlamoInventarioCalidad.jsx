@@ -83,7 +83,7 @@ class AlamoInventarioCalidad extends Component {
                   ExistenciasRecepcion: this.state.ExistenciasFecha})
           }
       
-          fetch('http://44.202.85.162:80/api/insertarexistenciasalamo', requestOptions)
+          fetch('http://44.201.109.181:80/api/insertarexistenciasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -112,7 +112,7 @@ class AlamoInventarioCalidad extends Component {
                   }),   
                 }
             
-                fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+                fetch('http://44.201.109.181:80/api/leerexistenciasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -139,7 +139,7 @@ class AlamoInventarioCalidad extends Component {
           }),   
         }
     
-        fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+        fetch('http://44.201.109.181:80/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){

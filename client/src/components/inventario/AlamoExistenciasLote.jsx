@@ -64,7 +64,7 @@ class AlamoexistenciasLote extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://44.201.109.181:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -132,7 +132,7 @@ class AlamoexistenciasLote extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.202.85.162:80/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
+          fetch('http://44.201.109.181:80/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -281,7 +281,7 @@ class AlamoexistenciasLote extends Component {
                     })
                   }
               
-                  fetch('http://44.202.85.162:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://44.201.109.181:80/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -298,7 +298,7 @@ class AlamoexistenciasLote extends Component {
                             method: 'GET',
                             headers : {'Content-type':'application/json'}    
                         }      
-                        fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                        fetch('http://44.201.109.181:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                             .then(response => response.json())
                             .then(data => {
                                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -355,7 +355,7 @@ class AlamoexistenciasLote extends Component {
                     })
                   }
               
-                  fetch('http://44.202.85.162:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://44.201.109.181:80/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -373,7 +373,7 @@ class AlamoexistenciasLote extends Component {
                                     'Content-type':'application/json'
                                   }),   
                             }      
-                            fetch('http://44.202.85.162:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                            fetch('http://44.201.109.181:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                                 .then(response => response.json())
                                 .then(data => {
                                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
