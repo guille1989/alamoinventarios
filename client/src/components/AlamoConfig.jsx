@@ -31,7 +31,7 @@ class AlamoConfig extends Component {
 
       }
   
-      fetch('http://localhost:3001/api/leerpersonalrecepcion', requestOptions)
+      fetch('http://44.202.85.162:80/api/leerpersonalrecepcion', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -51,7 +51,7 @@ class AlamoConfig extends Component {
 
           //Leemos segundo revision
 
-          fetch('http://localhost:3001/api/leerpersonalrevision', requestOptions)
+          fetch('http://44.202.85.162:80/api/leerpersonalrevision', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -71,7 +71,7 @@ class AlamoConfig extends Component {
 
           //Leemos tercero botellas
 
-          fetch('http://localhost:3001/api/leerbotellas', requestOptions)
+          fetch('http://44.202.85.162:80/api/leerbotellas', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -104,7 +104,7 @@ class AlamoConfig extends Component {
                       nombre: this.state.nombreRecepcion})
               }
           
-              fetch('http://localhost:3001/api/insertpersonalrecepcion', requestOptions)
+              fetch('http://44.202.85.162:80/api/insertpersonalrecepcion', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -128,7 +128,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://localhost:3001/api/leerpersonalrecepcion', requestOptions)
+                      fetch('http://44.202.85.162:80/api/leerpersonalrecepcion', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -169,7 +169,7 @@ class AlamoConfig extends Component {
                       id: item})
               }
           
-              fetch('http://localhost:3001/api/insertpersonalrecepcion', requestOptions)
+              fetch('http://44.202.85.162:80/api/insertpersonalrecepcion', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -190,7 +190,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://localhost:3001/api/leerpersonalrecepcion', requestOptions)
+                      fetch('http://44.202.85.162:80/api/leerpersonalrecepcion', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -229,7 +229,7 @@ class AlamoConfig extends Component {
                       nombre: this.state.nombreRevision})
               }
           
-              fetch('http://localhost:3001/api/leerpersonalrevision', requestOptions)
+              fetch('http://44.202.85.162:80/api/leerpersonalrevision', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -253,7 +253,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://localhost:3001/api/leerpersonalrevision', requestOptions)
+                      fetch('http://44.202.85.162:80/api/leerpersonalrevision', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -295,7 +295,7 @@ class AlamoConfig extends Component {
                       id: item})
               }
           
-              fetch('http://localhost:3001/api/leerpersonalrevision', requestOptions)
+              fetch('http://44.202.85.162:80/api/leerpersonalrevision', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -316,7 +316,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://localhost:3001/api/leerpersonalrevision', requestOptions)
+                      fetch('http://44.202.85.162:80/api/leerpersonalrevision', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -354,7 +354,7 @@ class AlamoConfig extends Component {
                       botella: this.state.nombreBotella})
               }
           
-              fetch('http://localhost:3001/api/leerbotellas', requestOptions)
+              fetch('http://44.202.85.162:80/api/leerbotellas', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -378,7 +378,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://localhost:3001/api/leerbotellas', requestOptions)
+                      fetch('http://44.202.85.162:80/api/leerbotellas', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){

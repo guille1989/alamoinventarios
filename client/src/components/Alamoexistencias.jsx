@@ -94,7 +94,7 @@ class Alamoexistencias extends Component {
                   ExistenciasRecepcion: this.state.ExistenciasFecha})
           }
       
-          fetch('http://localhost:3001/api/insertarexistenciasalamo', requestOptions)
+          fetch('http://44.202.85.162:80/api/insertarexistenciasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 console.log(data)
@@ -126,7 +126,7 @@ class Alamoexistencias extends Component {
                   }),    
                 }
             
-                fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
+                fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                       if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -162,7 +162,7 @@ class Alamoexistencias extends Component {
 
         }
     
-        fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
+        fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 //console.log(data)
@@ -200,7 +200,7 @@ class Alamoexistencias extends Component {
 
         }
     
-        fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
+        fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 //console.log(data)
@@ -225,7 +225,7 @@ class Alamoexistencias extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://localhost:3001/api/leerexistenciasfiltro/' + e.target.value.toUpperCase(), requestOptions)
+          fetch('http://44.202.85.162:80/api/leerexistenciasfiltro/' + e.target.value.toUpperCase(), requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
