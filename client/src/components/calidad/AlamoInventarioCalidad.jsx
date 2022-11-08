@@ -162,10 +162,9 @@ class AlamoInventarioCalidad extends Component {
       render(){
         return (
           <div>
-            <h1 className='tituloAlamo'>Alamo - Inventario E.</h1>   
             {/*<Button className='botonAgregarExistencia' color="success" onClick={() => {this.setState({modalAgregarExistencia: !this.state.modalAgregarExistencia})}}>Ingresar Existencia</Button>*/}
             {/*<Button className='botonAgregarExistencia' color="warning" onClick={() => {this.props.alamoDash()}}>Dashboard</Button>*/}
-            
+            {/* 
             <Button className='botonAgregarExistenciaSalir' color="danger" onClick={() => {
               if(window.confirm('Seguro quiere salir ?')){
                 localStorage.clear();
@@ -174,7 +173,7 @@ class AlamoInventarioCalidad extends Component {
 
               }
             }}>Salir</Button>
-
+            */}
             <br></br>
             <br></br>
             

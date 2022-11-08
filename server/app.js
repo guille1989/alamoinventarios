@@ -14,6 +14,11 @@ const LeerExistenciasAlamoFiltro = require('./rutas/leerexistenciaslamofiltros')
 const IngresarUsuariosAlamo = require('./rutas/ingresarusuario');
 const LeerusuariosAlamo = require('./rutas/leerusuarios');
 const AutenticacionusuarioAlamo = require('./rutas/usuarioautenticacion');
+const LeerExistenciasFiltroKeyWord = require('./rutas/leerexistenciakeyword');
+const LeerAlamoRecepcionBotellasPersonal = require('./rutas/leerrecepcionpersonal');
+const LeerAlamoRevisionBotellasPersonal = require('./rutas/leerrevisionpersonal');
+const LeerAlamoBotellas = require('./rutas/leerbotellasalamo');
+const InsertPersonalRecepcion = require('./rutas/insertarpersonalrecepcion');
 //
 //middlewares
 const corse = require('cors');
@@ -31,9 +36,9 @@ mongose.connect('mongodb://localhost:27017/alamo', {
 })
     .then(() => console.log('Conectado con DB'))
     .catch(() => console.log('No se puedo conectar con DB'))
-*/
-//
 
+//
+*/
 
 //Conectamos con Data Base
 mongose.connect('mongodb+srv://root:123@cluster0.jwxt0.mongodb.net/alamo?retryWrites=true&w=majority', {
@@ -52,9 +57,13 @@ app.use('/api/insertrevisionexistencias', InsertRevisionExistenciasAlamo);
 app.use('/api/leerexistenciasalamorevision', LeerExistenciasRevisionAlamo);
 app.use('/api/leerexistenciasalamogeneral', LeerExistenciasAlamoG);
 app.use('/api/leerexistenciasalamofiltro', LeerExistenciasAlamoFiltro);
-app.use('/api/leerusuariosalamo', LeerusuariosAlamo)
-app.use('/api/ingresarusuarioalamo', IngresarUsuariosAlamo)
-
+app.use('/api/leerusuariosalamo', LeerusuariosAlamo);
+app.use('/api/ingresarusuarioalamo', IngresarUsuariosAlamo);
+app.use('/api/leerexistenciasfiltro', LeerExistenciasFiltroKeyWord);
+app.use('/api/leerpersonalrecepcion', LeerAlamoRecepcionBotellasPersonal);
+app.use('/api/leerpersonalrevision', LeerAlamoRevisionBotellasPersonal);
+app.use('/api/leerbotellas', LeerAlamoBotellas);
+app.use('/api/insertpersonalrecepcion', InsertPersonalRecepcion);
 
 //Iniciamos Server
 const port = process.env.PORT || 3001;

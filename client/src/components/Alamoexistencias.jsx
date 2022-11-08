@@ -2,6 +2,7 @@ import '../App.css';
 import {React, Component} from 'react'
 import { Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Table, Nav, NavLink, NavItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import imgLogo from '../imagenes/alamologo.png'
 
 
 class Alamoexistencias extends Component {
@@ -93,7 +94,7 @@ class Alamoexistencias extends Component {
                   ExistenciasRecepcion: this.state.ExistenciasFecha})
           }
       
-          fetch('http://44.202.85.162:80/api/insertarexistenciasalamo', requestOptions)
+          fetch('http://localhost:3001/api/insertarexistenciasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 console.log(data)
@@ -125,7 +126,7 @@ class Alamoexistencias extends Component {
                   }),    
                 }
             
-                fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+                fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                       if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -161,7 +162,7 @@ class Alamoexistencias extends Component {
 
         }
     
-        fetch('http://44.202.85.162:80/api/leerexistenciasalamo', requestOptions)
+        fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 //console.log(data)
@@ -184,16 +185,99 @@ class Alamoexistencias extends Component {
       existenciasAlamoItem(item){
         this.props.existencia(item)
       }
+
+      onChangeFiltroKeyWord = (e) => {
+        //Fetch para enviar informacion al backend:
+        if(e.target.value === ''){
+          //Fetch para enviar informacion al backend:
+        const requestOptions ={
+          method: 'GET',
+          headers : new Headers({
+            'Authorization': localStorage.getItem( 'token' ),
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-type':'application/json'
+          }),
+
+        }
+    
+        fetch('http://localhost:3001/api/leerexistenciasalamo', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data)
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }else{
+                    
+                }   
+                this.setState({
+                  dataExistencias : data.data
+              })             
+            })
+            .catch(err => {                 
+                console.log(err)
+            })
+        }else{
+          const requestOptions ={
+            method: 'GET',
+            headers : new Headers({
+                'Authorization': localStorage.getItem( 'token' ),
+                'Content-type':'application/json'
+              }),    
+          }      
+          fetch('http://localhost:3001/api/leerexistenciasfiltro/' + e.target.value.toUpperCase(), requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                    localStorage.clear();
+                    this.props.logoutHandler();
+                  }
+  
+                this.setState({
+                    dataExistencias: data.data
+                })
+              })
+              .catch(err => console.log(err))
+        }
+      }
     
       render(){
         return (
           <div>
-            <h1 className='tituloAlamo'>Alamo - Inventario E.</h1>   
+            {/*<h1 className='tituloAlamo'>Alamo - Inventario E.</h1>*/}   
+            {/*   
+            <nav class="navbar">
+                <div class="navbar-container container">
+                    <input type="checkbox" name="" id="" />
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+                    <ul class="menu-items">
+                        <li><a href="#" onClick={() => {this.props.alamoInicio()}}>Inventario Alamo</a></li>
+                        <li><a href="#" onClick={() => {this.props.alamoDash()}}>Tablero de Datos</a></li>
+                        <li><a href="#" onClick={() => {this.props.alamoconfig()}}>Configuracion</a></li>
+                        <li><a href="#" onClick={() => {
+                                                    if(window.confirm('Seguro quiere salir ?')){
+                                                      localStorage.clear();
+                                                      this.props.logoutHandler();
+                                                    }else{
 
-            <br></br>
+                                                    }
+                                                  }}>Salir</a></li>
+                    </ul>
+                    <img class="logo" src={imgLogo}></img>
+                </div>
+            </nav>
+          */}
 
+          <Button className='botonAgregarExistencia' color="success" onClick={() => {this.setState({modalAgregarExistencia: !this.state.modalAgregarExistencia})}}>Ingresar Existencia</Button>
+
+           {/*
             <Button className='botonAgregarExistencia' color="success" onClick={() => {this.setState({modalAgregarExistencia: !this.state.modalAgregarExistencia})}}>Ingresar Existencia</Button>
-            <Button className='botonAgregarExistencia' color="warning" onClick={() => {this.props.alamoDash()}}>Dashboard</Button>
+            <Button className='botonAgregarExistencia' color="warning" onClick={() => {this.props.alamoDash()}}>Dashboard</Button>           
+  
             <Button className='botonAgregarExistenciaSalir' color="danger" onClick={() => {
               if(window.confirm('Seguro quiere salir ?')){
                 localStorage.clear();
@@ -203,8 +287,23 @@ class Alamoexistencias extends Component {
               }
             }}>Salir</Button>
 
-            <br></br>
-            <br></br>
+            <Button className='botonAgregarExistenciaSalir' color="info">Config</Button>
+
+          */}
+
+          <br></br>          
+          <br></br> 
+          <br></br> 
+
+            <div className='filtroKeyWord'>  
+            <p className='resultadoRevision'><strong>Filtro por palabra clave:</strong></p>          
+            <Input
+                bsSize="sm"
+                className="mb-3"
+                placeholder="Filtro Key Word"
+                onChange={this.onChangeFiltroKeyWord}
+              />
+            </div>
 
             <Table    
               bordered   
@@ -270,11 +369,9 @@ class Alamoexistencias extends Component {
                 <option>600 ML - CLARITY</option>
                 <option>600 ML - GLACIARES</option>
                 <option>600 ML - CILINDRO</option>
-                <option>1 LT - ENVASE</option>
-                
+                <option>1 LT - ALAMO</option>                
                 <option>1.1 LT - GLACIARES</option>
                 <option>1.5	LT - CLARITY</option>
-
                 <option>5 LT - MAS ASA TECPACK</option>
                 <option>5 LT - MAS ASA CLARITY</option>
                 <option>5 LT - MAS ASA PETCARIBE</option>

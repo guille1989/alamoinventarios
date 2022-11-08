@@ -2,6 +2,7 @@ import './App.css';
 import {React, Component} from 'react'
 import { Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import imgLogo from './imagenes/alamologo.png'
 //
 import AlamoExistencias from './components/Alamoexistencias';
 import Existencias from './components/Existencias';
@@ -11,11 +12,13 @@ import AlamoInventarioUser from './components/inventario/AlamoInventario';
 import AlamoExistenciasInventario from './components/inventario/AlamoExistenciasLote';
 import AlamoInventarioCalidad from './components/calidad/AlamoInventarioCalidad';
 import AlamoExistenciasCalidad from './components/calidad/AlamoExistenciasCalidad';
+import AlamoConfiguracion from './components/AlamoConfig';
 
 class App extends Component {
   constructor(props){
     super(props);    
     this.state={
+      isLoggedIn: false,
       opcion: 'LOGIN',
       existenciaItem: 'Hola'
     }
@@ -50,7 +53,8 @@ class App extends Component {
 
   handleLogInAlamo(){
     this.setState({
-      opcion: 'INICIO'
+      opcion: 'INICIO',
+      isLoggedIn: true
     })
   }
 
@@ -71,6 +75,18 @@ class App extends Component {
       opcion: 'LOGIN'
     })
   }
+
+  handleAlamoConfig(){
+    this.setState({
+      opcion: 'OPCION'
+    })
+  }
+
+  handleInicioAlamo(){
+    this.setState({
+      opcion: 'INICIO'
+    })
+  }
   
   componentDidMount(){
     const usertAuth = localStorage.getItem( 'usuario' )
@@ -83,6 +99,12 @@ class App extends Component {
     }else{
 
     }
+
+    ///*
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener('popstate', function (event){
+        window.history.pushState(null, document.title,  window.location.href);
+    });
   }
 
   render(){
@@ -93,13 +115,110 @@ class App extends Component {
         case 'CALIDAD':                   return <AlamoInventarioCalidad logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevisionCalidad.bind(this)} />
         case 'INVENTARIO_EXISTENCIAS':    return <AlamoExistenciasInventario logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
         case 'CALIDAD_EXISTENCIAS':       return <AlamoExistenciasCalidad logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
-        case 'INICIO':                    return <AlamoExistencias logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevision.bind(this)} alamoDash={this.handlealamoDashboard.bind(this)}/>      
+        case 'INICIO':                    return <AlamoExistencias logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevision.bind(this)} alamoDash={this.handlealamoDashboard.bind(this)} alamoconfig={this.handleAlamoConfig.bind(this)} alamoInicio={this.handleInicioAlamo.bind(this)}/>      
         case 'EXISTENCIAS':               return <Existencias logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
         case 'DASHBOARD':                 return <AlamoDashboard logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
+        case 'OPCION':                    return <AlamoConfiguracion />
       }
     }
     return (
-      <div>{opcionEstado()}</div>
+      <div>       
+        {(() => {
+        if (this.state.opcion === 'LOGIN') {
+          return (
+            <div>{opcionEstado()}</div>
+          )
+        } else if (this.state.opcion === 'CALIDAD') {
+            return(
+            <>
+            <nav className="navbar">
+                <div className="navbar-container container">
+                    <input type="checkbox" name="" id="" />
+                    <div className="hamburger-lines">
+                        <span className="line line1"></span>
+                        <span className="line line2"></span>
+                        <span className="line line3"></span>
+                    </div>
+                    <ul className="menu-items">
+                        <li><a href="#" onClick={() => {
+                                                    if(window.confirm('Seguro quiere salir ?')){
+                                                      localStorage.clear();
+                                                      this.handleLogOut();
+                                                    }else{
+
+                                                    }
+                                                  }}>Salir</a></li>
+                    </ul>
+                    <img className="logo" src={imgLogo}></img>
+                </div>
+            </nav> 
+
+          <div>{opcionEstado()}</div>
+          </>
+          )
+        } else if(this.state.opcion === 'INVENTARIO'){
+          return(
+            <>
+            <nav className="navbar">
+                <div className="navbar-container container">
+                    <input type="checkbox" name="" id="" />
+                    <div className="hamburger-lines">
+                        <span className="line line1"></span>
+                        <span className="line line2"></span>
+                        <span className="line line3"></span>
+                    </div>
+                    <ul className="menu-items">
+                        <li><a href="#" onClick={() => {
+                                                    if(window.confirm('Seguro quiere salir ?')){
+                                                      localStorage.clear();
+                                                      this.handleLogOut();
+                                                    }else{
+
+                                                    }
+                                                  }}>Salir</a></li>
+                    </ul>
+                    <img className="logo" src={imgLogo}></img>
+                </div>
+            </nav> 
+
+          <div>{opcionEstado()}</div>
+          </>
+          )
+        } else {
+          return (
+            <>
+            <nav className="navbar">
+                <div className="navbar-container container">
+                    <input type="checkbox" name="" id="" />
+                    <div className="hamburger-lines">
+                        <span className="line line1"></span>
+                        <span className="line line2"></span>
+                        <span className="line line3"></span>
+                    </div>
+                    <ul className="menu-items">
+                        <li><a href="#" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>
+                        <li><a href="#" onClick={() => {this.handlealamoDashboard()}}>Tablero de Datos</a></li>
+                        <li><a href="#" onClick={() => {this.handleAlamoConfig()}}>Configuracion</a></li>
+                        <li><a href="#" onClick={() => {
+                                                    if(window.confirm('Seguro quiere salir ?')){
+                                                      localStorage.clear();
+                                                      this.handleLogOut();
+                                                    }else{
+
+                                                    }
+                                                  }}>Salir</a></li>
+                    </ul>
+                    <img className="logo" src={imgLogo}></img>
+                </div>
+            </nav> 
+
+          <div>{opcionEstado()}</div>
+          </>
+          )
+        }
+      })()}
+        
+      </div>
     );
   }
 }
