@@ -18,7 +18,7 @@ class App extends Component {
   constructor(props){
     super(props);    
     this.state={
-      isLoggedIn: false,
+      user: 'LOGIN',
       opcion: 'LOGIN',
       existenciaItem: 'Hola'
     }
@@ -27,6 +27,7 @@ class App extends Component {
   existenciaAlamoRevision(item){
     this.setState({
       opcion: 'EXISTENCIAS',
+      user: 'EXISTENCIAS',
       existenciaItem: item
     })
   }
@@ -34,6 +35,7 @@ class App extends Component {
   existenciaAlamoRevisionInventarios(item){
     this.setState({
       opcion: 'INVENTARIO_EXISTENCIAS',
+      user: 'INVENTARIO',
       existenciaItem: item
     })
   }
@@ -41,60 +43,76 @@ class App extends Component {
   existenciaAlamoRevisionCalidad(item){
     this.setState({
       opcion: 'CALIDAD_EXISTENCIAS',
+      user: 'CALIDAD',
       existenciaItem: item
     })
   }
 
   handlealamoDashboard(){
     this.setState({
-      opcion: 'DASHBOARD'
+      opcion: 'DASHBOARD',
+      user: 'DASHBOARD',
     })
   }
 
   handleLogInAlamo(){
     this.setState({
       opcion: 'INICIO',
-      isLoggedIn: true
+      user: 'INICIO',
     })
   }
 
   handleInventarioUsuario(){
     this.setState({
-      opcion: 'INVENTARIO'
+      opcion: 'INVENTARIO',
+      user: 'INVENTARIO',
     })
   }
 
   handleCalidadUsuario(){
     this.setState({
-      opcion: 'CALIDAD'
+      opcion: 'CALIDAD',
+      user: 'CALIDAD',
     })
   }
 
   handleLogOut(){
     this.setState({
-      opcion: 'LOGIN'
+      opcion: 'LOGIN',
+      user: 'LOGIN',
     })
   }
 
   handleAlamoConfig(){
     this.setState({
-      opcion: 'OPCION'
+      opcion: 'OPCION',
+      user: 'OPCION'
     })
   }
 
   handleInicioAlamo(){
     this.setState({
-      opcion: 'INICIO'
+      opcion: 'INICIO',
+      user: 'INICIO'
     })
   }
   
   componentDidMount(){
     const usertAuth = localStorage.getItem( 'usuario' )
     if(usertAuth === 'admin'){
+      this.setState({
+        user: 'ADMIN',
+      })
       this.handleLogInAlamo()
     }else if(usertAuth === 'inventario'){
+      this.setState({
+        user: 'INVENTARIO'
+      })
       this.handleInventarioUsuario()
     }else if(usertAuth === 'calidad'){
+      this.setState({
+        user: 'CALIDAD'
+      })
       this.handleCalidadUsuario()
     }else{
 
@@ -124,11 +142,11 @@ class App extends Component {
     return (
       <div>       
         {(() => {
-        if (this.state.opcion === 'LOGIN') {
+        if (this.state.user === 'LOGIN') {
           return (
             <div>{opcionEstado()}</div>
           )
-        } else if (this.state.opcion === 'CALIDAD') {
+        } else if (this.state.user === 'CALIDAD') {
             return(
             <>
             <nav className="navbar">
@@ -156,7 +174,7 @@ class App extends Component {
           <div>{opcionEstado()}</div>
           </>
           )
-        } else if(this.state.opcion === 'INVENTARIO'){
+        } else if(this.state.user === 'INVENTARIO'){
           return(
             <>
             <nav className="navbar">

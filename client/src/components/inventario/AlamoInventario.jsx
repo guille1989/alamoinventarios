@@ -18,7 +18,9 @@ class AlamoInventario extends Component {
           ExistenciasFecha: '',
           loteRepetido: 'none',
           ExistenciaCosto: '',
-          responsableRecepcionExistencia: ''
+          responsableRecepcionExistencia: '',
+          dataRecepcion: [],
+          dataBotellas: [],
         }
       }
 
@@ -167,6 +169,42 @@ class AlamoInventario extends Component {
             })
             .catch(err => console.log(err))
       //
+      //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
+      fetch('http://44.202.85.162:80/api/leerbotellas', requestOptions)
+      .then(response => response.json())
+      .then(data => {              
+          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+            localStorage.clear();
+            this.props.logoutHandler();
+          }else{
+              
+          }   
+          this.setState({
+            dataBotellas : data.data
+        })   
+                  
+      })
+      .catch(err => {                 
+        console.log(err)
+    })
+  //LOS QUE RECEPCION
+  fetch('http://44.202.85.162:80/api/leerpersonalrecepcion', requestOptions)
+    .then(response => response.json())
+    .then(data => {              
+        if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+          localStorage.clear();
+          this.props.logoutHandler();
+        }else{
+            
+        }   
+        this.setState({
+          dataRecepcion : data.data
+      })   
+                
+    })
+    .catch(err => {                 
+        console.log(err)
+    })
       }
 
       existenciasAlamoItem(item){
@@ -232,9 +270,11 @@ class AlamoInventario extends Component {
                 <option>
                   Responsable Recepcion Existencia
                 </option>  
-                <option>ADRIAN HERRAN</option>    
-                <option>JUAN DAVID HUERTAS</option>
-                <option>JHON FENER RODRIGUEZ</option>
+                {this.state.dataRecepcion.map((item, index) => {
+                  return(
+                    <option>{item.nombre}</option>
+                  )
+                })} 
                               
               </Input>
 
@@ -247,25 +287,11 @@ class AlamoInventario extends Component {
                 <option>
                   Seleccione tipo Existencia
                 </option>                
-                <option>250 ML - ALAMO</option>    
-                <option>350 ML - ALAMO</option>
-                <option>500 ML - ALAMO</option>
-                <option>500 ML - GOTA</option>
-                <option>600 ML - ALAMO</option>
-                <option>600 ML - GOTA</option>
-                <option>600 ML - CLARITY</option>
-                <option>600 ML - GLACIARES</option>
-                <option>600 ML - CILINDRO</option>
-                <option>1 LT - ENVASE</option>
-                
-                <option>1.1 LT - GLACIARES</option>
-                <option>1.5	LT - CLARITY</option>
-
-                <option>5 LT - MAS ASA TECPACK</option>
-                <option>5 LT - MAS ASA CLARITY</option>
-                <option>5 LT - MAS ASA PETCARIBE</option>
-                <option>5 LT - MAS ASA OCCIDENTAL PLASTICOS</option>
-                <option>18.9 LT - BOTELLONES</option>  
+                {this.state.dataBotellas.map((item, index) => {
+                  return(
+                    <option>{item.botella}</option>
+                  )
+                })}  
               </Input>
         
               <Input

@@ -51,7 +51,7 @@ class AlamoExistenciasCalidad extends Component {
             contFotosAuz: 1,
             fotoArchivo: '',
             arrayFotosAuz: [],
-
+            dataRevision: [],
         }
     }
 
@@ -77,6 +77,24 @@ class AlamoExistenciasCalidad extends Component {
               })
               .catch(err => console.log(err))
         //
+        //TRAIGO LOS QUE HACEN LA REVISION
+        fetch('http://44.202.85.162:80/api/leerpersonalrevision', requestOptions)
+          .then(response => response.json())
+          .then(data => {              
+              if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                localStorage.clear();
+                this.props.logoutHandler();
+              }else{
+                  
+              }   
+              this.setState({
+                dataRevision : data.data
+            })   
+                      
+          })
+          .catch(err => {                 
+              console.log(err)
+          })
     }
 
     //
@@ -477,9 +495,11 @@ class AlamoExistenciasCalidad extends Component {
                 <option>
                   Responsable Revision Existencia
                 </option>  
-                <option>ALEYDA ORTIZ</option>    
-                <option>MAURICIO SANCHEZ</option>
-                <option>EDINSON DAVILA</option>           
+                {this.state.dataRevision.map((item, index) => {
+                  return(
+                    <option>{item.nombre}</option>
+                  )
+                })}           
               </Input>
 
             {/*
