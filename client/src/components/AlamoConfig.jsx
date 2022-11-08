@@ -411,9 +411,7 @@ class AlamoConfig extends Component {
             <div>
                 <div className='configTablas'>                
                     <br></br>
-                    <br></br>
-
-                   
+                    <br></br>                   
                     <Button color='success' onClick={() => this.setState({modalRecepcion: !this.state.modalRecepcion})}>Ingresar Nuevo</Button>
                     <Table    
                         bordered   
