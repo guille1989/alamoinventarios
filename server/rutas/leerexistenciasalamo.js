@@ -18,7 +18,17 @@ ruta.get('/',verificarToken, (req, res) => {
 
 async function leerExistencias(){
     let result = [];
-    
+
+    let labels = [];
+
+    let label_01 = 'Botellas Aprobadas';
+    let label_02 = 'Botellas No Aprobadas';
+    let label_03 = 'Botellas En Revision';
+
+    let data_01 = [];
+    let data_02 = [];
+    let data_03 = [];
+        
     result = await Existencias.aggregate([  
         { $project: {
             _id: 0,
@@ -33,7 +43,16 @@ async function leerExistencias(){
             SumRevExistencia: {$sum: '$ExistenciaRev'},
             SumNoExistencia: {$sum: '$ExistenciaNo'},
         }}]).sort({_id:0})
+
+    result.map((item, index) => {
+        labels = [...labels, item._id]
+        
+        data_01 = [...data_01 , item.SumSiExistencia]
+        data_02 = [...data_02 , item.SumNoExistencia]
+        data_03 = [...data_03 , item.SumRevExistencia]  
+        
+        })
     
-    return result
+    return [result, data_01, data_02, data_03, labels]
 }
 module.exports = ruta;

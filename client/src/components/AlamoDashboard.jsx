@@ -48,6 +48,8 @@ class AlamoDashboard extends Component {
             data_barras_aux_01: [],
             data_barras_aux_02: [],
             data_barras_aux_03: [],
+            data_barras: [],
+            dataBotellas: [],
         }
     }
 
@@ -74,7 +76,7 @@ class AlamoDashboard extends Component {
                 }
 
                   this.setState({
-                    dataExistencias : data.data
+                    dataExistencias : data.data[0]
                 })
 
               })
@@ -132,19 +134,43 @@ class AlamoDashboard extends Component {
           fetch('http://44.201.109.181:80/api/leerexistenciasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {
-                
+                console.log(data)
+
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                   localStorage.clear();
                   this.props.logoutHandler();
                 }
 
                   this.setState({
-                      dataExistencias : data.data
+                      dataExistencias : data.data[0],
+                      label_barras: data.data[4],
+                      data_barras_aux_01: data.data[1],
+                      data_barras_aux_02: data.data[2],
+                      data_barras_aux_03: data.data[3],
                   })
-                  console.log(data.data)
+                  
               })
               .catch(err => console.log(err))
-        //
+        
+        //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
+        fetch('http://44.201.109.181:80/api/leerbotellas', requestOptions)
+            .then(response => response.json())
+            .then(data => {              
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }else{
+                    
+                }   
+                this.setState({
+                  dataBotellas : data.data
+              })   
+                        
+            })
+            .catch(err => {                 
+              console.log(err)
+          })       
+        
         }
     
     pieChartBotellas(){  
@@ -155,6 +181,37 @@ class AlamoDashboard extends Component {
                 <p>{item._id}</p>
             </>)   
         })  
+    }
+
+    handleGraficaBarras = () => {
+      let labels = this.state.label_barras
+
+      const data = {
+        labels,
+        datasets: [
+          {
+            label: 'Botellas Aprobadas',
+            data: this.state.data_barras_aux_01,
+            backgroundColor: 'rgba(60, 179, 113, 1)',
+          },
+          {
+            label: 'Botellas No Aprobadas',
+            data: this.state.data_barras_aux_02,
+            backgroundColor: 'rgba(255, 99, 132, 1)',
+          },
+          {
+            label: 'Botellas En Revision',
+            data: this.state.data_barras_aux_03,
+            backgroundColor: 'rgba(255, 165, 0, 1)',
+          },
+        ],
+      };
+
+      return(
+        <div>
+          <Bar options={this.state.options} data={data} />
+        </div>
+      )
     }
   
     render() {
@@ -173,25 +230,12 @@ class AlamoDashboard extends Component {
                     <option>
                     Seleccione tipo Existencia
                     </option>          
-                    <option>TODAS</option>      
-                    <option>350 ML - ENVASE</option>
-                    <option>500 ML - ALAMO</option>
-                    <option>500 ML - GOTA</option>
-                    <option>600 ML - ALAMO</option>
-                    <option>600 ML - GOTA</option>
-                    <option>600 ML - CLARITY</option>
-                    <option>600 ML - GLACIARES</option>
-                    <option>600 ML - CILINDRO</option>
-                    <option>1 LT - ENVASE</option>
-                    <option>1.1 LT - ENVASE</option>
-                    <option>1.1 LT - GLACIARES</option>
-                    <option>5 LT - MAS ASA OMI</option>
-                    <option>5 LT - MAS ASA TECPACK</option>
-                    <option>5 LT - MAS ASA CLARITY</option>
-                    <option>5 LT - PETCARIBE</option>
-                    <option>5 LT - OCCIDENTAL PLASTICOS</option>
-                    <option>18.9 LT - BOTELLONES</option>
-                    <option>1.5	LT - CLARITY</option>
+                    <option>TODAS</option>    
+                    {this.state.dataBotellas.map((item, index) => {
+                      return(
+                        <option>{item.botella}</option>
+                      )
+                    })}  
                 </Input>
                 </div> 
                 <div style={{width:'15%'}}> 
@@ -213,45 +257,10 @@ class AlamoDashboard extends Component {
                 <Button color="success" onClick={this.handlreFiltro}>Buscar</Button>           
                 </div>
                 <h3 className='tituloPieBotellas'>Estado recepcion existencias - Alamo</h3>
-                {this.state.dataExistencias.map((item, index) => {
-                    //BARRAS                    
-                    //PIE
-                    let dataAux = []
-                    dataAux = [...dataAux, item.SumNoExistencia, item.SumSiExistencia, item.SumRevExistencia]            
-                    const data = {
-                        labels: ['B. No A.', 'B. A.', 'B. R.'],
-                        datasets: [
-                          {
-                            width: 200,
-                            height: 200,
-                            label: '# of Votes',
-                            data: dataAux,
-                            backgroundColor: [
-                              'rgba(255, 99, 132, 0.2)',
-                              'rgba(147, 250, 165, 0.2)',
-                              'rgba(255, 206, 86, 0.2)',
-                            ],
-                            borderColor: [
-                              'rgba(255, 99, 132, 1)',
-                              'rgba(147, 250, 165, 1)',
-                              'rgba(255, 206, 86, 1)',
-                            ],
-                            borderWidth: 2,
-                          },
-                        ],
-                      }
-
-                    return(                        
-                            <div className='pieGraficasenColumna'> 
-                                <div className='pieGraficaAlamoBotellas'>
-                                    <h4>{item._id}</h4>
-                                    <Pie data={data} width={600} height={250} />
-                                </div>
-                            </div>
-                                                
-                    )
-                })}  
-                        
+                 
+            <div>
+              {this.handleGraficaBarras()}
+            </div>      
             </div>
         );
     }
