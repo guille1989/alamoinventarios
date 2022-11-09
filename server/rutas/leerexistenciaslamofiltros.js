@@ -28,6 +28,16 @@ async function leerExistencias(item, fechainicio, fechafinal){
     let fechaiAux = new Date("1900-01-01");
     let fechafAux = new Date("1900-01-01");
 
+    let labels = [];
+
+    let label_01 = 'Botellas Aprobadas';
+    let label_02 = 'Botellas No Aprobadas';
+    let label_03 = 'Botellas En Revision';
+
+    let data_01 = [];
+    let data_02 = [];
+    let data_03 = [];
+
     console.log(fechaiAux)
     console.log(fechafAux)
 
@@ -102,7 +112,16 @@ async function leerExistencias(item, fechainicio, fechafinal){
                 SumNoExistencia: {$sum: '$ExistenciaNo'},
             }}]).sort({_id:0})
     } 
+
+    result.map((item, index) => {
+        labels = [...labels, item._id]
+        
+        data_01 = [...data_01 , item.SumSiExistencia]
+        data_02 = [...data_02 , item.SumNoExistencia]
+        data_03 = [...data_03 , item.SumRevExistencia]  
+        
+        })
     
-    return result
+    return [result, data_01, data_02, data_03, labels]
 }
 module.exports = ruta;

@@ -32,17 +32,27 @@ class AlamoDashboard extends Component {
             fechaInicio: '1900-01-01',
             fechaFinal: '1900-01-01',
             itemFiltro: 'item',
-            options : {
-              responsive: true,
+            options : {              
               plugins: {
                 legend: {
-                  position: 'top',
+                  display: false,
+                  position: 'bottom',
                 },
                 title: {
                   display: true,
                   text: 'Estado llegada existencias',
                 },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
               },
+              responsive: true,
             },
             label_barras: [],
             data_barras_aux_01: [],
@@ -76,7 +86,11 @@ class AlamoDashboard extends Component {
                 }
 
                   this.setState({
-                    dataExistencias : data.data[0]
+                      dataExistencias : data.data[0],
+                      label_barras: data.data[4],
+                      data_barras_aux_01: data.data[1],
+                      data_barras_aux_02: data.data[2],
+                      data_barras_aux_03: data.data[3],
                 })
 
               })
@@ -207,11 +221,18 @@ class AlamoDashboard extends Component {
         ],
       };
 
-      return(
-        <div>
-          <Bar options={this.state.options} data={data} />
-        </div>
-      )
+      let wh = 100;
+      let ht = 30;
+
+      if(window.matchMedia("(min-width: 768px)").matches){
+
+      }else{
+        wh = 100;
+        ht = 100;
+      }
+
+      return(<Bar width={wh}
+        height={ht} options={this.state.options} data={data} />)
     }
   
     render() {
