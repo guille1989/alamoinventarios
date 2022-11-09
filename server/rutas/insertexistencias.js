@@ -112,22 +112,22 @@ async function insertExistencias(body){
 
 
         result = new Existencias({
-            FechaRegistroIngresoExistencia: new Date(),
-            ResponsableRecepcionExistencia:  body.ResponsableRecepcionExistencia,
-            PresentacionInsumo:             body.PresentacionInsumo,
-            //ProveedorInsumo:              body.ProveedorInsumo,
-            CostoExistencia:                parseInt(body.CostoExistencia),
-            ExistenciasStock:               parseInt(body.ExistenciasStock),
-            ExistenciasLote:                body.ExistenciasLote,    
-            ExistenciasRecepcion:           body.ExistenciasRecepcion,
+            FechaRegistroIngresoExistencia:     new Date(),
+            ResponsableRecepcionExistencia:     body.ResponsableRecepcionExistencia,
+            PresentacionInsumo:                 body.PresentacionInsumo,
+            //ProveedorInsumo:                  body.ProveedorInsumo,
+            CostoExistencia:                    parseInt(body.CostoExistencia),
+            ExistenciasStock:                   parseInt(body.ExistenciasStock),
+            ExistenciasLote:                    body.ExistenciasLote,    
+            ExistenciasRecepcion:               body.ExistenciasRecepcion,
 
-            ExistenciasLlenado:             0,
-            ExistenciasProductoTerminado:   0,
+            ExistenciasLlenado:                 0,
+            ExistenciasProductoTerminado:       0,
 
-            nivel_inspeccion_s4:            nivel_inspeccion_s4,
-            tamanio_muestra:                tamanio_muestra,
-            aceptar_inspeccion_s4:          aceptar_inspeccion_s4,
-            rechazar_inspeccion_s4:         rechazar_inspeccion_s4,
+            nivel_inspeccion_s4:                nivel_inspeccion_s4,
+            tamanio_muestra:                    tamanio_muestra,
+            aceptar_inspeccion_s4:              aceptar_inspeccion_s4,
+            rechazar_inspeccion_s4:             rechazar_inspeccion_s4,
 
             AprobadoRechazado: "En Revision"
         })

@@ -427,6 +427,65 @@ class AlamoConfig extends Component {
 
       }
 
+      eliminarBotellaAlamo = (botella, id) => {
+
+        if (window.confirm(`Seguro de eliminar existencia: ${botella}?`)) {
+          const requestOptions ={
+            method: 'DELETE',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                  botella: botella,
+                    id: id})
+          }
+      
+          fetch('http://44.201.109.181:80/api/leerbotellas', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('existencia eliminada !!')
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://44.201.109.181:80/api/leerbotellas', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          this.setState({
+                            dataBotellas : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err))
+        }else{
+
+        }
+      }
+
 
       actualizarBotellasAlamo = () => {
 
@@ -557,6 +616,7 @@ class AlamoConfig extends Component {
                             <th>No.</th>
                             <th>Tipo Existencia</th>
                             <th></th>
+                            <th></th>
                         </tr>
                         {this.state.dataBotellas.map((item, index) => {
                         return(
@@ -565,6 +625,7 @@ class AlamoConfig extends Component {
                                 <td>{index + 1}</td>
                                 <td>{item.botella}</td>
                                 <td className='titulotabla' onClick={() => {this.actualizarBotellaAlamo(item.botella, item._id)}}>Actualizar</td>
+                                <td className='titulotabla' onClick={() => {this.eliminarBotellaAlamo(item.botella, item._id)}}>Eliminar</td>
                             </tr>
                             </>
                             
