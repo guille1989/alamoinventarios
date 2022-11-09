@@ -64,9 +64,6 @@ class AlamoDashboard extends Component {
     }
 
     handlreFiltro = () => {
-        console.log(this.state.itemFiltro)
-        console.log(this.state.fechaInicio)
-        console.log(this.state.fechaFinal)
 
         const requestOptions ={
             method: 'GET',
@@ -79,7 +76,6 @@ class AlamoDashboard extends Component {
           fetch('http://44.201.109.181:80/api/leerexistenciasalamofiltro/'+ this.state.itemFiltro + '/' + this.state.fechaInicio + '/' + this.state.fechaFinal, requestOptions)
               .then(response => response.json())
               .then(data => {
-
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                   localStorage.clear();
                   this.props.logoutHandler();
@@ -148,8 +144,6 @@ class AlamoDashboard extends Component {
           fetch('http://44.201.109.181:80/api/leerexistenciasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {
-                console.log(data)
-
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                   localStorage.clear();
                   this.props.logoutHandler();
