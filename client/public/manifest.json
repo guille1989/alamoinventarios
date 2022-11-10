@@ -1,6 +1,6 @@
 {
   "short_name": "ALAMO INVENTARIOS",
-  "name": "Alamo SAS inventarios",
+  "name": "By InnoApp </>",
   "icons": [
     {
       "src": "alamologoIcono.ico",
@@ -10,12 +10,12 @@
     {
       "src": "alamologoIcono.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "16x16"
     },
     {
       "src": "alamologoIcono.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "16x16"
     }
   ],
   "start_url": ".",

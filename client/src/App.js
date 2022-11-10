@@ -3,6 +3,15 @@ import {React, Component} from 'react'
 import { Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import imgLogo from './imagenes/alamologo.png'
+import {
+  Nav,
+  NavItem,
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
+  DropdownMenu,
+  NavLink,
+} from 'reactstrap';
 //
 import AlamoExistencias from './components/Alamoexistencias';
 import Existencias from './components/Existencias';
@@ -13,6 +22,11 @@ import AlamoExistenciasInventario from './components/inventario/AlamoExistencias
 import AlamoInventarioCalidad from './components/calidad/AlamoInventarioCalidad';
 import AlamoExistenciasCalidad from './components/calidad/AlamoExistenciasCalidad';
 import AlamoConfiguracion from './components/AlamoConfig';
+import AlamoExistenciasTapas from './components/Alamoexistenciastapas';
+import AlamoExistenciasEtiquetas from './components/Alamoexistenciasetiquetas';
+import AlamoExistenciasOtros from './components/Alamoexistenciasotros';
+import AlamoExistenciasTapasTipo from './components/Existenciastapas';
+import AlamoExistenciasOtrosTipo from './components/Existenciasotros';
 
 class App extends Component {
   constructor(props){
@@ -20,7 +34,8 @@ class App extends Component {
     this.state={
       user: 'LOGIN',
       opcion: 'LOGIN',
-      existenciaItem: 'Hola'
+      existenciaItem: 'Hola',
+      dropdownOpen: false
     }
   }
 
@@ -35,6 +50,20 @@ class App extends Component {
   existenciaAlamoRevisionInventarios(item){
     this.setState({
       opcion: 'INVENTARIO_EXISTENCIAS',
+      existenciaItem: item
+    })
+  }
+
+  existenciaAlamoTapas(item){
+    this.setState({
+      opcion: 'TAPAS_EXISTENCIAS',
+      existenciaItem: item
+    })
+  }
+
+  existenciaAlamoOtros(item){
+    this.setState({
+      opcion: 'OTROS_EXISTENCIAS',
       existenciaItem: item
     })
   }
@@ -94,6 +123,24 @@ class App extends Component {
     })
   }
 
+  handleTapasAlamo(){
+    this.setState({
+      opcion: 'TAPAS'
+    })
+  }
+
+  handleEtiquetasAlamo(){
+    this.setState({
+      opcion: 'ETIQUETAS'
+    })
+  }
+
+  handleOtrosAlamo(){
+    this.setState({
+      opcion: 'OTROS'
+    })
+  }
+
   handleCalidadAlamo(){
     this.setState({
       opcion: 'CALIDAD',
@@ -135,6 +182,13 @@ class App extends Component {
     });
   }
 
+
+  toggleDropdown = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    })
+  }
+
   render(){
     const opcionEstado = () => {
       switch(this.state.opcion){
@@ -147,6 +201,11 @@ class App extends Component {
         case 'EXISTENCIAS':               return <Existencias logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
         case 'DASHBOARD':                 return <AlamoDashboard logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
         case 'OPCION':                    return <AlamoConfiguracion />
+        case 'TAPAS':                     return <AlamoExistenciasTapas existencia={this.existenciaAlamoTapas.bind(this)}/>
+        case 'ETIQUETAS':                 return <AlamoExistenciasEtiquetas />
+        case 'OTROS':                     return <AlamoExistenciasOtros existencia={this.existenciaAlamoOtros.bind(this)}/>
+        case 'TAPAS_EXISTENCIAS':         return <AlamoExistenciasTapasTipo  existenciaItemAlamo={this.state.existenciaItem}/>
+        case 'OTROS_EXISTENCIAS':         return <AlamoExistenciasOtrosTipo  existenciaItemAlamo={this.state.existenciaItem}/>
       }
     }
     return (
@@ -226,7 +285,25 @@ class App extends Component {
                         <span className="line line3"></span>
                     </div>
                     <ul className="menu-items">
-                        <li><a href="#" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>
+                        
+                        {/*<li><a href="Inventario" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>*/}
+
+                        <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
+                        <DropdownToggle nav caret>
+                          Inventarios Alamo
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem onClick={() => {this.handleInicioAlamo()}}>Botellas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleTapasAlamo()}}>Tapas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleEtiquetasAlamo()}}>Etiquetas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleOtrosAlamo()}}>Plasticos y Carton  </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                                               
+                        
                         <li><a href="#" onClick={() => {this.handlealamoDashboard()}}>Tablero de Datos</a></li>
                         <li><a href="#" onClick={() => {this.handleAlamoConfig()}}>Configuracion</a></li>
                         <li><a href="#" onClick={() => {

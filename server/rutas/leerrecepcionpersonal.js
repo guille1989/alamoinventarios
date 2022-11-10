@@ -6,7 +6,7 @@ const verificarToken = require('../middlewares/auth');
 ruta.get('/',verificarToken, (req, res) => {
     let result = leerExistencias()
     result.then(dato =>{
-        console.log('aqui')
+        //console.log('aqui')
         res.json({
             data: dato
         })

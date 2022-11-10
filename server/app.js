@@ -19,6 +19,15 @@ const LeerAlamoRecepcionBotellasPersonal = require('./rutas/leerrecepcionpersona
 const LeerAlamoRevisionBotellasPersonal = require('./rutas/leerrevisionpersonal');
 const LeerAlamoBotellas = require('./rutas/leerbotellasalamo');
 const InsertPersonalRecepcion = require('./rutas/insertarpersonalrecepcion');
+const LeerTapasAlamo = require('./rutas/crudtapas');
+const LeerExistenciasTapasAlamo = require('./rutas/leertapasalamo');
+const LeerExistenciasTapasGeneral = require('./rutas/leertapasitem');
+const LeerExistenciasOtrosGeneral = require('./rutas/leerotrositem');
+const LeerExistenciasTapasFiltro = require('./rutas/leerexistenciakeywordtapas');
+const LeerOtrosAlamo = require('./rutas/crudotros');
+const LeerOtrosAlamoPrincipal = require('./rutas/leerotrosalamo');
+const LeerOtrosAlamoFiltroKeyWord = require('./rutas/leerexistenciaskeywordotros');
+
 //
 //middlewares
 const corse = require('cors');
@@ -64,6 +73,14 @@ app.use('/api/leerpersonalrecepcion', LeerAlamoRecepcionBotellasPersonal);
 app.use('/api/leerpersonalrevision', LeerAlamoRevisionBotellasPersonal);
 app.use('/api/leerbotellas', LeerAlamoBotellas);
 app.use('/api/insertpersonalrecepcion', InsertPersonalRecepcion);
+app.use('/api/leertapasalamo', LeerTapasAlamo);
+app.use('/api/leerexistenciastapasalamo', LeerExistenciasTapasAlamo)
+app.use('/api/leerexistenciasitemalamotapas', LeerExistenciasTapasGeneral)
+app.use('/api/leerexistenciastapasfiltro', LeerExistenciasTapasFiltro)
+app.use('/api/leerotrosalamo', LeerOtrosAlamo)
+app.use('/api/leerotrosalamogeneral', LeerOtrosAlamoPrincipal)
+app.use('/api/leerexistenciasotrosfiltro', LeerOtrosAlamoFiltroKeyWord)
+app.use('/api/leeralamootrosexistencias', LeerExistenciasOtrosGeneral)
 
 //Iniciamos Server
 const port = process.env.PORT || 3001;

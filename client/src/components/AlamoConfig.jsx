@@ -18,7 +18,12 @@ class AlamoConfig extends Component {
             modalBotellasActualizar: false,
             actualizarBotellas: '',
             botellaActualizar: '',
-            botellaActualizarID: ''
+            botellaActualizarID: '',
+            modalTapas: false,
+            tapa: '',
+            dataTapas: [],
+            dataOtros: [],
+            otros: ''
         }
     }
     
@@ -92,6 +97,46 @@ class AlamoConfig extends Component {
           .catch(err => {                 
             console.log(err)
         })
+
+        //Tapas
+        fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+          .then(response => response.json())
+          .then(data => {              
+              if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                localStorage.clear();
+                this.props.logoutHandler();
+              }else{
+                  
+              }   
+              console.log(data)
+              this.setState({
+                dataTapas : data.data
+            })   
+                      
+          })
+          .catch(err => {                 
+              console.log(err)
+          }) 
+
+          //
+          fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+            .then(response => response.json())
+            .then(data => {              
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }else{
+                    
+                }   
+                console.log(data)
+                this.setState({
+                  dataOtros : data.data
+              })   
+                        
+            })
+            .catch(err => {                 
+                console.log(err)
+            })
     }
 
     insertPersonalRecepcionAlamo = () => {
@@ -344,6 +389,68 @@ class AlamoConfig extends Component {
         } 
       }
 
+
+      insertTapa = () => {
+        if(this.state.tapa === ''){
+          alert('Por favor ingresar existencia')
+      }else{
+          const requestOptions ={
+              method: 'POST',
+              headers : new Headers({
+                'Authorization': localStorage.getItem( 'token' ),
+                'Content-type':'application/json'
+              }),
+              body: JSON.stringify({
+                    tapa: this.state.tapa})
+            }
+        
+            fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                    localStorage.clear();
+                    this.props.logoutHandler();
+                  }
+                  
+                  alert('existencia ingresada !!')
+                  this.setState({
+                  modalTapas: !this.state.modalTapas
+                  })
+                 
+                  //Actualizamos DATA   
+                  const requestOptions ={
+                      method: 'GET',
+                      headers : new Headers({
+                        'Authorization': localStorage.getItem( 'token' ),
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-type':'application/json'
+                      }),
+              
+                    }
+                
+                    fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+                        .then(response => response.json())
+                        .then(data => {              
+                            if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                              localStorage.clear();
+                              this.props.logoutHandler();
+                            }else{
+                                
+                            }   
+                            console.log(data)
+                            this.setState({
+                              dataTapas : data.data
+                          })   
+                                    
+                        })
+                        .catch(err => {                 
+                            console.log(err)
+                        }) 
+                })
+                .catch(err => console.log(err)) 
+      }
+      }
+
       insertBotellas = () => {
         if(this.state.nombreBotella === ''){
             alert('Por favor ingresar existencia')
@@ -425,6 +532,124 @@ class AlamoConfig extends Component {
             botellaActualizarID: id
         })
 
+      }
+
+      eliminarTapaAlamo = (tapa, id) => {
+
+        if (window.confirm(`Seguro de eliminar existencia: ${tapa}?`)) {
+          const requestOptions ={
+            method: 'DELETE',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                  tapa: tapa,
+                    id: id})
+          }
+      
+          fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('existencia eliminada !!')
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          this.setState({
+                            dataTapas : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err))
+        }else{
+
+        }
+      }
+
+      eliminarOtroAlamo = (otros, id) => {
+
+        if (window.confirm(`Seguro de eliminar existencia: ${otros}?`)) {
+          const requestOptions ={
+            method: 'DELETE',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                    otros: otros,
+                    id: id})
+          }
+      
+          fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('existencia eliminada !!')
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          this.setState({
+                            dataOtros : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err))
+        }else{
+
+        }
       }
 
       eliminarBotellaAlamo = (botella, id) => {
@@ -545,6 +770,80 @@ class AlamoConfig extends Component {
               .catch(err => console.log(err))
       }
 
+    
+    onChangeTapasNuevas = (e) =>{
+      this.setState({
+        tapa: e.target.value.toUpperCase()
+      })
+    }
+
+    onChangeOtrosNuevas = (e) => {
+      this.setState({
+        otros: e.target.value.toUpperCase()
+      })
+    }   
+    
+    insertOtros = () => {
+      if(this.state.otros === ''){
+        alert('Por favor ingresar carton o plastico')
+    }else{
+        const requestOptions ={
+            method: 'POST',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                  otros: this.state.otros})
+          }
+      
+          fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('carton o plastico ingresado !!')
+                this.setState({
+                modalOtros: !this.state.modalOtros
+                })
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          console.log(data)
+                          this.setState({
+                            dataOtros : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err)) 
+    }
+    }
+
     render() {
         return (
             <div>
@@ -616,7 +915,6 @@ class AlamoConfig extends Component {
                             <th>No.</th>
                             <th>Tipo Existencia</th>
                             <th></th>
-                            <th></th>
                         </tr>
                         {this.state.dataBotellas.map((item, index) => {
                         return(
@@ -624,7 +922,6 @@ class AlamoConfig extends Component {
                             <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{item.botella}</td>
-                                <td className='titulotabla' onClick={() => {this.actualizarBotellaAlamo(item.botella, item._id)}}>Actualizar</td>
                                 <td className='titulotabla' onClick={() => {this.eliminarBotellaAlamo(item.botella, item._id)}}>Eliminar</td>
                             </tr>
                             </>
@@ -633,7 +930,62 @@ class AlamoConfig extends Component {
                         })}   
                         </tbody>
                     </Table>
-                    
+
+
+                    <Button color='success' onClick={() => this.setState({modalTapas: !this.state.modalTapas})}>Ingresar Nuevo</Button>
+                    <Table    
+                        bordered   
+                        borderless
+                        striped
+                        size="sm">
+                        <tbody>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tipo Existencia</th>
+                            <th></th>
+                        </tr>
+                        {this.state.dataTapas.map((item, index) => {
+                        return(
+                            <>                        
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{item.tapa}</td>
+                                <td className='titulotabla' onClick={() => {this.eliminarTapaAlamo(item.tapa, item._id)}}>Eliminar</td>
+                            </tr>
+                            </>
+                            
+                        )
+                        })}   
+                        </tbody>
+                    </Table>     
+
+
+                    <Button color='success' onClick={() => this.setState({modalOtros: !this.state.modalOtros})}>Ingresar Nuevo</Button>
+                    <Table    
+                        bordered   
+                        borderless
+                        striped
+                        size="sm">
+                        <tbody>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tipo Existencia</th>
+                            <th></th>
+                        </tr>
+                        {this.state.dataOtros.map((item, index) => {
+                        return(
+                            <>                        
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{item.otros}</td>
+                                <td className='titulotabla' onClick={() => {this.eliminarOtroAlamo(item.otros, item._id)}}>Eliminar</td>
+                            </tr>
+                            </>
+                            
+                        )
+                        })}   
+                        </tbody>
+                    </Table>                
                 </div>
 
                 <Modal isOpen={this.state.modalRecepcion}>
@@ -717,6 +1069,48 @@ class AlamoConfig extends Component {
                         Actualizar Existencia
                         </Button>
                         <Button color="secondary" onClick={() => this.setState({modalBotellasActualizar: !this.state.modalBotellasActualizar})}>
+                        Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+
+
+                <Modal isOpen={this.state.modalTapas}>
+                    <ModalHeader>Ingresar tapas - Alamo</ModalHeader>
+                    <ModalBody>
+                        <Input
+                            bsSize="sm"
+                            className="mb-3"
+                            placeholder="Ingresar nueva existencia"
+                            onChange={this.onChangeTapasNuevas}
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.insertTapa}>
+                        Agregar Existencia
+                        </Button>
+                        <Button color="secondary" onClick={() => this.setState({modalTapas: !this.state.modalTapas})}>
+                        Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+
+
+                <Modal isOpen={this.state.modalOtros}>
+                    <ModalHeader>Ingresar carton y plasticos - Alamo</ModalHeader>
+                    <ModalBody>
+                        <Input
+                            bsSize="sm"
+                            className="mb-3"
+                            placeholder="Ingresar nueva existencia"
+                            onChange={this.onChangeOtrosNuevas}
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.insertOtros}>
+                        Agregar Existencia
+                        </Button>
+                        <Button color="secondary" onClick={() => this.setState({modalOtros: !this.state.modalOtros})}>
                         Cancel
                         </Button>
                     </ModalFooter>
