@@ -99,7 +99,7 @@ class AlamoConfig extends Component {
         })
 
         //Tapas
-        fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+        fetch('http://44.201.109.181:80/api/leertapasalamo', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -119,7 +119,7 @@ class AlamoConfig extends Component {
           }) 
 
           //
-          fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+          fetch('http://44.201.109.181:80/api/leerotrosalamo', requestOptions)
             .then(response => response.json())
             .then(data => {              
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -404,7 +404,7 @@ class AlamoConfig extends Component {
                     tapa: this.state.tapa})
             }
         
-            fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+            fetch('http://44.201.109.181:80/api/leertapasalamo', requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -428,7 +428,7 @@ class AlamoConfig extends Component {
               
                     }
                 
-                    fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+                    fetch('http://44.201.109.181:80/api/leertapasalamo', requestOptions)
                         .then(response => response.json())
                         .then(data => {              
                             if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -548,7 +548,7 @@ class AlamoConfig extends Component {
                     id: id})
           }
       
-          fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+          fetch('http://44.201.109.181:80/api/leertapasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -569,7 +569,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+                  fetch('http://44.201.109.181:80/api/leertapasalamo', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -607,7 +607,7 @@ class AlamoConfig extends Component {
                     id: id})
           }
       
-          fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+          fetch('http://44.201.109.181:80/api/leerotrosalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -628,7 +628,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+                  fetch('http://44.201.109.181:80/api/leerotrosalamo', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -797,7 +797,7 @@ class AlamoConfig extends Component {
                   otros: this.state.otros})
           }
       
-          fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+          fetch('http://44.201.109.181:80/api/leerotrosalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -821,7 +821,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://localhost:3001/api/leerotrosalamo', requestOptions)
+                  fetch('http://44.201.109.181:80/api/leerotrosalamo', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){

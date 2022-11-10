@@ -70,7 +70,7 @@ class Alamoexistenciastapas extends Component {
   
           }
         //Traemos existencias
-        fetch('http://localhost:3001/api/leerexistenciastapasalamo', requestOptions)
+        fetch('http://44.201.109.181:80/api/leerexistenciastapasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -88,7 +88,7 @@ class Alamoexistenciastapas extends Component {
             .catch(err => console.log(err))
 
         //LOS QUE RECEPCION
-        fetch('http://localhost:3001/api/leerpersonalrecepcion', requestOptions)
+        fetch('http://44.201.109.181:80/api/leerpersonalrecepcion', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -107,7 +107,7 @@ class Alamoexistenciastapas extends Component {
           }) 
 
           //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-        fetch('http://localhost:3001/api/leertapasalamo', requestOptions)
+        fetch('http://44.201.109.181:80/api/leertapasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {   
                 console.log(data)           
@@ -150,7 +150,7 @@ class Alamoexistenciastapas extends Component {
                   tapa_fecha_recepcion: this.state.tapa_fecha_recepcion})
           }
       
-          fetch('http://localhost:3001/api/leerexistenciastapasalamo', requestOptions)
+          fetch('http://44.201.109.181:80/api/leerexistenciastapasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -181,7 +181,7 @@ class Alamoexistenciastapas extends Component {
                   }),    
                 }
             
-                fetch('http://localhost:3001/api/leerexistenciastapasalamo', requestOptions)
+                fetch('http://44.201.109.181:80/api/leerexistenciastapasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
@@ -221,7 +221,7 @@ class Alamoexistenciastapas extends Component {
 
         }
     
-        fetch('http://localhost:3001/api/leerexistenciastapasalamo', requestOptions)
+        fetch('http://44.201.109.181:80/api/leerexistenciastapasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 //console.log(data)
@@ -246,7 +246,7 @@ class Alamoexistenciastapas extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://localhost:3001/api/leerexistenciastapasfiltro/' + e.target.value.toUpperCase(), requestOptions)
+          fetch('http://44.201.109.181:80/api/leerexistenciastapasfiltro/' + e.target.value.toUpperCase(), requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){

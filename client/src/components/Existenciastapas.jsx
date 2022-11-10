@@ -65,7 +65,7 @@ class Existenciastapas extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://localhost:3001/api/leerexistenciasitemalamotapas/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://44.201.109.181:80/api/leerexistenciasitemalamotapas/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
