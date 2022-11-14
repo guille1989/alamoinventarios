@@ -19,6 +19,10 @@ ruta.get('/',verificarToken, (req, res) => {
 async function leerExistencias(){
     let result = [];
 
+    let resultSI = [];
+    let resultNO = [];
+    let resultREV = [];
+
     let labels = [];
 
     let label_01 = 'Botellas Aprobadas';
@@ -52,7 +56,40 @@ async function leerExistencias(){
         data_03 = [...data_03 , item.SumRevExistencia]  
         
         })
+
+    resultSI = await Existencias.aggregate([  
+        { $project: {
+            _id: 0,
+            PresentacionInsumo: 1,
+            ExistenciaSi: {$cond: [{$eq: ['$AprobadoRechazado', 'Ok']}, '$ExistenciasStock', 0]},
+        }},
+        { $group: {
+            _id: "$PresentacionInsumo",
+            SumSiExistencia: {$sum: '$ExistenciaSi'}
+        }}])
+
+    resultNO = await Existencias.aggregate([  
+        { $project: {
+            _id: 0,
+            PresentacionInsumo: 1,
+            ExistenciaNo: {$cond: [{$eq: ['$AprobadoRechazado', 'Revision no aprobada']}, '$ExistenciasStock', 0]},
+        }},
+        { $group: {
+            _id: "$PresentacionInsumo",
+            SumNoExistencia: {$sum: '$ExistenciaNo'}
+        }}])
+
+    resultREV = await Existencias.aggregate([  
+        { $project: {
+            _id: 0,
+            PresentacionInsumo: 1,
+            ExistenciaRev: {$cond: [{$eq: ['$AprobadoRechazado', 'En Revision']}, '$ExistenciasStock', 0]},
+        }},
+        { $group: {
+            _id: "$PresentacionInsumo",
+            SumRevExistencia: {$sum: '$ExistenciaRev'}
+        }}])
     
-    return [result, data_01, data_02, data_03, labels]
+    return [result, data_01, data_02, data_03, labels, resultSI, resultNO, resultREV]
 }
 module.exports = ruta;

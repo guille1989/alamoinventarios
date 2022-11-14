@@ -27,6 +27,10 @@ import AlamoExistenciasEtiquetas from './components/Alamoexistenciasetiquetas';
 import AlamoExistenciasOtros from './components/Alamoexistenciasotros';
 import AlamoExistenciasTapasTipo from './components/Existenciastapas';
 import AlamoExistenciasOtrosTipo from './components/Existenciasotros';
+import AlamoExistenciasEtiquetasTipo from './components/Existenciasetiquetas';
+import AlamoDashboardTapasAlamo from './components/AlamoDashboardTapas';
+import AlamoDashboardEtiquetasAlamo from './components/AlamoDashboardEtiquetasAlamo';
+import AlamoDashboardOtros from './components/AlamoDashboardOtros';
 
 class App extends Component {
   constructor(props){
@@ -35,7 +39,8 @@ class App extends Component {
       user: 'LOGIN',
       opcion: 'LOGIN',
       existenciaItem: 'Hola',
-      dropdownOpen: false
+      dropdownOpen: false,
+      dropdownOpenTD: false
     }
   }
 
@@ -68,6 +73,13 @@ class App extends Component {
     })
   }
 
+  existenciaAlamoEtiquetas(item){
+    this.setState({
+      opcion: 'OTROS_ETIQUETAS',
+      existenciaItem: item
+    })
+  }
+
   existenciaAlamoRevisionCalidad(item){
     this.setState({
       opcion: 'CALIDAD_EXISTENCIAS',
@@ -78,7 +90,24 @@ class App extends Component {
   handlealamoDashboard(){
     this.setState({
       opcion: 'DASHBOARD',
-      user: 'DASHBOARD',
+    })
+  }
+
+  handlealamoDashboardTapas(){
+    this.setState({
+      opcion: 'TAPAS_DASHBOARD',
+    })
+  }
+
+  handlealamoDashboardEtiquetas(){
+    this.setState({
+      opcion: 'ETIQUETAS_DASHBOARD',
+    })
+  }
+
+  handlealamoDashboardOtros(){
+    this.setState({
+      opcion: 'OTROS_DASHBOARD',
     })
   }
 
@@ -189,6 +218,13 @@ class App extends Component {
     })
   }
 
+
+  toggleDropdownTD = () => {
+    this.setState({
+      dropdownOpenTD: !this.state.dropdownOpenTD
+    })
+  }
+
   render(){
     const opcionEstado = () => {
       switch(this.state.opcion){
@@ -202,10 +238,14 @@ class App extends Component {
         case 'DASHBOARD':                 return <AlamoDashboard logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
         case 'OPCION':                    return <AlamoConfiguracion />
         case 'TAPAS':                     return <AlamoExistenciasTapas existencia={this.existenciaAlamoTapas.bind(this)}/>
-        case 'ETIQUETAS':                 return <AlamoExistenciasEtiquetas />
+        case 'ETIQUETAS':                 return <AlamoExistenciasEtiquetas existencia={this.existenciaAlamoEtiquetas.bind(this)}/>
         case 'OTROS':                     return <AlamoExistenciasOtros existencia={this.existenciaAlamoOtros.bind(this)}/>
         case 'TAPAS_EXISTENCIAS':         return <AlamoExistenciasTapasTipo  existenciaItemAlamo={this.state.existenciaItem}/>
         case 'OTROS_EXISTENCIAS':         return <AlamoExistenciasOtrosTipo  existenciaItemAlamo={this.state.existenciaItem}/>
+        case 'OTROS_ETIQUETAS':           return <AlamoExistenciasEtiquetasTipo  existenciaItemAlamo={this.state.existenciaItem}/>
+        case 'TAPAS_DASHBOARD':           return <AlamoDashboardTapasAlamo />
+        case 'ETIQUETAS_DASHBOARD':       return <AlamoDashboardEtiquetasAlamo />
+        case 'OTROS_DASHBOARD':           return <AlamoDashboardOtros />
       }
     }
     return (
@@ -288,7 +328,7 @@ class App extends Component {
                         
                         {/*<li><a href="Inventario" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>*/}
 
-                        <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
+                      <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                         <DropdownToggle nav caret>
                           Inventarios Alamo
                         </DropdownToggle>
@@ -304,7 +344,23 @@ class App extends Component {
                       </Dropdown>
                                                
                         
-                        <li><a href="#" onClick={() => {this.handlealamoDashboard()}}>Tablero de Datos</a></li>
+                        {/*<li><a href="#" onClick={() => {this.handlealamoDashboard()}}>Tablero de Datos</a></li>*/}
+                        <Dropdown nav isOpen={this.state.dropdownOpenTD} toggle={this.toggleDropdownTD}>
+                        <DropdownToggle nav caret>
+                          Tablero de Datos
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem onClick={() => {this.handlealamoDashboard()}}>TD Botellas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handlealamoDashboardTapas()}} >TD Tapas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handlealamoDashboardEtiquetas()}} >TD Etiquetas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handlealamoDashboardOtros()}} >TD Plasticos y Carton  </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+
+
                         <li><a href="#" onClick={() => {this.handleAlamoConfig()}}>Configuracion</a></li>
                         <li><a href="#" onClick={() => {
                                                     if(window.confirm('Seguro quiere salir ?')){

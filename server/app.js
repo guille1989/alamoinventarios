@@ -27,7 +27,21 @@ const LeerExistenciasTapasFiltro = require('./rutas/leerexistenciakeywordtapas')
 const LeerOtrosAlamo = require('./rutas/crudotros');
 const LeerOtrosAlamoPrincipal = require('./rutas/leerotrosalamo');
 const LeerOtrosAlamoFiltroKeyWord = require('./rutas/leerexistenciaskeywordotros');
+const LeerEtiquetasAlamo = require('./rutas/crudetiquetas');
+const LeerEtiquetasAlamoPrincipal = require('./rutas/leeretiquetasalamo');
+const LeerExistenciasEtiquetasGeneral = require('./rutas/leeretiquetasitem');
+const LeerEtiquetasAlamoFiltroKeyWord = require('./rutas/leerexistenciakeywordetiquetas');
+const LeerPorcentajeSinRevision = require('./rutas/leerexistenciasdashporrevision');
+const LeerReciboCostoMesExistencia = require('./rutas/leerexistenciasdashboardcostomes');
+const LeerExistenciasCostoMesPorItemR = require('./rutas/leerexistenciasdashboardcostoporitems');
+const LeerExistenciasTapasCostoMesGeneral = require('./rutas/tapas/leertapasdisponiblescostomes');
+const LeerExistenciasTapasCostoMesItem = require('./rutas/tapas/leertapasdisponiblescostomesitem');
 
+const LeerExistenciasEtiquetasCostoMesGeneral = require('./rutas/etiquetas/leeretiquetadisponiblecostomes');
+const LeerExistenciasEtiquetasCostoMesItem = require('./rutas/etiquetas/leeretiquetasdisponiblescostomesitem');
+
+const LeerExistenciasOtrosCostoMesGeneral = require('./rutas/otros/leerotrosdisponiblecostomes');
+const LeerExistenciasOtrosCostoMesItem = require('./rutas/otros/leerotrosdisponiblescostomesitem');
 //
 //middlewares
 const corse = require('cors');
@@ -81,9 +95,24 @@ app.use('/api/leerotrosalamo', LeerOtrosAlamo)
 app.use('/api/leerotrosalamogeneral', LeerOtrosAlamoPrincipal)
 app.use('/api/leerexistenciasotrosfiltro', LeerOtrosAlamoFiltroKeyWord)
 app.use('/api/leeralamootrosexistencias', LeerExistenciasOtrosGeneral)
+app.use('/api/leeretiquetasalamo', LeerEtiquetasAlamo)
+app.use('/api/leeretiquetasalamogeneral', LeerEtiquetasAlamoPrincipal)
+app.use('/api/leeralamoetiquetasexistencias', LeerExistenciasEtiquetasGeneral)
+app.use('/api/leerexistenciasetiquetasfiltro', LeerEtiquetasAlamoFiltroKeyWord)
+app.use('/api/leerexistenciaporcentajesinrevision', LeerPorcentajeSinRevision)
+app.use('/api/leerexistenciarecibocostomes', LeerReciboCostoMesExistencia)
+app.use('/api/leerexistenciascostomesporitem', LeerExistenciasCostoMesPorItemR)
+app.use('/api/leerexistenciastapascostomesgeneral', LeerExistenciasTapasCostoMesGeneral)
+app.use('/api/leerexistenciastapascostomesitem', LeerExistenciasTapasCostoMesItem)
+
+app.use('/api/leerexistenciasetiquetascostomesgeneral', LeerExistenciasEtiquetasCostoMesGeneral)
+app.use('/api/leerexistenciasetiquetascostomesitem', LeerExistenciasEtiquetasCostoMesItem)
+
+app.use('/api/leerexistenciasotroscostomesgeneral', LeerExistenciasOtrosCostoMesGeneral)
+app.use('/api/leerexistenciasotroscostomesitem', LeerExistenciasOtrosCostoMesItem)
 
 //Iniciamos Server
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`BackEnd escuchando por puerto ${port}....`)
-})
+}) 

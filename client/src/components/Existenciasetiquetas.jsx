@@ -6,7 +6,7 @@ import Webcam from "react-webcam";
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
-class Existenciasotros extends Component {
+class Existenciasetiquetas extends Component {
     constructor(props){
         super(props);    
         this.state={
@@ -65,9 +65,10 @@ class Existenciasotros extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.201.109.181:80/api/leeralamootrosexistencias/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://44.201.109.181:80/api/leeralamoetiquetasexistencias/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
+                console.log(data)
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                     localStorage.clear();
                     this.props.logoutHandler();
@@ -122,4 +123,4 @@ class Existenciasotros extends Component {
     }
 }
 
-export default Existenciasotros;
+export default Existenciasetiquetas;

@@ -265,6 +265,7 @@ class Alamoexistenciastapas extends Component {
     render() {
         return (
             <div>
+                <h3>INVENTARIO TAPAS</h3>
                 <Button className='botonAgregarExistencia' color="success" onClick={() => {this.setState({modalAgregarExistencia: !this.state.modalAgregarExistencia})}}>Ingresar Existencia</Button>
             
                 <br></br>          

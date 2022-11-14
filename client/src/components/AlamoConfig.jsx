@@ -23,7 +23,10 @@ class AlamoConfig extends Component {
             tapa: '',
             dataTapas: [],
             dataOtros: [],
-            otros: ''
+            otros: '',
+            dataEtiquetas: [],
+            modalEtiquetas: false,
+            etiquetas: ''
         }
     }
     
@@ -108,7 +111,7 @@ class AlamoConfig extends Component {
               }else{
                   
               }   
-              console.log(data)
+              //console.log(data)
               this.setState({
                 dataTapas : data.data
             })   
@@ -128,7 +131,7 @@ class AlamoConfig extends Component {
                 }else{
                     
                 }   
-                console.log(data)
+                //console.log(data)
                 this.setState({
                   dataOtros : data.data
               })   
@@ -137,6 +140,26 @@ class AlamoConfig extends Component {
             .catch(err => {                 
                 console.log(err)
             })
+
+            //Etiquetas
+            fetch('http://44.201.109.181:80/api/leeretiquetasalamo', requestOptions)
+              .then(response => response.json())
+              .then(data => {              
+                  if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                    localStorage.clear();
+                    this.props.logoutHandler();
+                  }else{
+                      
+                  }   
+                  //console.log(data)
+                  this.setState({
+                    dataEtiquetas : data.data
+                })   
+                          
+              })
+              .catch(err => {                 
+                  console.log(err)
+              })
     }
 
     insertPersonalRecepcionAlamo = () => {
@@ -437,7 +460,7 @@ class AlamoConfig extends Component {
                             }else{
                                 
                             }   
-                            console.log(data)
+                            //console.log(data)
                             this.setState({
                               dataTapas : data.data
                           })   
@@ -830,7 +853,7 @@ class AlamoConfig extends Component {
                           }else{
                               
                           }   
-                          console.log(data)
+                          //console.log(data)
                           this.setState({
                             dataOtros : data.data
                         })   
@@ -844,13 +867,140 @@ class AlamoConfig extends Component {
     }
     }
 
+    onChangeEtiquetasNuevas = (e) => {
+      this.setState({
+        etiquetas: e.target.value.toUpperCase()
+      })
+    }
+
+    insertEtiquetas = () => {
+      if(this.state.etiquetas === ''){
+        alert('Por favor ingresar etiqueta')
+    }else{
+        const requestOptions ={
+            method: 'POST',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                  etiqueta: this.state.etiquetas})
+          }
+      
+          fetch('http://44.201.109.181:80/api/leeretiquetasalamo', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('etiqueta ingresada !!')
+                this.setState({
+                  modalEtiquetas: !this.state.modalEtiquetas
+                })
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://44.201.109.181:80/api/leeretiquetasalamo', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          //console.log(data)
+                          this.setState({
+                            dataEtiquetas : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err)) 
+    }
+    }
+
+    eliminarEtiquetaAlamo = (etiqueta, id) => {
+
+      if (window.confirm(`Seguro de eliminar existencia: ${etiqueta}?`)) {
+        const requestOptions ={
+          method: 'DELETE',
+          headers : new Headers({
+            'Authorization': localStorage.getItem( 'token' ),
+            'Content-type':'application/json'
+          }),
+          body: JSON.stringify({
+                etiqueta: etiqueta,
+                  id: id})
+        }
+    
+        fetch('http://44.201.109.181:80/api/leeretiquetasalamo', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                localStorage.clear();
+                this.props.logoutHandler();
+              }
+              
+              alert('existencia eliminada !!')
+             
+              //Actualizamos DATA   
+              const requestOptions ={
+                  method: 'GET',
+                  headers : new Headers({
+                    'Authorization': localStorage.getItem( 'token' ),
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-type':'application/json'
+                  }),
+          
+                }
+            
+                fetch('http://44.201.109.181:80/api/leeretiquetasalamo', requestOptions)
+                    .then(response => response.json())
+                    .then(data => {              
+                        if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                          localStorage.clear();
+                          this.props.logoutHandler();
+                        }else{
+                            
+                        }   
+                        this.setState({
+                          dataEtiquetas : data.data
+                      })   
+                                
+                    })
+                    .catch(err => {                 
+                        console.log(err)
+                    }) 
+            })
+            .catch(err => console.log(err))
+      }else{
+
+      }
+    }
+
+
     render() {
         return (
             <div>
                 <div className='configTablas'>                
                     <br></br>
                     <br></br>                   
-                    <Button color='success' onClick={() => this.setState({modalRecepcion: !this.state.modalRecepcion})}>Ingresar Nuevo</Button>
+                    <Button color='success' onClick={() => this.setState({modalRecepcion: !this.state.modalRecepcion})}>Ingresar Responsable Recepciones</Button>
                     <Table    
                         bordered   
                         borderless
@@ -877,7 +1027,7 @@ class AlamoConfig extends Component {
                         </tbody>
                     </Table>
                     
-                    <Button color='success' onClick={() => this.setState({modalRevision: !this.state.modalRevision})}>Ingresar Nuevo</Button>
+                    <Button color='success' onClick={() => this.setState({modalRevision: !this.state.modalRevision})}>Ingresar Responsable Revision-Calidad</Button>
                     <Table    
                         bordered   
                         borderless
@@ -904,7 +1054,7 @@ class AlamoConfig extends Component {
                         </tbody>
                     </Table>
                     
-                    <Button color='success' onClick={() => this.setState({modalBotellas: !this.state.modalBotellas})}>Ingresar Nuevo</Button>
+                    <Button color='success' onClick={() => this.setState({modalBotellas: !this.state.modalBotellas})}>Ingresar Nueva Existencia - Botellas</Button>
                     <Table    
                         bordered   
                         borderless
@@ -932,7 +1082,7 @@ class AlamoConfig extends Component {
                     </Table>
 
 
-                    <Button color='success' onClick={() => this.setState({modalTapas: !this.state.modalTapas})}>Ingresar Nuevo</Button>
+                    <Button color='success' onClick={() => this.setState({modalTapas: !this.state.modalTapas})}>Ingresar Nueva Existencia - Tapas</Button>
                     <Table    
                         bordered   
                         borderless
@@ -960,7 +1110,7 @@ class AlamoConfig extends Component {
                     </Table>     
 
 
-                    <Button color='success' onClick={() => this.setState({modalOtros: !this.state.modalOtros})}>Ingresar Nuevo</Button>
+                    <Button color='success' onClick={() => this.setState({modalOtros: !this.state.modalOtros})}>Ingresar Nueva Existencia - Plastico y/o Cartones</Button>
                     <Table    
                         bordered   
                         borderless
@@ -985,7 +1135,35 @@ class AlamoConfig extends Component {
                         )
                         })}   
                         </tbody>
-                    </Table>                
+                    </Table>  
+
+
+                    <Button color='success' onClick={() => this.setState({modalEtiquetas: !this.state.modalEtiquetas})}>Ingresar Nueva Existencia - Etiquetas</Button>
+                    <Table    
+                        bordered   
+                        borderless
+                        striped
+                        size="sm">
+                        <tbody>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tipo Existencia</th>
+                            <th></th>
+                        </tr>
+                        {this.state.dataEtiquetas.map((item, index) => {
+                        return(
+                            <>                        
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{item.etiqueta}</td>
+                                <td className='titulotabla' onClick={() => {this.eliminarEtiquetaAlamo(item.etiqueta, item._id)}}>Eliminar</td>
+                            </tr>
+                            </>
+                            
+                        )
+                        })}   
+                        </tbody>
+                    </Table>             
                 </div>
 
                 <Modal isOpen={this.state.modalRecepcion}>
@@ -1111,6 +1289,26 @@ class AlamoConfig extends Component {
                         Agregar Existencia
                         </Button>
                         <Button color="secondary" onClick={() => this.setState({modalOtros: !this.state.modalOtros})}>
+                        Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+
+                <Modal isOpen={this.state.modalEtiquetas}>
+                    <ModalHeader>Ingresar Etiquetas - Alamo</ModalHeader>
+                    <ModalBody>
+                        <Input
+                            bsSize="sm"
+                            className="mb-3"
+                            placeholder="Ingresar nueva existencia"
+                            onChange={this.onChangeEtiquetasNuevas}
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.insertEtiquetas}>
+                        Agregar Existencia
+                        </Button>
+                        <Button color="secondary" onClick={() => this.setState({modalEtiquetas: !this.state.modalEtiquetas})}>
                         Cancel
                         </Button>
                     </ModalFooter>
