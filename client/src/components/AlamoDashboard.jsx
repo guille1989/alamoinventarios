@@ -135,7 +135,7 @@ class AlamoDashboard extends Component {
         
         //
 
-        fetch('http://localhost:3001/api/leerexistenciarecibocostomes', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes', requestOptions)
               .then(response => response.json())
               .then(data => {  
                    
