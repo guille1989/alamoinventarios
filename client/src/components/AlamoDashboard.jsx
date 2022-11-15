@@ -13,7 +13,7 @@ import "../dynamic.css";
 
 import "../App.css";
 
-
+import {isMobile, BrowserView, MobileView} from 'react-device-detect';
 
 class AlamoDashboard extends Component {
     constructor(props) {
@@ -196,7 +196,12 @@ class AlamoDashboard extends Component {
     render() {
         return (     
                 <div>    
-                <h3>DASHBOARD - BOTELLAS</h3>  
+                <MobileView>
+                <h3>DASHBOARD - BOTELLAS - CELULAR</h3>
+                </MobileView>
+                <BrowserView>
+                <h3>DASHBOARD - BOTELLAS - PC</h3>
+                </BrowserView>  
                 <br></br>
                 <br></br>   
                 <Container>

@@ -31,6 +31,7 @@ import AlamoExistenciasEtiquetasTipo from './components/Existenciasetiquetas';
 import AlamoDashboardTapasAlamo from './components/AlamoDashboardTapas';
 import AlamoDashboardEtiquetasAlamo from './components/AlamoDashboardEtiquetasAlamo';
 import AlamoDashboardOtros from './components/AlamoDashboardOtros';
+//
 
 class App extends Component {
   constructor(props){
@@ -40,7 +41,8 @@ class App extends Component {
       opcion: 'LOGIN',
       existenciaItem: 'Hola',
       dropdownOpen: false,
-      dropdownOpenTD: false
+      dropdownOpenTD: false,
+      dropdownI: false
     }
   }
 
@@ -225,6 +227,12 @@ class App extends Component {
     })
   }
 
+  toggleDropdownInventarios = () => {
+    this.setState({
+      dropdownI: !this.state.dropdownI
+    })
+  }
+
   render(){
     const opcionEstado = () => {
       switch(this.state.opcion){
@@ -296,7 +304,24 @@ class App extends Component {
                         <span className="line line3"></span>
                     </div>
                     <ul className="menu-items">
-                        <li><a href="#" onClick={() => {this.handleInventariolamo()}}>Inventario Alamo</a></li>
+                        
+                        {/*<li><a href="#" onClick={() => {this.handleInventariolamo()}}>Inventario Alamo</a></li>*/}
+
+                        <Dropdown nav isOpen={this.state.dropdownI} toggle={this.toggleDropdownInventarios}>
+                        <DropdownToggle nav caret>
+                          Inventarios Alamo
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem onClick={() => {this.handleInventariolamo()}}>Botellas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleTapasAlamo()}}>Tapas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleEtiquetasAlamo()}}>Etiquetas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleOtrosAlamo()}}>Plasticos y Carton  </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+
                         <li><a href="#" onClick={() => {
                                                     if(window.confirm('Seguro quiere salir ?')){
                                                       localStorage.clear();

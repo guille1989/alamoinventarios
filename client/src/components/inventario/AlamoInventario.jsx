@@ -210,6 +210,61 @@ class AlamoInventario extends Component {
       existenciasAlamoItem(item){
         this.props.existencia(item)
       }
+
+      onChangeFiltroKeyWord = (e) => {
+        //Fetch para enviar informacion al backend:
+        if(e.target.value === ''){
+          //Fetch para enviar informacion al backend:
+        const requestOptions ={
+          method: 'GET',
+          headers : new Headers({
+            'Authorization': localStorage.getItem( 'token' ),
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-type':'application/json'
+          }),
+
+        }
+    
+        fetch('http://44.201.244.11:80/api/leerexistenciasalamo', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data)
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }else{
+                    
+                }   
+                this.setState({
+                  dataExistencias : data.data
+              })             
+            })
+            .catch(err => {                 
+                console.log(err)
+            })
+        }else{
+          const requestOptions ={
+            method: 'GET',
+            headers : new Headers({
+                'Authorization': localStorage.getItem( 'token' ),
+                'Content-type':'application/json'
+              }),    
+          }      
+          fetch('http://44.201.244.11:80/api/leerexistenciasfiltro/' + e.target.value.toUpperCase(), requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                    localStorage.clear();
+                    this.props.logoutHandler();
+                  }
+  
+                this.setState({
+                    dataExistencias: data.data
+                })
+              })
+              .catch(err => console.log(err))
+        }
+      }
     
       render(){
         return (
@@ -228,6 +283,17 @@ class AlamoInventario extends Component {
             */}
             <br></br>
             <br></br>
+            <br></br>
+
+            <div className='filtroKeyWord'>  
+            <p className='resultadoRevision'><strong>Filtro por palabra clave:</strong></p>          
+            <Input
+                bsSize="sm"
+                className="mb-3"
+                placeholder="Filtro Key Word"
+                onChange={this.onChangeFiltroKeyWord}
+              />
+            </div>
             
             <Table    
               bordered   
