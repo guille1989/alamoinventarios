@@ -56,11 +56,24 @@ class AlamoDashboard extends Component {
             dataBotellasRev: [],
             dataporRev: [],
             dataReciboMes: [],
-            dataReciboMesItem: []
+            dataReciboMesItem: [],
+            xsSet: "2",
+            setYinsumesMesCosto: 0,
+            setYrevbno: 0
         }
     }  
   
     componentDidMount(){
+
+          if(isMobile){
+            this.setState({
+              xsSet: '1'
+            })
+          }else{
+            this.setState({
+              xsSet: '2'
+            })
+          }
 
           const requestOptions ={
             method: 'GET',
@@ -73,7 +86,7 @@ class AlamoDashboard extends Component {
           fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {      
-                
+                console.log(data)  
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){                  
                   localStorage.clear();
                   this.props.logoutHandler();
@@ -97,7 +110,8 @@ class AlamoDashboard extends Component {
                       data_barras_aux_03: data.data[3],
                       dataBotellasSi: data.data[5],
                       dataBotellasNo: data.data[6],
-                      dataBotellasRev: data.data[7]
+                      dataBotellasRev: data.data[7],
+                      setYrevbno: data.data[8],
                   })
                 
               })
@@ -121,16 +135,17 @@ class AlamoDashboard extends Component {
         
         //
 
-        fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes', requestOptions)
+        fetch('http://localhost:3001/api/leerexistenciarecibocostomes', requestOptions)
               .then(response => response.json())
               .then(data => {  
-                console.log(data)     
+                   
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                   localStorage.clear();
                   this.props.logoutHandler();
                 }
                 this.setState({
-                  dataReciboMes: data.data
+                  dataReciboMes: data.data[0],
+                  setYinsumesMesCosto: data.data[1]
                 })
               })
               .catch(err => console.log(err))
@@ -141,7 +156,7 @@ class AlamoDashboard extends Component {
         fetch('http://44.201.244.11:80/api/leerexistenciascostomesporitem', requestOptions)
               .then(response => response.json())
               .then(data => {                
-                console.log(data)  
+                //console.log(data)  
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                   localStorage.clear();
                   this.props.logoutHandler();
@@ -195,18 +210,14 @@ class AlamoDashboard extends Component {
   
     render() {
         return (     
-                <div>    
-                <MobileView>
-                <h3>DASHBOARD - BOTELLAS - CELULAR</h3>
-                </MobileView>
-                <BrowserView>
-                <h3>DASHBOARD - BOTELLAS - PC</h3>
-                </BrowserView>  
-                <br></br>
+                <div>                    
+                <h3 className='centroTitulo'>DASHBOARD - BOTELLAS</h3>
+                
                 <br></br>   
                 <Container>
-                  <Row xs="3">
-                    <Col className="bg-light border">
+                  <Row xs={this.state.xsSet}>
+                    <Col className="bg-light border"
+                      sm="3">
                       <AccumulationChartComponent 
                           loaded={this.onChartLoad.bind(this)}
                           id="pie-chart" 
@@ -253,7 +264,8 @@ class AlamoDashboard extends Component {
                       </AccumulationChartComponent>
                     </Col>
                     <Col className="bg-light border"
-                          xs="8">
+                          sm="9"
+                          >
                       <ChartComponent                      
                         id="charts2"
                         style={{ textAlign: "center" }} 
@@ -330,7 +342,8 @@ class AlamoDashboard extends Component {
                         </SeriesCollectionDirective>
                       </ChartComponent>
                     </Col>
-                    <Col className="bg-light border">
+                    <Col className="bg-light border"
+                    sm="6">
                       <ChartComponent 
                         width={Browser.isDevice ? '100%' : '100%'}
                         loaded={this.onChartLoadBar01.bind(this)}
@@ -342,8 +355,11 @@ class AlamoDashboard extends Component {
                             majorGridLines: { width: 0 }, 
                             majorTickLines: { width: 0 } }} 
                         primaryYAxis={{
-                        //title: 'Medal Count',
-                        majorTickLines: { width: 0 }, lineStyle: { width: 0 }, maximum: 1000, interval: 200,
+                          //title: 'Medal Count',
+                          majorTickLines: { width: 0 }, 
+                          lineStyle: { width: 0 }, 
+                          maximum: this.state.setYrevbno + this.state.setYrevbno * 0.03, 
+                          interval: this.state.setYrevbno/10,
                         }} 
                         chartArea={{ border: { width: 0 } }} 
                         tooltip={{
@@ -364,7 +380,14 @@ class AlamoDashboard extends Component {
                                       color: '#ffffff',
                                     },
                                   },
-                                }} dataSource={this.state.dataBotellasRev} tooltipMappingName='_id' xName='_id' columnSpacing={0.1} yName='SumRevExistencia' name='Botellas Rev' type='Column'>
+                                }} 
+                                dataSource={this.state.dataBotellasRev} 
+                                tooltipMappingName='_id' 
+                                xName='_id' 
+                                columnSpacing={0.1} 
+                                yName='SumRevExistencia' 
+                                name='Botellas Rev' 
+                                type='Column'>
                                 </SeriesDirective>
 
                                 <SeriesDirective marker={{
@@ -377,14 +400,22 @@ class AlamoDashboard extends Component {
                                       color: '#ffffff',
                                     },
                                   },
-                                }}  dataSource={this.state.dataBotellasNo} tooltipMappingName='_id' xName='_id' columnSpacing={0.1} yName='SumNoExistencia' name='Botellas No' type='Column' >
+                                }}  
+                                dataSource={this.state.dataBotellasNo} 
+                                tooltipMappingName='_id' 
+                                xName='_id' 
+                                columnSpacing={0.1} 
+                                yName='SumNoExistencia' 
+                                name='Botellas No' 
+                                type='Column' >
                                 </SeriesDirective>
 
                             </SeriesCollectionDirective>
                         </ChartComponent>
                     </Col>
                     <Col className="bg-light border"
-                          xs="8">
+                          sm="6"
+                          >
                             <ChartComponent 
                         loaded={this.onChartLoadBar03.bind(this)}
                         width={Browser.isDevice ? '100%' : '100%'}
@@ -395,11 +426,10 @@ class AlamoDashboard extends Component {
                         majorGridLines: { width: 0 },
                         }} 
                         primaryYAxis={{
-                        title: '', 
                         rangePadding: 'None', 
                         minimum: 0, 
-                        maximum: 5000000, 
-                        interval: 1000000, 
+                        maximum: this.state.setYinsumesMesCosto + this.state.setYinsumesMesCosto*0.03, 
+                        interval: this.state.setYinsumesMesCosto/10, 
                         lineStyle: { width: 0 },
                         majorTickLines: { width: 0 }, 
                         minorTickLines: { width: 0 },

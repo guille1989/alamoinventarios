@@ -13,7 +13,7 @@ import "../dynamic.css";
 
 import "../App.css";
 
-
+import {isMobile, BrowserView, MobileView} from 'react-device-detect';
 
 class AlamoDashboardOtros extends Component {
     constructor(props) {
@@ -56,7 +56,9 @@ class AlamoDashboardOtros extends Component {
             dataBotellasRev: [],
             dataporRev: [],
             dataReciboMes: [],
-            dataReciboMesItem: []
+            dataReciboMesItem: [],
+            xsSet: "2",
+            setYinsumesMesCosto: 0,
         }
     }
 
@@ -76,6 +78,17 @@ class AlamoDashboardOtros extends Component {
 
     
     componentDidMount(){
+
+      if(isMobile){
+        this.setState({
+          xsSet: '1'
+        })
+      }else{
+        this.setState({
+          xsSet: '2'
+        })
+      }
+
           const requestOptions ={
             method: 'GET',
             headers : new Headers({
@@ -121,7 +134,8 @@ class AlamoDashboardOtros extends Component {
                   this.props.logoutHandler();
                 }
                 this.setState({
-                  dataReciboMes: data.data
+                  dataReciboMes: data.data[0],
+                  setYinsumesMesCosto: data.data[1]
                 })
               })
               .catch(err => console.log(err))
@@ -155,12 +169,13 @@ class AlamoDashboardOtros extends Component {
     render() {
         return (     
                 <div>    
-                <h3>DASHBOARD - PLASTICOS Y CARTONES</h3>  
-                <br></br>
+                <h3 className='centroTitulo'>DASHBOARD - OTROS</h3>
+                
                 <br></br>   
                 <Container>
-                  <Row xs="3">
-                    <Col className="bg-light border">
+                  <Row xs={this.state.xsSet}>
+                    <Col className="bg-light border"
+                    sm="3">
                       <AccumulationChartComponent 
                           loaded={this.onChartLoad.bind(this)}
                           id="pie-chart" 
@@ -208,7 +223,7 @@ class AlamoDashboardOtros extends Component {
                     </Col>                   
                     
                     <Col className="bg-light border"
-                          xs="8">
+                          sm="9">
                             <ChartComponent 
                         loaded={this.onChartLoadBar03.bind(this)}
                         width={Browser.isDevice ? '100%' : '100%'}
@@ -222,8 +237,8 @@ class AlamoDashboardOtros extends Component {
                         title: '', 
                         rangePadding: 'None', 
                         minimum: 0, 
-                        maximum: 500000, 
-                        interval: 50000, 
+                        maximum: this.state.setYinsumesMesCosto + this.state.setYinsumesMesCosto*0.03, 
+                        interval: this.state.setYinsumesMesCosto/10, 
                         lineStyle: { width: 0 },
                         majorTickLines: { width: 0 }, 
                         minorTickLines: { width: 0 },

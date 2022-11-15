@@ -38,12 +38,16 @@ async function leerExistencias(){
         }]).sort({_id:0})
 
     let monthAux=['Jan', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    let maxValue=0;
 
     result.map((item, index) => {
         result[index]._id = monthAux[item._id - 1]
-        
+
+        if(item.CostoExistencia > maxValue){
+          maxValue = item.CostoExistencia
+        }
     })
       
-    return result
+    return [result, maxValue]
 }
 module.exports = ruta;

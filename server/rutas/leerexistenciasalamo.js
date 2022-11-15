@@ -25,10 +25,6 @@ async function leerExistencias(){
 
     let labels = [];
 
-    let label_01 = 'Botellas Aprobadas';
-    let label_02 = 'Botellas No Aprobadas';
-    let label_03 = 'Botellas En Revision';
-
     let data_01 = [];
     let data_02 = [];
     let data_03 = [];
@@ -79,6 +75,13 @@ async function leerExistencias(){
             SumNoExistencia: {$sum: '$ExistenciaNo'}
         }}])
 
+    let maxYAuxNoRev = 0;
+    resultNO.map((item, index) => {
+        if(item.SumNoExistencia > maxYAuxNoRev){
+            maxYAuxNoRev = item.SumNoExistencia
+        }
+    })
+
     resultREV = await Existencias.aggregate([  
         { $project: {
             _id: 0,
@@ -89,7 +92,22 @@ async function leerExistencias(){
             _id: "$PresentacionInsumo",
             SumRevExistencia: {$sum: '$ExistenciaRev'}
         }}])
+
+
+    let maxYAuxSinRev = 0;
+    resultREV.map((item, index) => {
+        if(item.SumRevExistencia > maxYAuxSinRev){
+            maxYAuxSinRev = item.SumRevExistencia
+        }
+    })
+
+    let maxYaux = 0;
+    if(maxYAuxNoRev > maxYAuxSinRev){
+        maxYaux = maxYAuxNoRev;
+    }else{
+        maxYaux = maxYAuxSinRev;
+    }
     
-    return [result, data_01, data_02, data_03, labels, resultSI, resultNO, resultREV]
+    return [result, data_01, data_02, data_03, labels, resultSI, resultNO, resultREV, maxYaux]
 }
 module.exports = ruta;
