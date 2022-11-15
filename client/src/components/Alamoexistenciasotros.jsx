@@ -71,7 +71,7 @@ class Alamoexistenciasotros extends Component {
   
           }
         //Traemos existencias
-        fetch('http://44.201.109.181:80/api/leerotrosalamogeneral', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerotrosalamogeneral', requestOptions)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -89,7 +89,7 @@ class Alamoexistenciasotros extends Component {
             .catch(err => console.log(err))
 
         //LOS QUE RECEPCION
-        fetch('http://44.201.109.181:80/api/leerpersonalrecepcion', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerpersonalrecepcion', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -108,7 +108,7 @@ class Alamoexistenciasotros extends Component {
           }) 
 
           //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-        fetch('http://44.201.109.181:80/api/leerotrosalamo', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerotrosalamo', requestOptions)
             .then(response => response.json())
             .then(data => {            
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -150,7 +150,7 @@ class Alamoexistenciasotros extends Component {
                   otros_fecha_recepcion: this.state.tapa_fecha_recepcion})
           }
       
-          fetch('http://44.201.109.181:80/api/leerotrosalamogeneral', requestOptions)
+          fetch('http://44.201.244.11:80/api/leerotrosalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -181,7 +181,7 @@ class Alamoexistenciasotros extends Component {
                   }),    
                 }
             
-                fetch('http://44.201.109.181:80/api/leerotrosalamogeneral', requestOptions)
+                fetch('http://44.201.244.11:80/api/leerotrosalamogeneral', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                       if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -220,7 +220,7 @@ class Alamoexistenciasotros extends Component {
 
         }
     
-        fetch('http://44.201.109.181:80/api/leerotrosalamogeneral', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerotrosalamogeneral', requestOptions)
             .then(response => response.json())
             .then(data => {
                 //console.log(data)
@@ -245,7 +245,7 @@ class Alamoexistenciasotros extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.201.109.181:80/api/leerexistenciasotrosfiltro/' + e.target.value.toUpperCase(), requestOptions)
+          fetch('http://44.201.244.11:80/api/leerexistenciasotrosfiltro/' + e.target.value.toUpperCase(), requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){

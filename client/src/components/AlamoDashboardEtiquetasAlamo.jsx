@@ -84,7 +84,7 @@ class AlamoDashboardEtiquetasAlamo extends Component {
             }),    
           }
       
-          fetch('http://44.201.109.181:80/api/leeretiquetasalamogeneral', requestOptions)
+          fetch('http://44.201.244.11:80/api/leeretiquetasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {      
                 console.log(data)
@@ -112,7 +112,7 @@ class AlamoDashboardEtiquetasAlamo extends Component {
         
         //
 
-        fetch('http://44.201.109.181:80/api/leerexistenciasetiquetascostomesgeneral', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciasetiquetascostomesgeneral', requestOptions)
               .then(response => response.json())
               .then(data => {  
                 //console.log(data)     
@@ -127,7 +127,7 @@ class AlamoDashboardEtiquetasAlamo extends Component {
               .catch(err => console.log(err))
                 
 
-        fetch('http://44.201.109.181:80/api/leerexistenciasetiquetascostomesitem', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciasetiquetascostomesitem', requestOptions)
               .then(response => response.json())
               .then(data => {                
                 console.log(data)  

@@ -70,7 +70,7 @@ class AlamoDashboard extends Component {
             }),    
           }
       
-          fetch('http://44.201.109.181:80/api/leerexistenciasalamogeneral', requestOptions)
+          fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {      
                 
@@ -104,7 +104,7 @@ class AlamoDashboard extends Component {
               .catch(err => console.log(err))
 
         //
-        fetch('http://44.201.109.181:80/api/leerexistenciaporcentajesinrevision', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciaporcentajesinrevision', requestOptions)
               .then(response => response.json())
               .then(data => {       
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -121,7 +121,7 @@ class AlamoDashboard extends Component {
         
         //
 
-        fetch('http://44.201.109.181:80/api/leerexistenciarecibocostomes', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes', requestOptions)
               .then(response => response.json())
               .then(data => {  
                 console.log(data)     
@@ -136,9 +136,9 @@ class AlamoDashboard extends Component {
               .catch(err => console.log(err))
 
         
-        ///http://44.201.109.181:80/api/leerexistenciascostomesporitem
+        ///http://44.201.244.11:80/api/leerexistenciascostomesporitem
 
-        fetch('http://44.201.109.181:80/api/leerexistenciascostomesporitem', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciascostomesporitem', requestOptions)
               .then(response => response.json())
               .then(data => {                
                 console.log(data)  
@@ -152,7 +152,7 @@ class AlamoDashboard extends Component {
               })
               .catch(err => console.log(err))
         //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-        fetch('http://44.201.109.181:80/api/leerbotellas', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
             .then(response => response.json())
             .then(data => {            
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
