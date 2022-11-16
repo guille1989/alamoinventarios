@@ -254,7 +254,7 @@ class AlamoDashboardOtros extends Component {
                                 dataSource={this.state.dataReciboMes} 
                                 xName="_id" 
                                 yName="CostoExistencia" 
-                                name="Gasto Existencias - Botellas" 
+                                name="Gasto Existencias - Cartones y/o Plasticos" 
                                 columnWidth={0.5}                                 
                                 type="Column"
                                 cornerRadius={{

@@ -3,8 +3,11 @@ const ruta = express();
 const Existencias = require('../model/inventarioalamo');
 const verificarToken = require('../middlewares/auth');
 
-ruta.get('/', (req, res) => {
-    let result = leerExistencias()
+ruta.get('/:existencia/:anio', (req, res) => {
+    let exAux = req.params.existencia;
+    let anioAux = req.params.anio;
+
+    let result = leerExistencias(exAux, anioAux)
     result.then(dato =>{        
         res.json({
             data: dato
@@ -16,7 +19,7 @@ ruta.get('/', (req, res) => {
     })    
 })
 
-async function leerExistencias(){
+async function leerExistencias(exAux, anioAux){
     let result = [];  
     let monthAux=['Jan', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];    
 
@@ -25,41 +28,80 @@ async function leerExistencias(){
     let resultItemsUnicos = [];
     let dobleAux = [];
 
-    resultItemsUnicos = await Existencias.distinct("PresentacionInsumo");
+    if(exAux === 'Seleccione Existencia'){
+      resultItemsUnicos = await Existencias.distinct("PresentacionInsumo");
+    }else{
+      resultItemsUnicos = [exAux]
+    }
+    
 
     for(var i=0; i<resultItemsUnicos.length; i++){
+      if(exAux === 'Seleccione Existencia'){
         resultAux = await Existencias.aggregate([  
+          {
+            $match: {PresentacionInsumo: resultItemsUnicos[i]}
+          },
+          { 
+            $project: 
             {
-              $match: {PresentacionInsumo: resultItemsUnicos[i]}
-            },
-            { 
-              $project: 
-              {
-                _id: 0,
-                PresentacionInsumo: 1,
-                ExistenciaCosto: '$CostoExistencia',
-                ExistenciaFechaRecibo: '$ExistenciasRecepcion'
-              }
-            },
-            { 
-              $group: 
-              {
-                _id: {$month : '$ExistenciaFechaRecibo' },            
-                CostoExistencia: {$sum: '$ExistenciaCosto'},
-              }
-            },
+              _id: 0,
+              PresentacionInsumo: 1,
+              ExistenciaCosto: '$CostoExistencia',
+              ExistenciaFechaRecibo: '$ExistenciasRecepcion'
+            }
+          },
+          { 
+            $group: 
             {
-                $addFields: {
-                    itemNombre: resultItemsUnicos[i]
-                }
-            }]).sort({_id:0})
+              _id: {$month : '$ExistenciaFechaRecibo' },            
+              CostoExistencia: {$sum: '$ExistenciaCosto'},
+            }
+          },
+          {
+              $addFields: {
+                  itemNombre: resultItemsUnicos[i]
+              }
+          }]).sort({_id:0})
+      }else{
 
-            resultAux.map((item, index) => {
-                resultAux[index]._id = monthAux[item._id - 1]
-                
-            })
+        resultAux = await Existencias.aggregate([  
+          {
+            $match: {
+                PresentacionInsumo: exAux
+            }
+          },
+          {
+            $match: {PresentacionInsumo: resultItemsUnicos[i]}
+          },
+          { 
+            $project: 
+            {
+              _id: 0,
+              PresentacionInsumo: 1,
+              ExistenciaCosto: '$CostoExistencia',
+              ExistenciaFechaRecibo: '$ExistenciasRecepcion'
+            }
+          },
+          { 
+            $group: 
+            {
+              _id: {$month : '$ExistenciaFechaRecibo' },            
+              CostoExistencia: {$sum: '$ExistenciaCosto'},
+            }
+          },
+          {
+              $addFields: {
+                  itemNombre: resultItemsUnicos[i]
+              }
+          }]).sort({_id:0})
 
-            dobleAux = [...dobleAux, resultAux]
+      }
+        resultAux.map((item, index) => {
+            resultAux[index]._id = monthAux[item._id - 1]
+            
+        })
+
+        dobleAux = [...dobleAux, resultAux]
     }
       
     return dobleAux

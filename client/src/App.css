@@ -190,6 +190,13 @@ td{
   width: 35%;
 }
 
+.centroTituloFiltros{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
 .configTablas{
   width: 50%;
   margin-left: 10%

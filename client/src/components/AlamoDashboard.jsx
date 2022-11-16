@@ -6,7 +6,7 @@ import { DashboardLayoutComponent, PanelsDirective, PanelDirective } from "@sync
 
 import { Browser } from '@syncfusion/ej2-base';
 
-import {Container, Row, Col} from 'reactstrap';
+import {Container, Row, Col, Input} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "../dynamic.css"; 
@@ -59,12 +59,13 @@ class AlamoDashboard extends Component {
             dataReciboMesItem: [],
             xsSet: "2",
             setYinsumesMesCosto: 0,
-            setYrevbno: 0
+            setYrevbno: 0,
+            exAux: 'Seleccione Existencia',
+            anioAux: 'Seleccione Año',
         }
     }  
   
     componentDidMount(){
-
           if(isMobile){
             this.setState({
               xsSet: '1'
@@ -83,7 +84,7 @@ class AlamoDashboard extends Component {
             }),    
           }
       
-          fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral', requestOptions)
+          fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {      
                 console.log(data)  
@@ -105,9 +106,6 @@ class AlamoDashboard extends Component {
                   this.setState({
                       dataExistencias : dataAux,
                       label_barras: data.data[4],
-                      data_barras_aux_01: data.data[1],
-                      data_barras_aux_02: data.data[2],
-                      data_barras_aux_03: data.data[3],
                       dataBotellasSi: data.data[5],
                       dataBotellasNo: data.data[6],
                       dataBotellasRev: data.data[7],
@@ -118,7 +116,7 @@ class AlamoDashboard extends Component {
               .catch(err => console.log(err))
 
         //
-        fetch('http://44.201.244.11:80/api/leerexistenciaporcentajesinrevision', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciaporcentajesinrevision/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {       
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -135,7 +133,7 @@ class AlamoDashboard extends Component {
         
         //
 
-        fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {  
                    
@@ -150,10 +148,7 @@ class AlamoDashboard extends Component {
               })
               .catch(err => console.log(err))
 
-        
-        ///http://44.201.244.11:80/api/leerexistenciascostomesporitem
-
-        fetch('http://44.201.244.11:80/api/leerexistenciascostomesporitem', requestOptions)
+        fetch('http://44.201.244.11:80/api/leerexistenciascostomesporitem/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {                
                 //console.log(data)  
@@ -207,14 +202,182 @@ class AlamoDashboard extends Component {
     chart.setAttribute('title', '');
   }
 
+  handleexAux = (e) => {
+    this.setState({
+      exAux: e.target.value
+    })
+
+    const requestOptions ={
+      method: 'GET',
+      headers : new Headers({
+        'Authorization': localStorage.getItem( 'token' ),
+        'Content-type':'application/json'
+      }),    
+    }
+
+    fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+        .then(response => response.json())
+        .then(data => {      
+          //console.log(data)  
+          if(typeof data.err !== 'undefined' && data.err.message.length > 0){                  
+            localStorage.clear();
+            this.props.logoutHandler();
+          }
+
+          let dataAux = [];
+                
+                data.data[0].map((item, index) => {
+                  if(item.SumSiExistencia === 0){
+                                        
+                  }else{
+                    dataAux.push(item)
+                  }   
+                })
+
+                  this.setState({
+                      dataExistencias : dataAux,
+                      //label_barras: data.data[4],
+                      dataBotellasNo: data.data[6],
+                      dataBotellasRev: data.data[7],
+                      setYrevbno: data.data[8],
+                  })
+        })
+        .catch(err => console.log(err))
+
+
+      //
+      fetch('http://44.201.244.11:80/api/leerexistenciaporcentajesinrevision/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+      .then(response => response.json())
+      .then(data => {     
+        if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+          localStorage.clear();
+          this.props.logoutHandler();
+        }
+
+        this.setState({
+          dataporRev: data.data
+        })
+          
+      })
+      .catch(err => console.log(err))
+
+      fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+              .then(response => response.json())
+              .then(data => {   
+                
+                console.log(data)                    
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+
+                this.setState({
+                  dataReciboMes: data.data[0],
+                  setYinsumesMesCosto: data.data[1]
+                })
+                
+              })
+              .catch(err => console.log(err))
+
+        fetch('http://44.201.244.11:80/api/leerexistenciascostomesporitem/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+              .then(response => response.json())
+              .then(data => {  
+                
+                console.log(data) 
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                this.setState({
+                  dataReciboMesItem: data.data
+                })
+              })
+              .catch(err => console.log(err))
+  }
+
+  handleAnioAux = (e) => {
+    this.setState({
+      anioAux: e.target.value
+    })
+
+    const requestOptions ={
+      method: 'GET',
+      headers : new Headers({
+        'Authorization': localStorage.getItem( 'token' ),
+        'Content-type':'application/json'
+      }),    
+    }
+
+    fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral/'+ this.state.exAux +`/${e.target.value}`, requestOptions)
+        .then(response => response.json())
+        .then(data => {      
+          if(typeof data.err !== 'undefined' && data.err.message.length > 0){                  
+            localStorage.clear();
+            this.props.logoutHandler();
+          }
+        })
+        .catch(err => console.log(err))
+  }
+
   
     render() {
         return (     
                 <div>                    
-                <h3 className='centroTitulo'>DASHBOARD - BOTELLAS</h3>
-                
+                <h3 className='centroTitulo'>DASHBOARD - BOTELLAS</h3>                
                 <br></br>   
                 <Container>
+                  <Row>
+                    <Col className="bg-light border">
+                    <br></br> 
+                      <div className='centroTituloFiltros'>                     
+                        <div>                          
+                          <h6>Existencia:</h6>
+                          <Input
+                            bsSize="sm"
+                            className="mb-3"
+                            type="select"
+                            onChange={this.handleexAux}>
+                            <option>
+                              Seleccione Existencia
+                            </option>
+                            {this.state.label_barras.map((item, index) => {
+                              return(
+                                <option>
+                                  {item}
+                                </option>
+                              )
+                            })}
+                          </Input>
+                        </div>
+                        
+                        <div>
+                          <h6>Año:</h6>
+                          <Input
+                            bsSize="sm"
+                            className="mb-3"
+                            type="select"
+                            onChange={this.handleAnioAux}>
+                            <option>
+                              Seleccione Año
+                            </option>
+                            <option>
+                              2021
+                            </option>
+                            <option>
+                              2022
+                            </option>
+                            <option>
+                              2023
+                            </option>
+                            <option>
+                              2024
+                            </option>
+                          </Input>
+                        </div>
+                      </div>                      
+                      <br></br>
+                    </Col>
+                  </Row>
                   <Row xs={this.state.xsSet}>
                     <Col className="bg-light border"
                       sm="3">
@@ -234,6 +397,7 @@ class AlamoDashboard extends Component {
                             maximumLabelWidth:100,
                             reverse: true
                           }}
+                          useGroupingSeparator={true}
                           tooltip={{ 
                               enable: true, 
                               format: '<b>${point.x}</b><br>Cantidad Existencia: <b>${point.y}</b>' }} 
@@ -360,7 +524,8 @@ class AlamoDashboard extends Component {
                           lineStyle: { width: 0 }, 
                           maximum: this.state.setYrevbno + this.state.setYrevbno * 0.03, 
                           interval: this.state.setYrevbno/10,
-                        }} 
+                        }}                         
+                        useGroupingSeparator={true}
                         chartArea={{ border: { width: 0 } }} 
                         tooltip={{
                             enable: true, 
@@ -368,8 +533,7 @@ class AlamoDashboard extends Component {
                             shared: true }} 
                         title=''>
                             <Inject services={[ColumnSeries, Legend, Tooltip, Category, DataLabel, Highlight]}/>
-                            <SeriesCollectionDirective>                                
-                                
+                            <SeriesCollectionDirective>     
                                 <SeriesDirective marker={{
                                   dataLabel: {
                                     visible: true,
@@ -377,7 +541,7 @@ class AlamoDashboard extends Component {
                                     position: 'Bottom',
                                     font: {
                                       fontWeight: '450',
-                                      color: '#ffffff',
+                                      color: '#000000',
                                     },
                                   },
                                 }} 
@@ -389,7 +553,6 @@ class AlamoDashboard extends Component {
                                 name='Botellas Rev' 
                                 type='Column'>
                                 </SeriesDirective>
-
                                 <SeriesDirective marker={{
                                   dataLabel: {
                                     visible: true,
@@ -433,16 +596,30 @@ class AlamoDashboard extends Component {
                         lineStyle: { width: 0 },
                         majorTickLines: { width: 0 }, 
                         minorTickLines: { width: 0 },
+                        labelFormat: '${value}'
                         }} 
+                        useGroupingSeparator={true}
                         chartArea={{ border: { width: 0 } }} 
                         tooltip={{ enable: true }} 
                         legendSettings={{ enableHighlight: true }} 
                         title="">
-                            <Inject services={[LineSeries, Category, Legend, Tooltip, Highlight, ColumnSeries]}/>
+                            <Inject services={[LineSeries, Category, Legend, Tooltip, DataLabel, Highlight, ColumnSeries]}/>
                             <SeriesCollectionDirective>
 
-                                <SeriesDirective                                 
+                                <SeriesDirective                                                             
                                 dataSource={this.state.dataReciboMes} 
+
+                                marker={{
+                                  dataLabel: {
+                                    visible: true,
+                                    position: 'Top',
+                                    font: {
+                                      fontWeight: '450',
+                                      color: '#ffffff',
+                                    },
+                                  },
+                                }}    
+
                                 xName="_id" 
                                 yName="CostoExistencia" 
                                 name="Gasto Existencias - Botellas" 

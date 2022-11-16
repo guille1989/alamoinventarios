@@ -36,6 +36,7 @@ class Alamologin extends Component {
           fetch('http://44.201.244.11:80/api/autenticacionusuario', requestOptions)
               .then(response => response.json())
               .then(data => {
+                    console.log(data)
                     if(data.msj==='usuario y/o contraseña incorrectos.'){
                         console.log('No puede entrar')
                     }else{
@@ -92,7 +93,8 @@ class Alamologin extends Component {
                             <Input 
                                 bsSize="sm"
                                 placeholder='Contraseña'
-                                onChange={this.handleContrasenia}/>
+                                onChange={this.handleContrasenia}
+                                type="password"/>
                         </CardText>
                         <br></br>
                         <Button 
