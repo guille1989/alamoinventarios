@@ -33,7 +33,7 @@ class Alamologin extends Component {
             headers : {'Content-type':'application/json'},
             body: JSON.stringify({user: this.state.user, password: this.state.password})    
           }      
-          fetch('http://alamoinventario.com:80/api/autenticacionusuario', requestOptions)
+          fetch('https://alamoinventario.com:80/api/autenticacionusuario', requestOptions)
               .then(response => response.json())
               .then(data => {
                     console.log(data)
