@@ -65,7 +65,7 @@ class Existenciasetiquetas extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.201.244.11:80/api/leeralamoetiquetasexistencias/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leeralamoetiquetasexistencias/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
                 console.log(data)

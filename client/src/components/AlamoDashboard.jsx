@@ -84,7 +84,7 @@ class AlamoDashboard extends Component {
             }),    
           }
       
-          fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamogeneral/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {      
                 console.log(data)  
@@ -116,7 +116,7 @@ class AlamoDashboard extends Component {
               .catch(err => console.log(err))
 
         //
-        fetch('http://44.201.244.11:80/api/leerexistenciaporcentajesinrevision/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciaporcentajesinrevision/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {       
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -133,7 +133,7 @@ class AlamoDashboard extends Component {
         
         //
 
-        fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciarecibocostomes/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {  
                    
@@ -148,7 +148,7 @@ class AlamoDashboard extends Component {
               })
               .catch(err => console.log(err))
 
-        fetch('http://44.201.244.11:80/api/leerexistenciascostomesporitem/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciascostomesporitem/'+ this.state.exAux +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {                
                 //console.log(data)  
@@ -162,7 +162,7 @@ class AlamoDashboard extends Component {
               })
               .catch(err => console.log(err))
         //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-        fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
             .then(response => response.json())
             .then(data => {            
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -215,7 +215,7 @@ class AlamoDashboard extends Component {
       }),    
     }
 
-    fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+    fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamogeneral/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
         .then(response => response.json())
         .then(data => {      
           //console.log(data)  
@@ -246,7 +246,7 @@ class AlamoDashboard extends Component {
 
 
       //
-      fetch('http://44.201.244.11:80/api/leerexistenciaporcentajesinrevision/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+      fetch('http://www.alamoinventario.com:80/api/leerexistenciaporcentajesinrevision/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
       .then(response => response.json())
       .then(data => {     
         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -261,7 +261,7 @@ class AlamoDashboard extends Component {
       })
       .catch(err => console.log(err))
 
-      fetch('http://44.201.244.11:80/api/leerexistenciarecibocostomes/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+      fetch('http://www.alamoinventario.com:80/api/leerexistenciarecibocostomes/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {   
                 
@@ -279,7 +279,7 @@ class AlamoDashboard extends Component {
               })
               .catch(err => console.log(err))
 
-        fetch('http://44.201.244.11:80/api/leerexistenciascostomesporitem/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciascostomesporitem/'+ e.target.value +`/${this.state.anioAux}`, requestOptions)
               .then(response => response.json())
               .then(data => {  
                 
@@ -308,7 +308,7 @@ class AlamoDashboard extends Component {
       }),    
     }
 
-    fetch('http://44.201.244.11:80/api/leerexistenciasalamogeneral/'+ this.state.exAux +`/${e.target.value}`, requestOptions)
+    fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamogeneral/'+ this.state.exAux +`/${e.target.value}`, requestOptions)
         .then(response => response.json())
         .then(data => {      
           if(typeof data.err !== 'undefined' && data.err.message.length > 0){                  

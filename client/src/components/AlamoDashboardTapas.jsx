@@ -98,7 +98,7 @@ class AlamoDashboardTapas extends Component {
             }),    
           }
       
-          fetch('http://44.201.244.11:80/api/leerexistenciastapasalamo', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerexistenciastapasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {      
                 //console.log(data)
@@ -126,7 +126,7 @@ class AlamoDashboardTapas extends Component {
         
         //
 
-        fetch('http://44.201.244.11:80/api/leerexistenciastapascostomesgeneral', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciastapascostomesgeneral', requestOptions)
               .then(response => response.json())
               .then(data => {  
                 //console.log(data)     
@@ -142,7 +142,7 @@ class AlamoDashboardTapas extends Component {
               .catch(err => console.log(err))
                 
 
-        fetch('http://44.201.244.11:80/api/leerexistenciastapascostomesitem', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciastapascostomesitem', requestOptions)
               .then(response => response.json())
               .then(data => {                
                 console.log(data)  

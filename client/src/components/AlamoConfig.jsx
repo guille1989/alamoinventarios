@@ -43,7 +43,7 @@ class AlamoConfig extends Component {
 
       }
   
-      fetch('http://44.201.244.11:80/api/leerpersonalrecepcion', requestOptions)
+      fetch('http://www.alamoinventario.com:80/api/leerpersonalrecepcion', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -63,7 +63,7 @@ class AlamoConfig extends Component {
 
           //Leemos segundo revision
 
-          fetch('http://44.201.244.11:80/api/leerpersonalrevision', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerpersonalrevision', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -83,7 +83,7 @@ class AlamoConfig extends Component {
 
           //Leemos tercero botellas
 
-          fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -102,7 +102,7 @@ class AlamoConfig extends Component {
         })
 
         //Tapas
-        fetch('http://44.201.244.11:80/api/leertapasalamo', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leertapasalamo', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -122,7 +122,7 @@ class AlamoConfig extends Component {
           }) 
 
           //
-          fetch('http://44.201.244.11:80/api/leerotrosalamo', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerotrosalamo', requestOptions)
             .then(response => response.json())
             .then(data => {              
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -142,7 +142,7 @@ class AlamoConfig extends Component {
             })
 
             //Etiquetas
-            fetch('http://44.201.244.11:80/api/leeretiquetasalamo', requestOptions)
+            fetch('http://www.alamoinventario.com:80/api/leeretiquetasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {              
                   if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -176,7 +176,7 @@ class AlamoConfig extends Component {
                       nombre: this.state.nombreRecepcion})
               }
           
-              fetch('http://44.201.244.11:80/api/insertpersonalrecepcion', requestOptions)
+              fetch('http://www.alamoinventario.com:80/api/insertpersonalrecepcion', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -200,7 +200,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://44.201.244.11:80/api/leerpersonalrecepcion', requestOptions)
+                      fetch('http://www.alamoinventario.com:80/api/leerpersonalrecepcion', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -241,7 +241,7 @@ class AlamoConfig extends Component {
                       id: item})
               }
           
-              fetch('http://44.201.244.11:80/api/insertpersonalrecepcion', requestOptions)
+              fetch('http://www.alamoinventario.com:80/api/insertpersonalrecepcion', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -262,7 +262,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://44.201.244.11:80/api/leerpersonalrecepcion', requestOptions)
+                      fetch('http://www.alamoinventario.com:80/api/leerpersonalrecepcion', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -301,7 +301,7 @@ class AlamoConfig extends Component {
                       nombre: this.state.nombreRevision})
               }
           
-              fetch('http://44.201.244.11:80/api/leerpersonalrevision', requestOptions)
+              fetch('http://www.alamoinventario.com:80/api/leerpersonalrevision', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -325,7 +325,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://44.201.244.11:80/api/leerpersonalrevision', requestOptions)
+                      fetch('http://www.alamoinventario.com:80/api/leerpersonalrevision', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -367,7 +367,7 @@ class AlamoConfig extends Component {
                       id: item})
               }
           
-              fetch('http://44.201.244.11:80/api/leerpersonalrevision', requestOptions)
+              fetch('http://www.alamoinventario.com:80/api/leerpersonalrevision', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -388,7 +388,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://44.201.244.11:80/api/leerpersonalrevision', requestOptions)
+                      fetch('http://www.alamoinventario.com:80/api/leerpersonalrevision', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -427,7 +427,7 @@ class AlamoConfig extends Component {
                     tapa: this.state.tapa})
             }
         
-            fetch('http://44.201.244.11:80/api/leertapasalamo', requestOptions)
+            fetch('http://www.alamoinventario.com:80/api/leertapasalamo', requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -451,7 +451,7 @@ class AlamoConfig extends Component {
               
                     }
                 
-                    fetch('http://44.201.244.11:80/api/leertapasalamo', requestOptions)
+                    fetch('http://www.alamoinventario.com:80/api/leertapasalamo', requestOptions)
                         .then(response => response.json())
                         .then(data => {              
                             if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -488,7 +488,7 @@ class AlamoConfig extends Component {
                       botella: this.state.nombreBotella})
               }
           
-              fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+              fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
                   .then(response => response.json())
                   .then(data => {
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -512,7 +512,7 @@ class AlamoConfig extends Component {
                 
                       }
                   
-                      fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+                      fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
                           .then(response => response.json())
                           .then(data => {              
                               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -571,7 +571,7 @@ class AlamoConfig extends Component {
                     id: id})
           }
       
-          fetch('http://44.201.244.11:80/api/leertapasalamo', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leertapasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -592,7 +592,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://44.201.244.11:80/api/leertapasalamo', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/leertapasalamo', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -630,7 +630,7 @@ class AlamoConfig extends Component {
                     id: id})
           }
       
-          fetch('http://44.201.244.11:80/api/leerotrosalamo', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerotrosalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -651,7 +651,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://44.201.244.11:80/api/leerotrosalamo', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/leerotrosalamo', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -689,7 +689,7 @@ class AlamoConfig extends Component {
                     id: id})
           }
       
-          fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -710,7 +710,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -748,7 +748,7 @@ class AlamoConfig extends Component {
                     id: this.state.botellaActualizarID})
           }
       
-          fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -772,7 +772,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -820,7 +820,7 @@ class AlamoConfig extends Component {
                   otros: this.state.otros})
           }
       
-          fetch('http://44.201.244.11:80/api/leerotrosalamo', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerotrosalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -844,7 +844,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://44.201.244.11:80/api/leerotrosalamo', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/leerotrosalamo', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -887,7 +887,7 @@ class AlamoConfig extends Component {
                   etiqueta: this.state.etiquetas})
           }
       
-          fetch('http://44.201.244.11:80/api/leeretiquetasalamo', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leeretiquetasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -911,7 +911,7 @@ class AlamoConfig extends Component {
             
                   }
               
-                  fetch('http://44.201.244.11:80/api/leeretiquetasalamo', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/leeretiquetasalamo', requestOptions)
                       .then(response => response.json())
                       .then(data => {              
                           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -948,7 +948,7 @@ class AlamoConfig extends Component {
                   id: id})
         }
     
-        fetch('http://44.201.244.11:80/api/leeretiquetasalamo', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leeretiquetasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -969,7 +969,7 @@ class AlamoConfig extends Component {
           
                 }
             
-                fetch('http://44.201.244.11:80/api/leeretiquetasalamo', requestOptions)
+                fetch('http://www.alamoinventario.com:80/api/leeretiquetasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {              
                         if(typeof data.err !== 'undefined' && data.err.message.length > 0){

@@ -97,7 +97,7 @@ class AlamoDashboardOtros extends Component {
             }),    
           }
       
-          fetch('http://44.201.244.11:80/api/leerotrosalamogeneral', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerotrosalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {      
                 console.log(data)
@@ -125,7 +125,7 @@ class AlamoDashboardOtros extends Component {
         
         //
 
-        fetch('http://44.201.244.11:80/api/leerexistenciasotroscostomesgeneral', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciasotroscostomesgeneral', requestOptions)
               .then(response => response.json())
               .then(data => {  
                 //console.log(data)     
@@ -141,7 +141,7 @@ class AlamoDashboardOtros extends Component {
               .catch(err => console.log(err))
                 
 
-        fetch('http://44.201.244.11:80/api/leerexistenciasotroscostomesitem', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciasotroscostomesitem', requestOptions)
               .then(response => response.json())
               .then(data => {                
                 console.log(data)  

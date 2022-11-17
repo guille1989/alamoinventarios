@@ -93,7 +93,7 @@ class AlamoInventario extends Component {
                   ExistenciasRecepcion: this.state.ExistenciasFecha})
           }
       
-          fetch('http://44.201.244.11:80/api/insertarexistenciasalamo', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/insertarexistenciasalamo', requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -124,7 +124,7 @@ class AlamoInventario extends Component {
                   }),   
                 }
             
-                fetch('http://44.201.244.11:80/api/leerexistenciasalamo', requestOptions)
+                fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamo', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         
@@ -153,7 +153,7 @@ class AlamoInventario extends Component {
           }), 
         }
     
-        fetch('http://44.201.244.11:80/api/leerexistenciasalamo', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
 
@@ -170,7 +170,7 @@ class AlamoInventario extends Component {
             .catch(err => console.log(err))
       //
       //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-      fetch('http://44.201.244.11:80/api/leerbotellas', requestOptions)
+      fetch('http://www.alamoinventario.com:80/api/leerbotellas', requestOptions)
       .then(response => response.json())
       .then(data => {              
           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -188,7 +188,7 @@ class AlamoInventario extends Component {
         console.log(err)
     })
   //LOS QUE RECEPCION
-  fetch('http://44.201.244.11:80/api/leerpersonalrecepcion', requestOptions)
+  fetch('http://www.alamoinventario.com:80/api/leerpersonalrecepcion', requestOptions)
     .then(response => response.json())
     .then(data => {              
         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -225,7 +225,7 @@ class AlamoInventario extends Component {
 
         }
     
-        fetch('http://44.201.244.11:80/api/leerexistenciasalamo', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 //console.log(data)
@@ -250,7 +250,7 @@ class AlamoInventario extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.201.244.11:80/api/leerexistenciasfiltro/' + e.target.value.toUpperCase(), requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerexistenciasfiltro/' + e.target.value.toUpperCase(), requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){

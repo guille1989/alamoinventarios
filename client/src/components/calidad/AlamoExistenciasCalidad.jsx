@@ -64,7 +64,7 @@ class AlamoExistenciasCalidad extends Component {
                 'Content-type':'application/json'
               }),  
           }      
-          fetch('http://44.201.244.11:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -78,7 +78,7 @@ class AlamoExistenciasCalidad extends Component {
               .catch(err => console.log(err))
         //
         //TRAIGO LOS QUE HACEN LA REVISION
-        fetch('http://44.201.244.11:80/api/leerpersonalrevision', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerpersonalrevision', requestOptions)
           .then(response => response.json())
           .then(data => {              
               if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -149,7 +149,7 @@ class AlamoExistenciasCalidad extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.201.244.11:80/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamorevision/' + existencia +'/'+ lote, requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -299,7 +299,7 @@ class AlamoExistenciasCalidad extends Component {
                     })
                   }
               
-                  fetch('http://44.201.244.11:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -319,7 +319,7 @@ class AlamoExistenciasCalidad extends Component {
                                 'Content-type':'application/json'
                               }),    
                         }      
-                        fetch('http://44.201.244.11:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                        fetch('http://www.alamoinventario.com:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                             .then(response => response.json())
                             .then(data => {
                                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -376,7 +376,7 @@ class AlamoExistenciasCalidad extends Component {
                     })
                   }
               
-                  fetch('http://44.201.244.11:80/api/insertrevisionexistencias', requestOptions)
+                  fetch('http://www.alamoinventario.com:80/api/insertrevisionexistencias', requestOptions)
                     .then(response => response.json())
                     .then(data => {
                             if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -394,7 +394,7 @@ class AlamoExistenciasCalidad extends Component {
                                     'Content-type':'application/json'
                                   }),    
                             }      
-                            fetch('http://44.201.244.11:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
+                            fetch('http://www.alamoinventario.com:80/api/leerexistenciasitemalamo/' + this.props.existenciaItemAlamo, requestOptions)
                                 .then(response => response.json())
                                 .then(data => {
                                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){

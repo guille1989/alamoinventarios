@@ -65,7 +65,7 @@ class Existenciasotros extends Component {
                 'Content-type':'application/json'
               }),    
           }      
-          fetch('http://44.201.244.11:80/api/leeralamootrosexistencias/' + this.props.existenciaItemAlamo, requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leeralamootrosexistencias/' + this.props.existenciaItemAlamo, requestOptions)
               .then(response => response.json())
               .then(data => {
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
