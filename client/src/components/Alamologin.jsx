@@ -36,7 +36,6 @@ class Alamologin extends Component {
           fetch('http://www.alamoinventario.com:80/api/autenticacionusuario', requestOptions)
               .then(response => response.json())
               .then(data => {
-                    console.log(data)
                     if(data.msj==='usuario y/o contraseña incorrectos.'){
                         console.log('No puede entrar')
                     }else{

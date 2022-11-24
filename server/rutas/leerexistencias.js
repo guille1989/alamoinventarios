@@ -19,7 +19,6 @@ ruta.get('/',verificarToken, (req, res) => {
 
 async function leerExistencias(){
     let result = [];
-    let resultAux = [];
     
     result = await Existencias.aggregate([  
         { $project: {
@@ -35,7 +34,34 @@ async function leerExistencias(){
             SumRevExistencia: {$sum: '$ExistenciaRev'},
             SumNoExistencia: {$sum: '$ExistenciaNo'},
         }}]).sort({_id:0})
+
+    let resultAux = [];
+
+    result.map((item, index) => {
+        if(item._id.includes('LT')){            
+            //console.log(Number(item._id.match(/[+-]?\d+(\.\d+)?/g))*1000)
+            resultAux.push({cap: Number(item._id.match(/[+-]?\d+(\.\d+)?/g))*1000, indexA: index});
+        }else{
+            //console.log(Number(item._id.match(/[+-]?\d+(\.\d+)?/g)))
+            resultAux.push({cap: Number(item._id.match(/[+-]?\d+(\.\d+)?/g)), indexA: index});
+        }
+    })
+
+    resultAux.sort(function(a, b) {
+        return parseFloat(a.cap) - parseFloat(b.cap);
+    });
+
+    //console.log(resultAux)
+    //console.log(resultAux.length)
+
+    let resultAuxB = [];
+
+    for(i=0; i<resultAux.length; i++){
+        resultAuxB.push(result[resultAux[i].indexA])
+    }
+
+    //console.log(resultAuxB)
     
-    return result
+    return resultAuxB
 }
 module.exports = ruta;

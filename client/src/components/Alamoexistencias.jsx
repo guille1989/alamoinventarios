@@ -167,7 +167,7 @@ class Alamoexistencias extends Component {
         fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamo', requestOptions)
             .then(response => response.json())
             .then(data => {
-                //console.log(data)
+                console.log(data)
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                   localStorage.clear();
                   this.props.logoutHandler();

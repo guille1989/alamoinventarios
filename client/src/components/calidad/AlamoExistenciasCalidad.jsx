@@ -220,7 +220,7 @@ class AlamoExistenciasCalidad extends Component {
                     //size="sm"
                     onClick={() => {
                         this.setState({
-                            modalFoto: !this.state.modalFoto,
+                            //modalFoto: !this.state.modalFoto,
                             PresentacionInsumoFoto: PresentacionInsumo,
                             ExistenciasLoteFoto: ExistenciasLote,
                             rechazar_inspeccion_s4Foto: rechazar_inspeccion_s4,

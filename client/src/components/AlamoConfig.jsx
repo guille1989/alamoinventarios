@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Table, Nav, NavLink, NavItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { AccordionComponent, AccordionItemDirective, AccordionItemsDirective } from '@syncfusion/ej2-react-navigations';
+
 class AlamoConfig extends Component {
     constructor(props) {
         super(props);
@@ -1000,171 +1002,205 @@ class AlamoConfig extends Component {
                 <div className='configTablas'>                
                     <br></br>
                     <br></br>                   
-                    <Button color='success' onClick={() => this.setState({modalRecepcion: !this.state.modalRecepcion})}>Ingresar Responsable Recepciones</Button>
-                    <Table    
-                        bordered   
-                        borderless
-                        striped
-                        size="sm">
-                        <tbody>
-                        <tr>
-                            <th>No.</th>
-                            <th>Nombre Responsable Recepcion</th>
-                            <th></th>
-                        </tr>
-                        {this.state.dataRecepcion.map((item, index) => {
-                        return(
-                            <>                        
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.nombre}</td>
-                                <td className='titulotabla' onClick={() => this.elimiarPersonalRecepcion(item._id, item.nombre)}>Eliminar</td>
-                            </tr>
-                            </>
-                            
-                        )
-                        })}   
-                        </tbody>
-                    </Table>
                     
-                    <Button color='success' onClick={() => this.setState({modalRevision: !this.state.modalRevision})}>Ingresar Responsable Revision-Calidad</Button>
-                    <Table    
-                        bordered   
-                        borderless
-                        striped
-                        size="sm">
-                        <tbody>
-                        <tr>
-                            <th>No.</th>
-                            <th>Nombre Responsable Revision - Calidad</th>
-                            <th></th>
-                        </tr>
-                        {this.state.dataRevision.map((item, index) => {
-                        return(
-                            <>                        
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.nombre}</td>
-                                <td className='titulotabla' onClick={() => this.elimiarPersonalRevision(item._id, item.nombre)}>Eliminar</td>
+                <AccordionComponent>
+                <AccordionItemsDirective>
+                  <AccordionItemDirective header='Personal Recepcion Existencias' expanded={true} content={() => {
+                    return(
+                      <>
+                      <Button color='success' onClick={() => this.setState({modalRecepcion: !this.state.modalRecepcion})}>Ingresar Responsable Recepciones</Button>
+                      <Table    
+                          bordered   
+                          borderless
+                          striped
+                          size="sm">
+                          <tbody>
+                          <tr>
+                              <th>No.</th>
+                              <th>Nombre Responsable Recepcion</th>
+                              <th></th>
+                          </tr>
+                          {this.state.dataRecepcion.map((item, index) => {
+                          return(
+                              <>                        
+                              <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{item.nombre}</td>
+                                  <td className='titulotabla' onClick={() => this.elimiarPersonalRecepcion(item._id, item.nombre)}>Eliminar</td>
+                              </tr>
+                              </>
+                              
+                          )
+                          })}   
+                          </tbody>
+                      </Table>
+                      </>
+                    )
+                  }}/>
+                  <AccordionItemDirective header='Personal Revision Calidad Existencias' content={() => {
+                    return(
+                      <>
+                        <Button color='success' onClick={() => this.setState({modalRevision: !this.state.modalRevision})}>Ingresar Responsable Revision-Calidad</Button>
+                        <Table    
+                            bordered   
+                            borderless
+                            striped
+                            size="sm">
+                            <tbody>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nombre Responsable Revision - Calidad</th>
+                                <th></th>
                             </tr>
-                            </>
-                            
-                        )
-                        })}   
-                        </tbody>
-                    </Table>
-                    
-                    <Button color='success' onClick={() => this.setState({modalBotellas: !this.state.modalBotellas})}>Ingresar Nueva Existencia - Botellas</Button>
-                    <Table    
-                        bordered   
-                        borderless
-                        striped
-                        size="sm">
-                        <tbody>
-                        <tr>
-                            <th>No.</th>
-                            <th>Tipo Existencia</th>
-                            <th></th>
-                        </tr>
-                        {this.state.dataBotellas.map((item, index) => {
-                        return(
-                            <>                        
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.botella}</td>
-                                <td className='titulotabla' onClick={() => {this.eliminarBotellaAlamo(item.botella, item._id)}}>Eliminar</td>
+                            {this.state.dataRevision.map((item, index) => {
+                            return(
+                                <>                        
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{item.nombre}</td>
+                                    <td className='titulotabla' onClick={() => this.elimiarPersonalRevision(item._id, item.nombre)}>Eliminar</td>
+                                </tr>
+                                </>
+                                
+                            )
+                            })}   
+                            </tbody>
+                        </Table>
+                      </>
+                    )
+                  }}/>
+                  <AccordionItemDirective header='Existencias - Botellas' content={() => {
+                    return(
+                      <>
+                      <Button color='success' onClick={() => this.setState({modalBotellas: !this.state.modalBotellas})}>Ingresar Nueva Existencia - Botellas</Button>
+                        <Table    
+                            bordered   
+                            borderless
+                            striped
+                            size="sm">
+                            <tbody>
+                            <tr>
+                                <th>No.</th>
+                                <th>Tipo Existencia</th>
+                                <th></th>
                             </tr>
-                            </>
-                            
-                        )
-                        })}   
-                        </tbody>
-                    </Table>
-
-
-                    <Button color='success' onClick={() => this.setState({modalTapas: !this.state.modalTapas})}>Ingresar Nueva Existencia - Tapas</Button>
-                    <Table    
-                        bordered   
-                        borderless
-                        striped
-                        size="sm">
-                        <tbody>
-                        <tr>
-                            <th>No.</th>
-                            <th>Tipo Existencia</th>
-                            <th></th>
-                        </tr>
-                        {this.state.dataTapas.map((item, index) => {
-                        return(
-                            <>                        
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.tapa}</td>
-                                <td className='titulotabla' onClick={() => {this.eliminarTapaAlamo(item.tapa, item._id)}}>Eliminar</td>
-                            </tr>
-                            </>
-                            
-                        )
-                        })}   
-                        </tbody>
-                    </Table>     
-
-
-                    <Button color='success' onClick={() => this.setState({modalOtros: !this.state.modalOtros})}>Ingresar Nueva Existencia - Plastico y/o Cartones</Button>
-                    <Table    
-                        bordered   
-                        borderless
-                        striped
-                        size="sm">
-                        <tbody>
-                        <tr>
-                            <th>No.</th>
-                            <th>Tipo Existencia</th>
-                            <th></th>
-                        </tr>
-                        {this.state.dataOtros.map((item, index) => {
-                        return(
-                            <>                        
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.otros}</td>
-                                <td className='titulotabla' onClick={() => {this.eliminarOtroAlamo(item.otros, item._id)}}>Eliminar</td>
-                            </tr>
-                            </>
-                            
-                        )
-                        })}   
-                        </tbody>
-                    </Table>  
-
-
-                    <Button color='success' onClick={() => this.setState({modalEtiquetas: !this.state.modalEtiquetas})}>Ingresar Nueva Existencia - Etiquetas</Button>
-                    <Table    
-                        bordered   
-                        borderless
-                        striped
-                        size="sm">
-                        <tbody>
-                        <tr>
-                            <th>No.</th>
-                            <th>Tipo Existencia</th>
-                            <th></th>
-                        </tr>
-                        {this.state.dataEtiquetas.map((item, index) => {
-                        return(
-                            <>                        
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.etiqueta}</td>
-                                <td className='titulotabla' onClick={() => {this.eliminarEtiquetaAlamo(item.etiqueta, item._id)}}>Eliminar</td>
-                            </tr>
-                            </>
-                            
-                        )
-                        })}   
-                        </tbody>
-                    </Table>             
-                </div>
+                            {this.state.dataBotellas.map((item, index) => {
+                            return(
+                                <>                        
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{item.botella}</td>
+                                    <td className='titulotabla' onClick={() => {this.eliminarBotellaAlamo(item.botella, item._id)}}>Eliminar</td>
+                                </tr>
+                                </>
+                                
+                            )
+                            })}   
+                            </tbody>
+                        </Table>
+                      </>
+                    )
+                  }}/>
+                  <AccordionItemDirective header='Existencias - Tapas' content={() => {
+                    return(
+                      <>
+                      <Button color='success' onClick={() => this.setState({modalTapas: !this.state.modalTapas})}>Ingresar Nueva Existencia - Tapas</Button>
+                      <Table    
+                          bordered   
+                          borderless
+                          striped
+                          size="sm">
+                          <tbody>
+                          <tr>
+                              <th>No.</th>
+                              <th>Tipo Existencia</th>
+                              <th></th>
+                          </tr>
+                          {this.state.dataTapas.map((item, index) => {
+                          return(
+                              <>                        
+                              <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{item.tapa}</td>
+                                  <td className='titulotabla' onClick={() => {this.eliminarTapaAlamo(item.tapa, item._id)}}>Eliminar</td>
+                              </tr>
+                              </>
+                              
+                          )
+                          })}   
+                          </tbody>
+                      </Table>
+                      </>
+                    )
+                  }}/>
+                  <AccordionItemDirective header='Existencias - Etiquetas' content={() => {
+                    return(
+                      <>
+                      <Button color='success' onClick={() => this.setState({modalEtiquetas: !this.state.modalEtiquetas})}>Ingresar Nueva Existencia - Etiquetas</Button>
+                      <Table    
+                          bordered   
+                          borderless
+                          striped
+                          size="sm">
+                          <tbody>
+                          <tr>
+                              <th>No.</th>
+                              <th>Tipo Existencia</th>
+                              <th></th>
+                          </tr>
+                          {this.state.dataEtiquetas.map((item, index) => {
+                          return(
+                              <>                        
+                              <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{item.etiqueta}</td>
+                                  <td className='titulotabla' onClick={() => {this.eliminarEtiquetaAlamo(item.etiqueta, item._id)}}>Eliminar</td>
+                              </tr>
+                              </>
+                              
+                          )
+                          })}   
+                          </tbody>
+                      </Table>
+                      </>
+                    )
+                  }}/>
+                  <AccordionItemDirective header='Existencias - Plasticos y/o Cartones' content={() => {
+                    return(
+                      <>
+                      <Button color='success' onClick={() => this.setState({modalOtros: !this.state.modalOtros})}>Ingresar Nueva Existencia - Plastico y/o Cartones</Button>
+                      <Table    
+                          bordered   
+                          borderless
+                          striped
+                          size="sm">
+                          <tbody>
+                          <tr>
+                              <th>No.</th>
+                              <th>Tipo Existencia</th>
+                              <th></th>
+                          </tr>
+                          {this.state.dataOtros.map((item, index) => {
+                          return(
+                              <>                        
+                              <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{item.otros}</td>
+                                  <td className='titulotabla' onClick={() => {this.eliminarOtroAlamo(item.otros, item._id)}}>Eliminar</td>
+                              </tr>
+                              </>
+                              
+                          )
+                          })}   
+                          </tbody>
+                      </Table>  
+                      </>
+                    )
+                  }}/>
+                </AccordionItemsDirective>
+              </AccordionComponent>
+              
+              </div>
 
                 <Modal isOpen={this.state.modalRecepcion}>
                     <ModalHeader>Ingresar personal recepcion existencias - Alamo</ModalHeader>

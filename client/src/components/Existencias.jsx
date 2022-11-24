@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {FormGroup, Toast, ToastHeader,ToastBody, Card, CardHeader, CardBody, CardTitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Table } from 'reactstrap';
+import {FormGroup, Toast, ToastHeader,ToastBody, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Container, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Table } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Webcam from "react-webcam";
+import "../App.css";
 
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
@@ -224,7 +225,7 @@ class existencias extends Component {
                     //size="sm"
                     onClick={() => {
                         this.setState({
-                            modalFoto: !this.state.modalFoto,
+                            //modalFoto: !this.state.modalFoto,
                             PresentacionInsumoFoto: PresentacionInsumo,
                             ExistenciasLoteFoto: ExistenciasLote,
                             rechazar_inspeccion_s4Foto: rechazar_inspeccion_s4,
@@ -445,6 +446,7 @@ class existencias extends Component {
             fotoArchivo: dataUri
         })
         console.log(this.state.contFotosAuz);
+        console.log(dataUri)
       }
 
     render() {
@@ -496,7 +498,11 @@ class existencias extends Component {
                   </tbody>  
                   </Table>
             </div>
-            <Modal isOpen={this.state.revExistencia}>
+
+    
+            <Modal isOpen={this.state.revExistencia}  style={{
+            width: '40rem'
+        }}> 
             <ModalHeader>Revision de Existencia {this.state.existenciasAlamo}  Lote {this.state.existenciaLote}</ModalHeader>
             <ModalBody>
             {/*
@@ -521,16 +527,7 @@ class existencias extends Component {
                     <option>{item.nombre}</option>
                   )
                 })}          
-              </Input>
-
-            {/*<Input
-                bsSize="sm"
-                className="mb-3"
-                placeholder="Numero de Muestras"
-                type="number"
-                onChange={this.onChangeNumeroMuestras}
-                value={this.state.NumeroMuestrasExistencias}
-                />*/}            
+              </Input>           
             
             <p>Muestras para la revision: {this.state.NumeroMuestrasExistencias}</p>
           
@@ -812,7 +809,11 @@ class existencias extends Component {
             </ModalFooter>
         </Modal>
 
-        <Modal isOpen={this.state.modalInfoRevExistencia}>
+        
+        <Modal isOpen={this.state.modalInfoRevExistencia}  style={{
+            width: '40rem'
+        }}>
+            
             <ModalHeader>Existencia {this.state.existenciasAlamo}  Lote {this.state.existenciaLote}</ModalHeader>
             <ModalBody>
                 {this.state.dataRev.map((item, index) => {
@@ -856,11 +857,15 @@ class existencias extends Component {
                                             })}>
                 Aceptar
             </Button>
-            </ModalFooter>
+            </ModalFooter>           
         </Modal>
+        
 
-
-        <Modal isOpen={this.state.modalFoto}>
+        <Modal isOpen={this.state.modalFoto}
+        style={{
+            width: '40rem'
+        }}>
+            <div>
             <ModalHeader>Fotos muestras</ModalHeader>
             <ModalBody>
 
@@ -873,7 +878,8 @@ class existencias extends Component {
               
                 <Camera
                     onTakePhoto = { (dataUri) => { this.handleTakePhoto(dataUri); } }
-                />                         
+                    idealResolution = {{width: 640, height: 480}}                    
+                />    
 
             </ModalBody>
             <ModalFooter>
@@ -888,6 +894,7 @@ class existencias extends Component {
                 Cancel
             </Button>
             </ModalFooter>
+            </div>
         </Modal>
             </>
         );

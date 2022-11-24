@@ -5,6 +5,7 @@
   "dependencies": {
     "@syncfusion/ej2-react-charts": "^20.3.56",
     "@syncfusion/ej2-react-layouts": "^20.3.56",
+    "@syncfusion/ej2-react-navigations": "^20.3.57",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
