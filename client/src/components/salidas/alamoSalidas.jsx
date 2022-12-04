@@ -443,7 +443,7 @@ class AlamoSalidas extends Component {
                         <>
                           {item.numero_botellas_salida? (
                           <>
-                          <td>Cantidad: {item.numero_botellas_salida}</td>
+                          <td>Cantidad: {item.numero_botellas_salida}</td> <br></br>
                           <td>&nbsp;&nbsp;Origen Lote: {item.stock_lote_botellas}</td>
                           </>
                           ):(<td></td>)}
@@ -460,7 +460,7 @@ class AlamoSalidas extends Component {
                         <>
                           {item.numero_tapas_salida? (
                             <>
-                            <td>Cantidad: {item.numero_tapas_salida}</td>
+                            <td>Cantidad: {item.numero_tapas_salida}</td> <br></br>
                             <td>&nbsp;&nbsp;Origen Lote: {item.stock_lote_tapas}</td>
                             </>
                             ):(<td></td>)}
@@ -477,7 +477,7 @@ class AlamoSalidas extends Component {
                         <>
                           {item.numero_etiquetas_salida? (
                           <>
-                          <td>Cantidad: {item.numero_etiquetas_salida}</td>
+                          <td>Cantidad: {item.numero_etiquetas_salida}</td> <br></br>
                           <td>&nbsp;&nbsp;Origen Lote: {item.stock_lote_etiquetas}</td>
                           </>
                           ):(<td></td>)}
