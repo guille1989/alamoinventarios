@@ -22,7 +22,7 @@ ruta.get('/:item', verificarToken,  (req, res) => {
 async function leerExistencias(itemAlamo){
     let result = [];
 
-    result = await Existencias.find({PresentacionInsumo: itemAlamo})
+    result = await Existencias.find({PresentacionInsumo: itemAlamo, ExistenciasStock: {$ne: 0}})
     //result = await Existencias.aggregate([{$group: {_id:"$PresentacionInsumo", sum_val:{$sum:"$ExistenciasStock"}}}]).sort({sum_val:0})
     return result
 }

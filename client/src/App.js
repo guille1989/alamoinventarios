@@ -31,6 +31,7 @@ import AlamoExistenciasEtiquetasTipo from './components/Existenciasetiquetas';
 import AlamoDashboardTapasAlamo from './components/AlamoDashboardTapas';
 import AlamoDashboardEtiquetasAlamo from './components/AlamoDashboardEtiquetasAlamo';
 import AlamoDashboardOtros from './components/AlamoDashboardOtros';
+import AlamoSalidas from './components/salidas/alamoSalidas';
 //
 
 class App extends Component {
@@ -47,6 +48,7 @@ class App extends Component {
   }
 
   existenciaAlamoRevision(item){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'EXISTENCIAS',
       user: 'EXISTENCIAS',
@@ -55,6 +57,7 @@ class App extends Component {
   }
 
   existenciaAlamoRevisionInventarios(item){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'INVENTARIO_EXISTENCIAS',
       existenciaItem: item
@@ -62,6 +65,7 @@ class App extends Component {
   }
 
   existenciaAlamoTapas(item){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'TAPAS_EXISTENCIAS',
       existenciaItem: item
@@ -69,6 +73,7 @@ class App extends Component {
   }
 
   existenciaAlamoOtros(item){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'OTROS_EXISTENCIAS',
       existenciaItem: item
@@ -76,6 +81,7 @@ class App extends Component {
   }
 
   existenciaAlamoEtiquetas(item){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'OTROS_ETIQUETAS',
       existenciaItem: item
@@ -83,6 +89,7 @@ class App extends Component {
   }
 
   existenciaAlamoRevisionCalidad(item){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'CALIDAD_EXISTENCIAS',
       existenciaItem: item
@@ -90,51 +97,63 @@ class App extends Component {
   }
 
   handlealamoDashboard(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'DASHBOARD',
     })
   }
 
   handlealamoDashboardTapas(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'TAPAS_DASHBOARD',
     })
   }
 
   handlealamoDashboardEtiquetas(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'ETIQUETAS_DASHBOARD',
     })
   }
 
   handlealamoDashboardOtros(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'OTROS_DASHBOARD',
     })
   }
 
-  handleLogInAlamo(){
+  handleLogInAlamo(){    
     this.setState({
       opcion: 'INICIO',
       user: 'INICIO',
     })
   }
 
-  handleInventarioUsuario(){
+  handleInventarioUsuario(){  
     this.setState({
       opcion: 'INVENTARIO',
       user: 'INVENTARIO',
     })
   }
 
-  handleCalidadUsuario(){
+  handleCalidadUsuario(){ 
     this.setState({
       opcion: 'CALIDAD',
       user: 'CALIDAD',
     })
   }
 
+  handleSalidas(){
+    this.setState({
+      opcion: 'SALIDAS',
+      user:'SALIDAS'
+    })
+  }
+
   handleLogOut(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'LOGIN',
       user: 'LOGIN',
@@ -142,43 +161,57 @@ class App extends Component {
   }
 
   handleAlamoConfig(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'OPCION',
       user: 'OPCION'
     })
   }
 
+  handleAlamoSalidas(){
+    document.getElementById("burgerMenu").checked = false;
+    this.setState({
+      opcion: 'SALIDAS'
+    })
+  }
+
   handleInicioAlamo(){
+    document.getElementById("burgerMenu").checked = false;   
     this.setState({
       opcion: 'INICIO'
     })
   }
 
   handleTapasAlamo(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'TAPAS'
     })
   }
 
   handleEtiquetasAlamo(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'ETIQUETAS'
     })
   }
 
   handleOtrosAlamo(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'OTROS'
     })
   }
 
   handleCalidadAlamo(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'CALIDAD',
     })
   }
 
   handleInventariolamo(){
+    document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'INVENTARIO',
     })
@@ -202,6 +235,11 @@ class App extends Component {
         user: 'CALIDAD'
       })
       this.handleCalidadUsuario()
+    }else if(usertAuth === 'salidas'){
+      this.setState({
+        user: 'SALIDAS'
+      })
+      this.handleSalidas()
     }else{
 
     }
@@ -236,7 +274,7 @@ class App extends Component {
   render(){
     const opcionEstado = () => {
       switch(this.state.opcion){
-        case 'LOGIN':                     return <AlamoLogIn logoutHandler={this.handleLogOut.bind(this)} loginHandler={this.handleLogInAlamo.bind(this)} inventarioHandler={this.handleInventarioUsuario.bind(this)} calidadHandler={this.handleCalidadUsuario.bind(this)}/>
+        case 'LOGIN':                     return <AlamoLogIn logoutHandler={this.handleLogOut.bind(this)} loginHandler={this.handleLogInAlamo.bind(this)} inventarioHandler={this.handleInventarioUsuario.bind(this)} calidadHandler={this.handleCalidadUsuario.bind(this)} salidasHandler={this.handleSalidas.bind(this)}/>
         case 'INVENTARIO':                return <AlamoInventarioUser logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevisionInventarios.bind(this)}/>
         case 'CALIDAD':                   return <AlamoInventarioCalidad logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevisionCalidad.bind(this)} />
         case 'INVENTARIO_EXISTENCIAS':    return <AlamoExistenciasInventario logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
@@ -254,6 +292,7 @@ class App extends Component {
         case 'TAPAS_DASHBOARD':           return <AlamoDashboardTapasAlamo />
         case 'ETIQUETAS_DASHBOARD':       return <AlamoDashboardEtiquetasAlamo />
         case 'OTROS_DASHBOARD':           return <AlamoDashboardOtros />
+        case 'SALIDAS':                   return <AlamoSalidas />
       }
     }
     return (
@@ -268,7 +307,7 @@ class App extends Component {
             <>
             <nav className="navbar">
                 <div className="navbar-container container">
-                    <input type="checkbox" name="" id="" />
+                    <input type="checkbox" name="" id="burgerMenu" />
                     <div className="hamburger-lines">
                         <span className="line line1"></span>
                         <span className="line line2"></span>
@@ -297,7 +336,7 @@ class App extends Component {
             <>
             <nav className="navbar">
                 <div className="navbar-container container">
-                    <input type="checkbox" name="" id="" />
+                    <input type="checkbox" name="" id="burgerMenu" />
                     <div className="hamburger-lines">
                         <span className="line line1"></span>
                         <span className="line line2"></span>
@@ -338,12 +377,60 @@ class App extends Component {
           <div>{opcionEstado()}</div>
           </>
           )
+        } else if(this.state.user === 'SALIDAS'){
+          return(
+            <>
+            <nav className="navbar">
+                <div className="navbar-container container">
+                    <input type="checkbox" name="" id="burgerMenu" />
+                    <div className="hamburger-lines">
+                        <span className="line line1"></span>
+                        <span className="line line2"></span>
+                        <span className="line line3"></span>
+                    </div>
+                    <ul className="menu-items">
+                        
+                        {/*<li><a href="#" onClick={() => {this.handleInventariolamo()}}>Inventario Alamo</a></li>*/}
+
+                        {/*
+                        <Dropdown nav isOpen={this.state.dropdownI} toggle={this.toggleDropdownInventarios}>
+                        <DropdownToggle nav caret>
+                          Inventarios Alamo
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem onClick={() => {this.handleInventariolamo()}}>Botellas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleTapasAlamo()}}>Tapas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleEtiquetasAlamo()}}>Etiquetas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleOtrosAlamo()}}>Plasticos y Carton  </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                        */}
+                        
+                        <li><a href="#" onClick={() => {
+                                                    if(window.confirm('Seguro quiere salir ?')){
+                                                      localStorage.clear();
+                                                      this.handleLogOut();
+                                                    }else{
+
+                                                    }
+                                                  }}>Salir</a></li>
+                    </ul>
+                    <img className="logo" src={imgLogo}></img>
+                </div>
+            </nav> 
+
+          <div>{opcionEstado()}</div>
+          </>
+          )
         } else {
           return (
             <>
             <nav className="navbar">
                 <div className="navbar-container container">
-                    <input type="checkbox" name="" id="" />
+                    <input type="checkbox" name="" id="burgerMenu" />
                     <div className="hamburger-lines">
                         <span className="line line1"></span>
                         <span className="line line2"></span>
@@ -352,6 +439,8 @@ class App extends Component {
                     <ul className="menu-items">
                         
                         {/*<li><a href="Inventario" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>*/}
+
+                      <li><a href="#" onClick={() => {this.handleAlamoSalidas()}}>Salidas</a></li>
 
                       <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                         <DropdownToggle nav caret>

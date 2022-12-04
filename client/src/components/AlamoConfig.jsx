@@ -11,6 +11,7 @@ class AlamoConfig extends Component {
             dataRecepcion: [],
             dataRevision: [],
             dataBotellas: [],
+            dataSalidas: [],
             modalRecepcion: false,
             nombreRecepcion: '',
             modalRevision: false,
@@ -22,6 +23,8 @@ class AlamoConfig extends Component {
             botellaActualizar: '',
             botellaActualizarID: '',
             modalTapas: false,
+            modalSalidas: false,
+            nombreSalidas: '',
             tapa: '',
             dataTapas: [],
             dataOtros: [],
@@ -44,6 +47,24 @@ class AlamoConfig extends Component {
         }),
 
       }
+
+      fetch('http://www.alamoinventario.com:80/api/crudsalidaexistenciasalamo', requestOptions)
+          .then(response => response.json())
+          .then(data => {              
+              if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                localStorage.clear();
+                this.props.logoutHandler();
+              }else{
+                  
+              }   
+              this.setState({
+                dataSalidas : data.data
+            })   
+                      
+          })
+          .catch(err => {                 
+              console.log(err)
+          }) 
   
       fetch('http://www.alamoinventario.com:80/api/leerpersonalrecepcion', requestOptions)
           .then(response => response.json())
@@ -162,6 +183,68 @@ class AlamoConfig extends Component {
               .catch(err => {                 
                   console.log(err)
               })
+    }
+
+    insertPersonalSalidasAlamo = () => {
+      console.log(this.state.nombreSalidas)
+      if(this.state.nombreSalidas === ''){
+        alert('Por favor ingresar nombre')
+    }else{
+        const requestOptions ={
+            method: 'POST',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                  nombre: this.state.nombreSalidas.toUpperCase()})
+          }
+      
+          fetch('http://www.alamoinventario.com:80/api/crudsalidaexistenciasalamo', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('Persona ingresada a salidas !!')
+                this.setState({
+                modalSalidas: !this.state.modalSalidas
+                })
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://www.alamoinventario.com:80/api/crudsalidaexistenciasalamo', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          this.setState({
+                            dataSalidas : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err)) 
+    }
+
     }
 
     insertPersonalRecepcionAlamo = () => {
@@ -677,6 +760,64 @@ class AlamoConfig extends Component {
         }
       }
 
+      elimiarPersonalSalida = (id, nombre) => {
+        if (window.confirm(`Seguro de eliminar a: ${nombre}?`)) {
+          const requestOptions ={
+            method: 'DELETE',
+            headers : new Headers({
+              'Authorization': localStorage.getItem( 'token' ),
+              'Content-type':'application/json'
+            }),
+            body: JSON.stringify({
+                  nombre: nombre,
+                    id: id})
+          }
+      
+          fetch('http://www.alamoinventario.com:80/api/crudsalidaexistenciasalamo', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                  localStorage.clear();
+                  this.props.logoutHandler();
+                }
+                
+                alert('personal eliminado !!')
+               
+                //Actualizamos DATA   
+                const requestOptions ={
+                    method: 'GET',
+                    headers : new Headers({
+                      'Authorization': localStorage.getItem( 'token' ),
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-type':'application/json'
+                    }),
+            
+                  }
+              
+                  fetch('http://www.alamoinventario.com:80/api/crudsalidaexistenciasalamo', requestOptions)
+                      .then(response => response.json())
+                      .then(data => {              
+                          if(typeof data.err !== 'undefined' && data.err.message.length > 0){
+                            localStorage.clear();
+                            this.props.logoutHandler();
+                          }else{
+                              
+                          }   
+                          this.setState({
+                            dataSalidas : data.data
+                        })   
+                                  
+                      })
+                      .catch(err => {                 
+                          console.log(err)
+                      }) 
+              })
+              .catch(err => console.log(err))
+        }else{
+
+        }
+      }
+
       eliminarBotellaAlamo = (botella, id) => {
 
         if (window.confirm(`Seguro de eliminar existencia: ${botella}?`)) {
@@ -999,6 +1140,7 @@ class AlamoConfig extends Component {
     render() {
         return (
             <div>
+                <div className='configTablaCenter'>
                 <div className='configTablas'>                
                     <br></br>
                     <br></br>                   
@@ -1059,6 +1201,39 @@ class AlamoConfig extends Component {
                                     <td>{index + 1}</td>
                                     <td>{item.nombre}</td>
                                     <td className='titulotabla' onClick={() => this.elimiarPersonalRevision(item._id, item.nombre)}>Eliminar</td>
+                                </tr>
+                                </>
+                                
+                            )
+                            })}   
+                            </tbody>
+                        </Table>
+                      </>
+                    )
+                  }}/>
+                  <AccordionItemDirective header='Personal Salida Existencias' content={() => {
+                    return(
+                      <>
+                        <Button color='success' onClick={() => this.setState({modalSalidas: !this.state.modalSalidas})}>Ingresar Responsable Salida Existencias</Button>
+
+                        <Table    
+                            bordered   
+                            borderless
+                            striped
+                            size="sm">
+                            <tbody>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nombre Responsable Salida - Existencias</th>
+                                <th></th>
+                            </tr>
+                            {this.state.dataSalidas.map((item, index) => {
+                            return(
+                                <>                        
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{item.nombre}</td>
+                                    <td className='titulotabla' onClick={() => this.elimiarPersonalSalida(item._id, item.nombre)}>Eliminar</td>
                                 </tr>
                                 </>
                                 
@@ -1201,6 +1376,26 @@ class AlamoConfig extends Component {
               </AccordionComponent>
               
               </div>
+              </div>
+              <Modal isOpen={this.state.modalSalidas}>
+                    <ModalHeader>Ingresar personal salida existencias - Alamo</ModalHeader>
+                    <ModalBody>
+                        <Input
+                            bsSize="sm"
+                            className="mb-3"
+                            placeholder="Nombre persona recepcion"
+                            onChange={(e) => this.setState({nombreSalidas: e.target.value})}
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.insertPersonalSalidasAlamo}>
+                        Agregar Existencia
+                        </Button>
+                        <Button color="secondary" onClick={() => this.setState({modalSalidas: !this.state.modalSalidas})}>
+                        Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
 
                 <Modal isOpen={this.state.modalRecepcion}>
                     <ModalHeader>Ingresar personal recepcion existencias - Alamo</ModalHeader>

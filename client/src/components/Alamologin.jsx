@@ -37,7 +37,8 @@ class Alamologin extends Component {
               .then(response => response.json())
               .then(data => {
                     if(data.msj==='usuario y/o contraseña incorrectos.'){
-                        console.log('No puede entrar')
+                        
+                        document.getElementById('avisoFA').style.display = 'block'
                     }else{
                         if(data.user === 'admin'){
                             this.props.loginHandler()
@@ -45,6 +46,8 @@ class Alamologin extends Component {
                             this.props.inventarioHandler()
                         }else if(data.user === 'calidad'){
                             this.props.calidadHandler()
+                        }else if(data.user === 'salidas'){
+                            this.props.salidasHandler()
                         }
                         localStorage.setItem( 'usuario', data.user );
                         localStorage.setItem( 'token', data.token );
@@ -88,6 +91,9 @@ class Alamologin extends Component {
                                 <option>
                                 calidad
                                 </option>
+                                <option>
+                                salidas
+                                </option>
                             </Input>
                             <Input 
                                 bsSize="sm"
@@ -95,12 +101,12 @@ class Alamologin extends Component {
                                 onChange={this.handleContrasenia}
                                 type="password"/>
                         </CardText>
-                        <br></br>
                         <Button 
                             color='success'
                             onClick={this.handleLogin}>
                             INGRESAR
                         </Button>
+                        <p className='avisoFalloAutenticacion' id='avisoFA'>Fallo en autenticacion de usuario !!!!</p>
                     </CardBody>
                 </Card>
             </div>

@@ -264,7 +264,9 @@ class Alamoexistenciasetiquetas extends Component {
     render() {
         return (
             <div>
-                <h3>INVENTARIO ETIQUETAS</h3>
+                <div className='tituloDeExistencias'>
+                  <h3>INVENTARIO ETIQUETAS</h3>
+                </div>                
                 <Button className='botonAgregarExistencia' color="success" onClick={() => {this.setState({modalAgregarExistencia: !this.state.modalAgregarExistencia})}}>Ingresar Existencia</Button>
             
                 <br></br>          

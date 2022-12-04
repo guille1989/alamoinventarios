@@ -4,12 +4,13 @@ const inventarioEtiquetasShema = new mongose.Schema({
     PresentacionInsumo:             {type: String},
     ProveedorInsumo:                {type: String},
     ExistenciasStock:               {type: Number},
-    ExistenciasLlenado:             {type: String},
-    ExistenciasProductoTerminado:   {type: String},
-    ExistenciasDaniadas:            {type: String},
+    ExistenciasLlenado:             {type: Number},
+    ExistenciasProductoTerminado:   {type: Number},
+    ExistenciasDaniadas:            {type: Number},
     ExistenciasLote:                {type: String},
     ExistenciasRecepcion:           {type: Date},
     CostoExistencia:                {type: Number},
-    FechaRegistroIngresoExistencia: {type: Date}
+    FechaRegistroIngresoExistencia: {type: Date},
+    InfoRegistroSalidaOrigen:       {type: String},
 })
 module.exports = mongose.model('inventarios_etiquetas', inventarioEtiquetasShema)

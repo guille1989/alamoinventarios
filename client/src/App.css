@@ -21,6 +21,12 @@
   cursor: pointer;
 }
 
+.tituloDeExistencias{
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
 .titulotabla{
   font-style: italic;
   text-decoration:underline;
@@ -199,7 +205,11 @@ td{
 
 .configTablas{
   width: 80%;
-  margin-left: 5%
+}
+
+.configTablaCenter{
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -674,7 +684,8 @@ body {
 
 @media (max-width: 768px) {
   .navbar {
-    opacity: 0.95;
+    opacity: 1;
+    
   }
 
   .navbar-container input[type="checkbox"],
@@ -915,4 +926,35 @@ body.tailwind-dark .e-dashboardlayout.e-control .e-panel {
   float: right;
 }
 
+.avisoFalloAutenticacion{
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
+  display: none;
+}
 
+.avisoNoDispo{
+  line-height: 0.5;
+  color: red;
+  font-weight: bold;
+  display: none;
+}
+
+.avisoSiDispo{
+  line-height: 0.5;
+  color: rgb(74, 240, 8);
+  font-weight: bold;
+  display: none;
+}
+
+.existenciaSalida{
+  line-height: 0.7;
+}
+
+.fechasalida{
+  display: flex;
+  justify-content: center;
+
+  width: 500px;
+  margin-left: 15px;
+}

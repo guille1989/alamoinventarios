@@ -42,10 +42,17 @@ const LeerExistenciasEtiquetasCostoMesItem = require('./rutas/etiquetas/leeretiq
 
 const LeerExistenciasOtrosCostoMesGeneral = require('./rutas/otros/leerotrosdisponiblecostomes');
 const LeerExistenciasOtrosCostoMesItem = require('./rutas/otros/leerotrosdisponiblescostomesitem');
+
+const CrudPersonalSalidas = require('./rutas/salidas/crudpersonalsalidas');
+const leerBotellasDisponiblesSalida = require('./rutas/salidas/leerinventariosaidas');
+
+const LeerSalidasAlamo = require('./rutas/salidas/leersalidasinventario');
 //
 //middlewares
 const corse = require('cors');
 const bodyParser = require("body-parser");
+const { application } = require('express');
+//
 app.use(corse());
 app.use(bodyParser.json());
 app.use(express.json());
@@ -104,12 +111,13 @@ app.use('/api/leerexistenciarecibocostomes', LeerReciboCostoMesExistencia)
 app.use('/api/leerexistenciascostomesporitem', LeerExistenciasCostoMesPorItemR)
 app.use('/api/leerexistenciastapascostomesgeneral', LeerExistenciasTapasCostoMesGeneral)
 app.use('/api/leerexistenciastapascostomesitem', LeerExistenciasTapasCostoMesItem)
-
 app.use('/api/leerexistenciasetiquetascostomesgeneral', LeerExistenciasEtiquetasCostoMesGeneral)
 app.use('/api/leerexistenciasetiquetascostomesitem', LeerExistenciasEtiquetasCostoMesItem)
-
 app.use('/api/leerexistenciasotroscostomesgeneral', LeerExistenciasOtrosCostoMesGeneral)
 app.use('/api/leerexistenciasotroscostomesitem', LeerExistenciasOtrosCostoMesItem)
+app.use('/api/crudsalidaexistenciasalamo', CrudPersonalSalidas)
+app.use('/api/leerbotellasdisponiblessalida', leerBotellasDisponiblesSalida)
+app.use('/api/leersalidasalamo', LeerSalidasAlamo);
 
 //Iniciamos Server
 const port = process.env.PORT || 3001;

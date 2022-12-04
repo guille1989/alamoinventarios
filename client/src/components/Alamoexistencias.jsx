@@ -282,7 +282,9 @@ class Alamoexistencias extends Component {
       render(){
         return (
           <div>
-            <h3>INVENTARIO BOTELLAS</h3>
+            <div className='tituloDeExistencias'>
+              <h3>INVENTARIO BOTELLAS</h3>
+            </div>
             {/*<h1 className='tituloAlamo'>Alamo - Inventario E.</h1>*/}   
             {/*   
             <nav class="navbar">

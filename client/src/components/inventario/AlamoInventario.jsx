@@ -269,6 +269,9 @@ class AlamoInventario extends Component {
       render(){
         return (
           <div>
+            <div className='tituloDeExistencias'>
+              <h3>INVENTARIO BOTELLAS</h3>
+            </div>
             <Button className='botonAgregarExistencia' color="success" onClick={() => {this.setState({modalAgregarExistencia: !this.state.modalAgregarExistencia})}}>Ingresar Existencia</Button>
             {/*<Button className='botonAgregarExistencia' color="warning" onClick={() => {this.props.alamoDash()}}>Dashboard</Button>*/}
             {/*
