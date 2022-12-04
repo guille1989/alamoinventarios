@@ -550,14 +550,14 @@ class AlamoSalidas extends Component {
                         document.getElementById('avisoSiDE').style.display = 'none'
                         document.getElementById('avisoNoDE').style.display = 'none'
                     }else{
-                        if(e.target.value > this.state.cantidadlimiteBotella){
+                        if(Math.abs(e.target.value) > this.state.cantidadlimiteBotella){
                             document.getElementById('avisoNoDE').style.display = 'block'
                             document.getElementById('avisoSiDE').style.display = 'none'
                             this.setState({cantidadSalidaBotellas: ''})
                         }else{
                             document.getElementById('avisoNoDE').style.display = 'none'
                             document.getElementById('avisoSiDE').style.display = 'block'
-                            this.setState({cantidadSalidaBotellas: e.target.value})
+                            this.setState({cantidadSalidaBotellas: Math.abs(e.target.value)})
                         }
                     }
                     
@@ -602,14 +602,14 @@ class AlamoSalidas extends Component {
                         document.getElementById('avisoSiDET').style.display = 'none'
                         document.getElementById('avisoNoDET').style.display = 'none'
                     }else{
-                        if(e.target.value > this.state.cantidadlimiteTapas){
+                        if(Math.abs(e.target.value) > this.state.cantidadlimiteTapas){
                             document.getElementById('avisoNoDET').style.display = 'block'
                             document.getElementById('avisoSiDET').style.display = 'none'
                             this.setState({cantidadSalidaTapas: ''})
                         }else{
                             document.getElementById('avisoNoDET').style.display = 'none'
                             document.getElementById('avisoSiDET').style.display = 'block'
-                            this.setState({cantidadSalidaTapas: e.target.value})
+                            this.setState({cantidadSalidaTapas:  Math.abs(e.target.value)})
                         }
                     }
                     
@@ -655,14 +655,14 @@ class AlamoSalidas extends Component {
                         document.getElementById('avisoSiDEE').style.display = 'none'
                         document.getElementById('avisoNoDEE').style.display = 'none'
                     }else{
-                        if(e.target.value > this.state.cantidadlimiteEtiquetas){
+                        if(Math.abs(e.target.value) > this.state.cantidadlimiteEtiquetas){
                             document.getElementById('avisoNoDEE').style.display = 'block'
                             document.getElementById('avisoSiDEE').style.display = 'none'
                             this.setState({cantidadSalidaEtiquetas: ''})
                         }else{
                             document.getElementById('avisoNoDEE').style.display = 'none'
                             document.getElementById('avisoSiDEE').style.display = 'block'
-                            this.setState({cantidadSalidaEtiquetas: e.target.value})
+                            this.setState({cantidadSalidaEtiquetas:  Math.abs(e.target.value)})
                         }
                     }
                     
