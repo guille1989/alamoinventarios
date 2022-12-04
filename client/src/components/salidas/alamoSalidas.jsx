@@ -154,7 +154,7 @@ class AlamoSalidas extends Component {
                   }), 
                 }
             
-                fetch('http://www.alamoinventario.com:80/api/leersalidasalamo', requestOptions)
+                fetch('http://www.alamoinventario.com:80/api/leersalidasalamo/' + 'SinDato', requestOptions)
                     .then(response => response.json())
                     .then(data => {
 
