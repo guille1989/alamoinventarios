@@ -354,7 +354,7 @@ class Alamoexistencias extends Component {
             <tbody>
               <tr>
                   <th>Item Existencia</th>
-                  <th>Existencias Disponibles</th>
+                  
                   <th>Existencia Aprobadas</th>
                   <th>Existencia en Revision</th>
                   <th>Existencia no Aprobadas</th>
@@ -364,7 +364,7 @@ class Alamoexistencias extends Component {
                 <>                        
                 <tr key={index}>
                   <td className='tituloExistencia' onClick={() => this.existenciasAlamoItem(item._id)}>{item._id}</td>
-                  <td>{Number(item.SumSiExistencia).toLocaleString('us')}</td>
+                  
                   <td><strong style={{color: 'green'}}>{Number(item.SumSiExistencia).toLocaleString('us')}</strong></td>
                   <td><strong style={{color: 'blue'}}>{Number(item.SumRevExistencia).toLocaleString('us')}</strong></td>
                   <td><strong style={{color: 'red'}}>{Number(item.SumNoExistencia).toLocaleString('us')}</strong></td>

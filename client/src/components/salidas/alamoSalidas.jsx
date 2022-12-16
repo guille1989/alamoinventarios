@@ -27,16 +27,20 @@ class AlamoSalidas extends Component {
           etiquetasDisponibles: '',
           dataTapas: [],
           dataEtiquetas: [],
+          dataOtros: [],
           tipoSalidaBotella: '',
           cantidadSalidaBotellas: '', 
           tipoSalidaTapas: '',
           cantidadSalidaTapas: '',
           tipoSalidaEtiquetas: '', 
           cantidadSalidaEtiquetas: '',
+          cantidadSalidaOtros: '',
           cantidadlimiteBotella: 0,
           cantidadlimiteTapas: 0,
           cantidadlimiteEtiquetas: 0,
+          cantidadlimitePyC: 0,
           fechaSalida: '',
+          tipoSalidaPyC: '',
         }
       }
 
@@ -99,19 +103,8 @@ class AlamoSalidas extends Component {
             this.state.cantidadSalidaEtiquetas === ''
             ){
           alert('Ingresar todos los CAMPOS !')
-        }else{
-            console.log(this.state.responsableRecepcionExistencia)
+        }else{           
 
-            console.log(this.state.tipoSalidaBotella)
-            console.log(this.state.cantidadSalidaBotellas)
-
-            console.log(this.state.tipoSalidaTapas)
-            console.log(this.state.cantidadSalidaTapas)
-
-            console.log(this.state.tipoSalidaEtiquetas)
-            console.log(this.state.cantidadSalidaEtiquetas)
-
-        
           const requestOptions ={
             method: 'POST',
             headers : new Headers({
@@ -126,10 +119,12 @@ class AlamoSalidas extends Component {
                 salidaNumeroTapas:              this.state.cantidadSalidaTapas,
                 salidaTipoEtiquetas:            this.state.tipoSalidaEtiquetas,
                 salidaNumeroEtiquetas:          this.state.cantidadSalidaEtiquetas,
+                salidaTipoOtros:                this.state.tipoSalidaPyC,
+                salidaNumeroOtros:              this.state.cantidadSalidaOtros
                 })
           }
       
-          fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
+          fetch('http://localhost:3001/api/leerbotellasdisponiblessalida', requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -138,7 +133,7 @@ class AlamoSalidas extends Component {
                     this.props.logoutHandler();
                   }
                 
-                console.log(data)                
+                //console.log(data)                
                 alert('Existencia ingresada !!')
                 this.setState({
                   modalAgregarExistencia: !this.state.modalAgregarExistencia
@@ -163,7 +158,7 @@ class AlamoSalidas extends Component {
                             this.props.logoutHandler();
                           }
                           
-                        console.log(data)
+                        //console.log(data)
                         this.setState({
                             dataExistencias : data.data
                         })
@@ -171,10 +166,10 @@ class AlamoSalidas extends Component {
                     .catch(err => console.log(err))
                     //
                     //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-                    fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
+                    fetch('http://localhost:3001/api/leerbotellasdisponiblessalida', requestOptions)
                     .then(response => response.json())
                     .then(data => {  
-                      console.log(data.data)            
+                      //console.log(data.data)            
                         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                           localStorage.clear();
                           this.props.logoutHandler();
@@ -184,7 +179,8 @@ class AlamoSalidas extends Component {
                         this.setState({
                           dataBotellas : data.data.resultAuxB,
                           dataTapas: data.data.resultTapas,
-                          dataEtiquetas: data.data.resultEtiquetas
+                          dataEtiquetas: data.data.resultEtiquetas,
+                          dataOtros: data.data.resultOtros,
                       })   
                                 
                     })
@@ -211,7 +207,7 @@ class AlamoSalidas extends Component {
           }), 
         }
     
-        fetch('http://www.alamoinventario.com:80/api/leersalidasalamo/' + 'SinDato', requestOptions)
+        fetch('http://localhost:3001/api/leersalidasalamo/' + 'SinDato', requestOptions)
             .then(response => response.json())
             .then(data => {
 
@@ -220,7 +216,7 @@ class AlamoSalidas extends Component {
                     this.props.logoutHandler();
                   }
                   
-                console.log(data)
+                //console.log(data)
                 this.setState({
                     dataExistencias : data.data
                 })
@@ -228,10 +224,10 @@ class AlamoSalidas extends Component {
             .catch(err => console.log(err))
       //
       //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-      fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
+      fetch('http://localhost:3001/api/leerbotellasdisponiblessalida', requestOptions)
       .then(response => response.json())
       .then(data => {  
-        console.log(data.data)            
+        //console.log(data.data)            
           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
             localStorage.clear();
             this.props.logoutHandler();
@@ -241,7 +237,8 @@ class AlamoSalidas extends Component {
           this.setState({
             dataBotellas : data.data.resultAuxB,
             dataTapas: data.data.resultTapas,
-            dataEtiquetas: data.data.resultEtiquetas
+            dataEtiquetas: data.data.resultEtiquetas,
+            dataOtros: data.data.resultOtros,
         })   
                   
       })
@@ -272,62 +269,6 @@ class AlamoSalidas extends Component {
         this.props.existencia(item)
       }
 
-      onChangeFiltroKeyWord = (e) => {
-        //Fetch para enviar informacion al backend:
-        if(e.target.value === ''){
-          //Fetch para enviar informacion al backend:
-        const requestOptions ={
-          method: 'GET',
-          headers : new Headers({
-            'Authorization': localStorage.getItem( 'token' ),
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-type':'application/json'
-          }),
-
-        }
-    
-        fetch('http://www.alamoinventario.com:80/api/leerexistenciasalamo', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                //console.log(data)
-                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
-                  localStorage.clear();
-                  this.props.logoutHandler();
-                }else{
-                    
-                }   
-                this.setState({
-                  dataExistencias : data.data
-              })             
-            })
-            .catch(err => {                 
-                console.log(err)
-            })
-        }else{
-          const requestOptions ={
-            method: 'GET',
-            headers : new Headers({
-                'Authorization': localStorage.getItem( 'token' ),
-                'Content-type':'application/json'
-              }),    
-          }      
-          fetch('http://www.alamoinventario.com:80/api/leerexistenciasfiltro/' + e.target.value.toUpperCase(), requestOptions)
-              .then(response => response.json())
-              .then(data => {
-                if(typeof data.err !== 'undefined' && data.err.message.length > 0){
-                    localStorage.clear();
-                    this.props.logoutHandler();
-                  }
-  
-                this.setState({
-                    dataExistencias: data.data
-                })
-              })
-              .catch(err => console.log(err))
-        }
-      }
-
-
       handleFechaSalidas = (e) => {
         this.setState({
           fechaSalida: e.target.value
@@ -350,7 +291,7 @@ class AlamoSalidas extends Component {
                     this.props.logoutHandler();
                   }
                   
-                console.log(data)
+                //console.log(data)
                 this.setState({
                     dataExistencias : data.data
                 })
@@ -381,6 +322,7 @@ class AlamoSalidas extends Component {
                 onClick={() => {
                     this.setState({
                         modalAgregarExistencia: !this.state.modalAgregarExistencia,
+                        responsableRecepcionExistencia: '',
                         cantidadSalidaBotellas: '',
                         cantidadSalidaTapas: '',
                         cantidadSalidaEtiquetas: '',
@@ -389,32 +331,11 @@ class AlamoSalidas extends Component {
                         cantidadlimiteEtiquetas: 0
                     })
                     }}>Registrar Nueva Salida</Button>
-            {/*<Button className='botonAgregarExistencia' color="warning" onClick={() => {this.props.alamoDash()}}>Dashboard</Button>*/}
-            {/*
-            <Button className='botonAgregarExistenciaSalir' color="danger" onClick={() => {
-              if(window.confirm('Seguro quiere salir ?')){
-                localStorage.clear();
-                this.props.logoutHandler();
-              }else{
 
-              }
-            }}>Salir</Button>
-            */}
             <br></br>
             <br></br>
             <br></br>
 
-            {/*
-            <div className='filtroKeyWord'>
-            <p className='resultadoRevision'><strong>Filtro por palabra clave:</strong></p>          
-            <Input
-                bsSize="sm"
-                className="mb-3"
-                placeholder="Filtro Key Word"
-                onChange={this.onChangeFiltroKeyWord}
-              />
-            </div>
-            */}
             <Table    
               bordered   
               borderless
@@ -428,6 +349,9 @@ class AlamoSalidas extends Component {
                 <th>Cantidad Tapas</th>
                 <th>Tipo Etiqueta</th>
                 <th>Cantidad Etiquetas</th>
+
+                <th>Tipo Otros</th>
+                <th>Cantidad Otros</th>
               </tr>
             </thead>
             <tbody>
@@ -486,7 +410,10 @@ class AlamoSalidas extends Component {
                         </>                      
                       )
                     })}
-                  </td>                  
+                  </td>   
+
+                  <td>{item.salidaTipoOtros}</td>
+                  <td>{item.salidaNumeroOtros}</td>               
                 </tr>
                 </>                
               )
@@ -522,8 +449,8 @@ class AlamoSalidas extends Component {
                 className="mb-3"
                 type="select"
                 onChange={(e) => {
-                    console.log(e.target.value.split(" -", 1).pop())
-                    console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
+                    //console.log(e.target.value.split(" -", 1).pop())
+                    //console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
                     this.setState({
                         tipoSalidaBotella: e.target.value.split(" -", 1).pop(),
                         cantidadlimiteBotella: parseInt(e.target.value.split(": ").pop().replace(',',''))
@@ -576,8 +503,8 @@ class AlamoSalidas extends Component {
                 className="mb-3"
                 type="select"
                 onChange={(e) => {
-                    console.log(e.target.value.split(" -", 1).pop())
-                    console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
+                    //console.log(e.target.value.split(" -", 1).pop())
+                    //console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
                     this.setState({
                         tipoSalidaTapas: e.target.value.split(" -", 1).pop(),
                         cantidadlimiteTapas: parseInt(e.target.value.split(": ").pop().replace(',',''))
@@ -629,8 +556,8 @@ class AlamoSalidas extends Component {
                 className="mb-3"
                 type="select"
                 onChange={(e) => {
-                    console.log(e.target.value.split(" -", 1).pop())
-                    console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
+                    //console.log(e.target.value.split(" -", 1).pop())
+                    //console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
                     this.setState({
                         tipoSalidaEtiquetas: e.target.value.split(" -", 1).pop(),
                         cantidadlimiteEtiquetas: parseInt(e.target.value.split(": ").pop().replace(',',''))
@@ -672,6 +599,62 @@ class AlamoSalidas extends Component {
 
             <p className='avisoSiDispo' id='avisoSiDEE'>Ok !</p>
             <p className='avisoNoDispo' id='avisoNoDEE'>Existencias no disponibles, hay: {Number(this.state.cantidadlimiteEtiquetas).toLocaleString('us')}</p>
+
+            <Label>
+                OTROS - PLASTICOS Y CARTONES
+            </Label> 
+
+
+            <Input
+                bsSize="sm"
+                className="mb-3"
+                type="select"
+                onChange={(e) => {
+
+                    //console.log(e.target.value.split(" - C", 1).pop())
+                    //console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
+                    
+                    this.setState({
+                        tipoSalidaPyC: e.target.value.split(" - C", 1).pop(),
+                        cantidadlimitePyC: parseInt(e.target.value.split(": ").pop().replace(',',''))
+                    })
+                }}>
+                <option>
+                  Seleccione tipo Existencia
+                </option>                
+                {this.state.dataOtros.map((item, index) => {
+                  return(
+                    <option>{item._id} - Cantidad Disponible: {Number(item.otros).toLocaleString('us')}</option>
+                  )
+                })}  
+              </Input>
+
+              <Input
+                bsSize="sm"
+                className="mb-3"
+                placeholder="Cantidad Existencias"
+                onChange={(e) => {
+                    if(e.target.value === ''){
+                        document.getElementById('avisoSiPyC').style.display = 'none'
+                        document.getElementById('avisoNoPyC').style.display = 'none'
+                    }else{
+                        if(Math.abs(e.target.value) > this.state.cantidadlimitePyC){
+                            document.getElementById('avisoNoPyC').style.display = 'block'
+                            document.getElementById('avisoSiPyC').style.display = 'none'
+                            this.setState({cantidadSalidaOtros: ''})
+                        }else{
+                            document.getElementById('avisoNoPyC').style.display = 'none'
+                            document.getElementById('avisoSiPyC').style.display = 'block'
+                            this.setState({cantidadSalidaOtros:  Math.abs(e.target.value)})
+                        }
+                    }
+                    
+                }}
+                type="number"
+              />
+
+            <p className='avisoSiDispo' id='avisoSiPyC'>Ok !</p>
+            <p className='avisoNoDispo' id='avisoNoPyC'>Existencias no disponibles, hay: {Number(this.state.cantidadlimitePyC).toLocaleString('us')}</p>
               
               </ModalBody>
               <ModalFooter>

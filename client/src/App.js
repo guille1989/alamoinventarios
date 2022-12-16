@@ -32,6 +32,8 @@ import AlamoDashboardTapasAlamo from './components/AlamoDashboardTapas';
 import AlamoDashboardEtiquetasAlamo from './components/AlamoDashboardEtiquetasAlamo';
 import AlamoDashboardOtros from './components/AlamoDashboardOtros';
 import AlamoSalidas from './components/salidas/alamoSalidas';
+import AlamoSalidasDaniadas from './components/salidas/alamoExistenciasDaniadas';
+import AlamoSalidasDefectuosas from './components/salidas/alamoExistenciasDefectuosas';
 //
 
 class App extends Component {
@@ -43,6 +45,7 @@ class App extends Component {
       existenciaItem: 'Hola',
       dropdownOpen: false,
       dropdownOpenTD: false,
+      dropdownOpenSA: false,
       dropdownI: false
     }
   }
@@ -175,6 +178,20 @@ class App extends Component {
     })
   }
 
+  handleAlamoDaniadas(){
+    document.getElementById("burgerMenu").checked = false;
+    this.setState({
+      opcion: 'SALIDAS_DANIADAS'
+    })
+  }
+
+  handleAlamoDefectuosas(){
+    document.getElementById("burgerMenu").checked = false;
+    this.setState({
+      opcion: 'SALIDAS_DEFECTUOSAS'
+    })
+  }
+
   handleInicioAlamo(){
     document.getElementById("burgerMenu").checked = false;   
     this.setState({
@@ -265,6 +282,12 @@ class App extends Component {
     })
   }
 
+  toggleDropdownSA = () => {
+    this.setState({
+      dropdownOpenSA: !this.state.dropdownOpenSA
+    })
+  }
+
   toggleDropdownInventarios = () => {
     this.setState({
       dropdownI: !this.state.dropdownI
@@ -293,6 +316,8 @@ class App extends Component {
         case 'ETIQUETAS_DASHBOARD':       return <AlamoDashboardEtiquetasAlamo />
         case 'OTROS_DASHBOARD':           return <AlamoDashboardOtros />
         case 'SALIDAS':                   return <AlamoSalidas />
+        case 'SALIDAS_DANIADAS':          return <AlamoSalidasDaniadas />
+        case 'SALIDAS_DEFECTUOSAS':       return <AlamoSalidasDefectuosas />
       }
     }
     return (
@@ -390,24 +415,18 @@ class App extends Component {
                     </div>
                     <ul className="menu-items">
                         
-                        {/*<li><a href="#" onClick={() => {this.handleInventariolamo()}}>Inventario Alamo</a></li>*/}
-
-                        {/*
-                        <Dropdown nav isOpen={this.state.dropdownI} toggle={this.toggleDropdownInventarios}>
+                      <Dropdown nav isOpen={this.state.dropdownOpenSA} toggle={this.toggleDropdownSA}>
                         <DropdownToggle nav caret>
-                          Inventarios Alamo
+                          Inventarios Salidas
                         </DropdownToggle>
                         <DropdownMenu>
-                          <DropdownItem onClick={() => {this.handleInventariolamo()}}>Botellas  </DropdownItem>
+                          <DropdownItem onClick={() => {this.handleAlamoSalidas()}}>Registro Salidas Existencias  </DropdownItem>
                           <DropdownItem divider />
-                          <DropdownItem onClick={() => {this.handleTapasAlamo()}}>Tapas  </DropdownItem>
+                          <DropdownItem onClick={() => {this.handleAlamoDaniadas()}}>Registro Existencias Dañadas  </DropdownItem>
                           <DropdownItem divider />
-                          <DropdownItem onClick={() => {this.handleEtiquetasAlamo()}}>Etiquetas  </DropdownItem>
-                          <DropdownItem divider />
-                          <DropdownItem onClick={() => {this.handleOtrosAlamo()}}>Plasticos y Carton  </DropdownItem>
+                          <DropdownItem onClick={() => {this.handleAlamoDefectuosas()}}>Registro Existencias Defectuosas  </DropdownItem>                          
                         </DropdownMenu>
                       </Dropdown>
-                        */}
                         
                         <li><a href="#" onClick={() => {
                                                     if(window.confirm('Seguro quiere salir ?')){
@@ -438,9 +457,9 @@ class App extends Component {
                     </div>
                     <ul className="menu-items">
                         
-                        {/*<li><a href="Inventario" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>*/}
+                      {/*<li><a href="Inventario" onClick={() => {this.handleInicioAlamo()}}>Inventario Alamo</a></li>*/}
 
-                      <li><a href="#" onClick={() => {this.handleAlamoSalidas()}}>Salidas</a></li>
+                      {/*<li><a href="#" onClick={() => {this.handleAlamoSalidas()}}>Salida Existencias</a></li>*/}                
 
                       <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                         <DropdownToggle nav caret>
@@ -456,7 +475,19 @@ class App extends Component {
                           <DropdownItem onClick={() => {this.handleOtrosAlamo()}}>Plasticos y Carton  </DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
-                                               
+
+                      <Dropdown nav isOpen={this.state.dropdownOpenSA} toggle={this.toggleDropdownSA}>
+                        <DropdownToggle nav caret>
+                          Inventarios Salidas
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem onClick={() => {this.handleAlamoSalidas()}}>Registro Salidas Existencias  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleAlamoDaniadas()}}>Registro Existencias Dañadas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleAlamoDefectuosas()}}>Registro Existencias Defectuosas  </DropdownItem>                          
+                        </DropdownMenu>
+                      </Dropdown>                                               
                         
                         {/*<li><a href="#" onClick={() => {this.handlealamoDashboard()}}>Tablero de Datos</a></li>*/}
                         <Dropdown nav isOpen={this.state.dropdownOpenTD} toggle={this.toggleDropdownTD}>

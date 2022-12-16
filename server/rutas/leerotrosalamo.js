@@ -54,6 +54,8 @@ async function insertExistencias(body){
 
         ExistenciasLlenado:                 0,
         ExistenciasProductoTerminado:       0,
+        ExistenciasDaniadas:                0,
+        ExistenciasDefectuosas:             0,
     })
 
         return await result.save()

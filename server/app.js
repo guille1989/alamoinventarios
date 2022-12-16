@@ -47,6 +47,15 @@ const CrudPersonalSalidas = require('./rutas/salidas/crudpersonalsalidas');
 const leerBotellasDisponiblesSalida = require('./rutas/salidas/leerinventariosaidas');
 
 const LeerSalidasAlamo = require('./rutas/salidas/leersalidasinventario');
+
+const CrudSalidasDaniadasAlamo = require('./rutas/salidas_daniadas/crudregistrodaniadas');
+const LeerBotellasenLLenado = require('./rutas/salidas_daniadas/leersalidasdaniadasbotellas');
+const LeerRegistroDaniados = require('./rutas/salidas_daniadas/leerexistenciasenllenado');
+
+
+const CrudSalidasDefectuosasAlamo = require('./rutas/salidas_defectuosas/crudregistrodefectuosas');
+const LeerBotellasenLLenadoDefectuosas = require('./rutas/salidas_defectuosas/leersalidadefectuosos');
+const LeerRegistroDefectuosas = require('./rutas/salidas_defectuosas/leerexistenciasllenado');
 //
 //middlewares
 const corse = require('cors');
@@ -118,6 +127,13 @@ app.use('/api/leerexistenciasotroscostomesitem', LeerExistenciasOtrosCostoMesIte
 app.use('/api/crudsalidaexistenciasalamo', CrudPersonalSalidas)
 app.use('/api/leerbotellasdisponiblessalida', leerBotellasDisponiblesSalida)
 app.use('/api/leersalidasalamo', LeerSalidasAlamo);
+app.use('/api/leerRlotebotellasdaniadas', CrudSalidasDaniadasAlamo);
+app.use('/api/leerellenado', LeerBotellasenLLenado);
+app.use('/api/leerregistrodaniados', LeerRegistroDaniados);
+
+app.use('/api/leerRlotebotellasdefectuosas', CrudSalidasDefectuosasAlamo);
+app.use('/api/leerellenadodefectuosas', LeerBotellasenLLenadoDefectuosas);
+app.use('/api/leerregistrodefectuosas', LeerRegistroDefectuosas);
 
 //Iniciamos Server
 const port = process.env.PORT || 3001;

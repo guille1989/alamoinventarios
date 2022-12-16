@@ -446,7 +446,8 @@ class AlamoexistenciasLote extends Component {
                                 <tr key={index}>
                                     <td>{item.PresentacionInsumo}</td>
                                     <td>{item.ExistenciasLote}</td>
-                                    <td>{new Date(item.ExistenciasRecepcion).toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}</td>
+                                    
+                                    <td>{item.ExistenciasRecepcion.split("T", 1)}</td>
                                     <td>{Number(item.ExistenciasStock).toLocaleString('us')}</td>
                                     <td>{item.AprobadoRechazado}</td>
                                     <td>{item.nivel_inspeccion_s4}</td>

@@ -7,6 +7,7 @@ const inventarioOtrosShema = new mongose.Schema({
     ExistenciasLlenado:             {type: Number},
     ExistenciasProductoTerminado:   {type: Number},
     ExistenciasDaniadas:            {type: Number},
+    ExistenciasDefectuosas:         {type: Number},
     ExistenciasLote:                {type: String},
     ExistenciasRecepcion:           {type: Date},
     CostoExistencia:                {type: Number},

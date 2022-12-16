@@ -3,11 +3,14 @@ const isalidasAlamoShema = new mongose.Schema({
 responsableSalida:              {type: String},
 
 salidaTipoBotellas:             {type: String},
-salidaNumeroBotellas:           {type: String},
+salidaNumeroBotellas:           {type: Number},
 salidaTipoTapas:                {type: String},
-salidaNumeroTapas:              {type: String},
+salidaNumeroTapas:              {type: Number},
 salidaTipoEtiquetas:            {type: String},
-salidaNumeroEtiquetas:          {type: String},
+salidaNumeroEtiquetas:          {type: Number},
+
+salidaTipoOtros:            {type: String},
+salidaNumeroOtros:          {type: Number},
 
 numeroRegistroSalida:           {type: String},
 fechaRegistroSalida:            {type: Date},

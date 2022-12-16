@@ -2,7 +2,8 @@ const express = require('express');
 const ruta = express();
 const Existencias = require('../../model/inventarioalamo');
 const TapasEx = require('../../model/inventarioalamotapas');
-const EtiquetasEx = require('../../model/inventariosetiquetas')
+const EtiquetasEx = require('../../model/inventariosetiquetas');
+const OtrosEx = require('../../model/inventariosotros');
 const RegSalida = require('../../model/alamosalidasregistro');
 const verificarToken = require('../../middlewares/auth');
 
@@ -99,8 +100,21 @@ async function leerExistencias(){
             _id: "$PresentacionInsumo",
             etiquetas: {$sum: '$Existencia'}
         }}]).sort({_id:0})
+
+    let resultOtros = [];
+
+    resultOtros = await OtrosEx.aggregate([  
+        { $project: {
+            _id: 0,
+            PresentacionInsumo: 1,
+            Existencia: '$ExistenciasStock'
+        }},
+        { $group: {
+            _id: "$PresentacionInsumo",
+            otros: {$sum: '$Existencia'}
+        }}]).sort({_id:0})
     
-    return {resultAuxB, resultTapas, resultEtiquetas}
+    return {resultAuxB, resultTapas, resultEtiquetas, resultOtros}
 
 
 }
@@ -204,6 +218,38 @@ async function registrarSalida(body){
     console.log('******RESULTADO OPERACION DE SALIDA TAPAS********', salidaAuxT) 
     console.log('******RESULTADO OPERACION DE SALIDA ETIQUETAS********', salidaAuxE)   
 
+    //Restamos otros....
+    //Toca hacer la resta
+    //Registro salida Otros
+    let resultPyCAux = [];
+    resultPyCAux = await OtrosEx.find({
+        PresentacionInsumo: body.salidaTipoOtros,
+        ExistenciasStock: {$ne: 0}
+    }).sort({"ExistenciasRecepcion":1})
+
+    let countSalidaPyCAux = body.salidaNumeroOtros;
+    let countResiduoPyC = body.salidaNumeroOtros;
+
+    let actuAuxOtros= [];  
+    let salidaAuxPyC = [];
+
+    salidaAuxPyC.push({numero_tapas_total:body.salidaNumeroOtros})
+    resultPyCAux.map(async (item, index) => { 
+
+        if(countSalidaPyCAux != 0){
+            if( parseInt(item.ExistenciasStock) >=  parseInt(countSalidaPyCAux)){
+                countSalidaPyCAux = countSalidaPyCAux - countResiduoPyC           
+                salidaAuxPyC.push({numero_etiquetas_salida: (countResiduoPyC), stock_lote_etiquetas: item.ExistenciasLote})  
+                actuAuxOtros = await OtrosEx.updateOne({PresentacionInsumo: body.salidaTipoOtros, ExistenciasLote: item.ExistenciasLote},{$set:{ExistenciasLlenado: parseInt(countResiduoPyC) + parseInt(item.ExistenciasLlenado), ExistenciasStock: parseInt(item.ExistenciasStock) - parseInt(countResiduoPyC)}})
+            }else{
+                countSalidaPyCAux = countSalidaPyCAux - item.ExistenciasStock
+                countResiduoPyC = countResiduoPyC - item.ExistenciasStock
+                salidaAuxPyC.push({numero_etiquetas_salida: (item.ExistenciasStock), stock_lote_etiquetas: item.ExistenciasLote}) 
+                actuAuxOtros = await OtrosEx.updateOne({PresentacionInsumo: body.salidaTipoOtros, ExistenciasLote: item.ExistenciasLote},{$set:{ExistenciasLlenado: parseInt(item.ExistenciasLlenado)  + parseInt(item.ExistenciasStock), ExistenciasStock: 0}})
+            }
+        }  
+    })
+
 
     //Guardamos la info
     let result = [];
@@ -220,6 +266,9 @@ async function registrarSalida(body){
         InfoRegistroSalidaOrigenBotellas:       salidaAux,
         InfoRegistroSalidaOrigenTapas:          salidaAuxT,
         InfoRegistroSalidaOrigenEtiquetas:      salidaAuxE,
+        salidaTipoOtros:                        body.salidaTipoOtros,
+        salidaNumeroOtros:                      body.salidaNumeroOtros,
+
     })    
 
     return await result.save()

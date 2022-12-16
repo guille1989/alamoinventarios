@@ -122,7 +122,9 @@ async function insertExistencias(body){
             ExistenciasRecepcion:               body.ExistenciasRecepcion,
 
             ExistenciasLlenado:                 0,
+            ExistenciasDaniadas:                0,
             ExistenciasProductoTerminado:       0,
+            ExistenciasDefectuosas:             0,
 
             nivel_inspeccion_s4:                nivel_inspeccion_s4,
             tamanio_muestra:                    tamanio_muestra,
