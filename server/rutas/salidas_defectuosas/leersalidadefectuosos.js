@@ -40,6 +40,7 @@ ruta.post('/', verificarToken, (req, res) => {
 })
 
 async function leerExistencias(){
+
     let result = [];
     
     result = await Existencias.aggregate([  
@@ -117,7 +118,7 @@ async function registrarSalida(body){
 
     //Aqui es donde se hace el if para hacer actualizacion botellas, tapas o etiquetas.
 
-    console.log(body.existenciatipo)
+    //console.log(body.existenciatipo)
     if(body.existenciatipo === "Botellas"){ 
 
         resultBAux = await Existencias.find({

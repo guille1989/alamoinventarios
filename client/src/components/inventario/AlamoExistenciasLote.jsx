@@ -401,7 +401,7 @@ class AlamoexistenciasLote extends Component {
 
     handlefoto = (getScreenshot) => {  
 
-        console.log(getScreenshot)         
+        //console.log(getScreenshot)         
     }
 
     handleTakePhoto (dataUri) {
@@ -410,7 +410,7 @@ class AlamoexistenciasLote extends Component {
             contFotosAuz: this.state.contFotosAuz + 1,
             fotoArchivo: dataUri
         })
-        console.log(this.state.contFotosAuz);
+        //console.log(this.state.contFotosAuz);
       }
 
     render() {

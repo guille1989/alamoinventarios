@@ -100,7 +100,7 @@ class AlamoDashboardOtros extends Component {
           fetch('http://www.alamoinventario.com:80/api/leerotrosalamogeneral', requestOptions)
               .then(response => response.json())
               .then(data => {      
-                console.log(data)
+                //console.log(data)
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){                  
                   localStorage.clear();
                   this.props.logoutHandler();
@@ -144,7 +144,7 @@ class AlamoDashboardOtros extends Component {
         fetch('http://www.alamoinventario.com:80/api/leerexistenciasotroscostomesitem', requestOptions)
               .then(response => response.json())
               .then(data => {                
-                console.log(data)  
+                //console.log(data)  
                 if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                   localStorage.clear();
                   this.props.logoutHandler();

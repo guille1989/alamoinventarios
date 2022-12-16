@@ -186,7 +186,7 @@ class AlamoConfig extends Component {
     }
 
     insertPersonalSalidasAlamo = () => {
-      console.log(this.state.nombreSalidas)
+      //console.log(this.state.nombreSalidas)
       if(this.state.nombreSalidas === ''){
         alert('Por favor ingresar nombre')
     }else{

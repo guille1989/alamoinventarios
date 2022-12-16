@@ -127,6 +127,7 @@ app.use('/api/leerexistenciasotroscostomesitem', LeerExistenciasOtrosCostoMesIte
 app.use('/api/crudsalidaexistenciasalamo', CrudPersonalSalidas)
 app.use('/api/leerbotellasdisponiblessalida', leerBotellasDisponiblesSalida)
 app.use('/api/leersalidasalamo', LeerSalidasAlamo);
+
 app.use('/api/leerRlotebotellasdaniadas', CrudSalidasDaniadasAlamo);
 app.use('/api/leerellenado', LeerBotellasenLLenado);
 app.use('/api/leerregistrodaniados', LeerRegistroDaniados);

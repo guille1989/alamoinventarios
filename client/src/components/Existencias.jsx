@@ -436,7 +436,7 @@ class existencias extends Component {
 
     handlefoto = (getScreenshot) => {  
 
-        console.log(getScreenshot)         
+        //console.log(getScreenshot)         
     }
 
     handleTakePhoto (dataUri) {
@@ -445,8 +445,8 @@ class existencias extends Component {
             contFotosAuz: this.state.contFotosAuz + 1,
             fotoArchivo: dataUri
         })
-        console.log(this.state.contFotosAuz);
-        console.log(dataUri)
+        //console.log(this.state.contFotosAuz);
+        //console.log(dataUri)
       }
 
     render() {

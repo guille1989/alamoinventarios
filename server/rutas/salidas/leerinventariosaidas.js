@@ -214,9 +214,9 @@ async function registrarSalida(body){
     })
 
 
-    console.log('******RESULTADO OPERACION DE SALIDA BOTELLAS********', salidaAux)    
-    console.log('******RESULTADO OPERACION DE SALIDA TAPAS********', salidaAuxT) 
-    console.log('******RESULTADO OPERACION DE SALIDA ETIQUETAS********', salidaAuxE)   
+    //console.log('******RESULTADO OPERACION DE SALIDA BOTELLAS********', salidaAux)    
+    //console.log('******RESULTADO OPERACION DE SALIDA TAPAS********', salidaAuxT) 
+    //console.log('******RESULTADO OPERACION DE SALIDA ETIQUETAS********', salidaAuxE)   
 
     //Restamos otros....
     //Toca hacer la resta

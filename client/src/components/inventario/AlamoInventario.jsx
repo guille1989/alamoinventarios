@@ -102,7 +102,7 @@ class AlamoInventario extends Component {
                     this.props.logoutHandler();
                   }
                 
-                console.log(data)
+                //console.log(data)
                 if(data.dato === 'Lote ya registrado'){
                   //alert('Existencia con LOTE ya ingresado, Revisar !!')
                   this.setState({

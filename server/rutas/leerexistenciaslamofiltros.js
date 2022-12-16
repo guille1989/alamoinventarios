@@ -8,8 +8,8 @@ ruta.get('/:item/:fechai/:fechaf',verificarToken, (req, res) => {
     let fechainicio = new Date(req.params.fechai);
     let fechafinal = new Date(req.params.fechaf);
     
-    console.log(fechainicio)
-    console.log(fechafinal)
+    //console.log(fechainicio)
+    //console.log(fechafinal)
 
     let result = leerExistencias(item, fechainicio, fechafinal)
     result.then(dato =>{        
@@ -38,12 +38,12 @@ async function leerExistencias(item, fechainicio, fechafinal){
     let data_02 = [];
     let data_03 = [];
 
-    console.log(fechaiAux)
-    console.log(fechafAux)
+    //console.log(fechaiAux)
+    //console.log(fechafAux)
 
     if(item === 'TODAS' || item === 'Seleccione tipo Existencia' || item === 'item'){
         if(fechainicio.getTime() === fechaiAux.getTime() && fechafinal.getTime() === fechafAux.getTime()){
-            console.log('condicion uno A')
+            //console.log('condicion uno A')
             result = await Existencias.aggregate([                  
                 { $project: {
                     _id: 0,
@@ -59,7 +59,7 @@ async function leerExistencias(item, fechainicio, fechafinal){
                     SumNoExistencia: {$sum: '$ExistenciaNo'},
                 }}]).sort({_id:0})
         }else{
-            console.log('condicion uno B')
+            //console.log('condicion uno B')
             result = await Existencias.aggregate([  
                 { $match: {ExistenciasRecepcion: {$gte: fechainicio, $lt: fechafinal}}},
                 { $project: {
@@ -78,7 +78,7 @@ async function leerExistencias(item, fechainicio, fechafinal){
         }
         
     }else if(fechainicio.getTime() === fechaiAux.getTime() && fechafinal.getTime() === fechafAux.getTime()){
-        console.log('condicion dos - existencia sin fechas')
+        //console.log('condicion dos - existencia sin fechas')
         result = await Existencias.aggregate([  
             { $match: {PresentacionInsumo: item}},
             { $project: {
@@ -95,7 +95,7 @@ async function leerExistencias(item, fechainicio, fechafinal){
                 SumNoExistencia: {$sum: '$ExistenciaNo'},
             }}]).sort({_id:0})
     }else{
-        console.log('condicion tres - existencia con fechas')
+        //console.log('condicion tres - existencia con fechas')
         result = await Existencias.aggregate([  
             { $match: {PresentacionInsumo: item, ExistenciasRecepcion: {$gte: fechainicio, $lt: fechafinal}}},
             { $project: {
