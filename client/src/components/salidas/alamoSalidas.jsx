@@ -124,7 +124,7 @@ class AlamoSalidas extends Component {
                 })
           }
       
-          fetch('http://localhost:3001/api/leerbotellasdisponiblessalida', requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
               .then(response => response.json())
               .then(data => {
 
@@ -166,7 +166,7 @@ class AlamoSalidas extends Component {
                     .catch(err => console.log(err))
                     //
                     //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-                    fetch('http://localhost:3001/api/leerbotellasdisponiblessalida', requestOptions)
+                    fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
                     .then(response => response.json())
                     .then(data => {  
                       //console.log(data.data)            
@@ -207,7 +207,7 @@ class AlamoSalidas extends Component {
           }), 
         }
     
-        fetch('http://localhost:3001/api/leersalidasalamo/' + 'SinDato', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leersalidasalamo/' + 'SinDato', requestOptions)
             .then(response => response.json())
             .then(data => {
 
@@ -224,7 +224,7 @@ class AlamoSalidas extends Component {
             .catch(err => console.log(err))
       //
       //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-      fetch('http://localhost:3001/api/leerbotellasdisponiblessalida', requestOptions)
+      fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
       .then(response => response.json())
       .then(data => {  
         //console.log(data.data)            

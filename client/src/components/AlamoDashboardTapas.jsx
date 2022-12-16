@@ -242,7 +242,9 @@ class AlamoDashboardTapas extends Component {
                         lineStyle: { width: 0 },
                         majorTickLines: { width: 0 }, 
                         minorTickLines: { width: 0 },
+                        labelFormat: '${value}'
                         }} 
+                        useGroupingSeparator={true}
                         chartArea={{ border: { width: 0 } }} 
                         tooltip={{ enable: true }} 
                         legendSettings={{ enableHighlight: true }} 

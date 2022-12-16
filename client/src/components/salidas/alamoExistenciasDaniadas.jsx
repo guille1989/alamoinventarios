@@ -123,7 +123,7 @@ class alamoExistenciasDaniadas extends Component {
           }
 
            //POST RESTA
-           fetch('http://localhost:3001/api/leerellenado', requestOptions)
+           fetch('http://www.alamoinventario.com:80/api/leerellenado', requestOptions)
            .then(response => response.json())
            .then(data => {
 
@@ -143,7 +143,7 @@ class alamoExistenciasDaniadas extends Component {
                 }), 
               }
           
-              fetch('http://localhost:3001/api/leerregistrodaniados/' + 'SinDato', requestOptions)
+              fetch('http://www.alamoinventario.com:80/api/leerregistrodaniados/' + 'SinDato', requestOptions)
                   .then(response => response.json())
                   .then(data => {
       
@@ -160,7 +160,7 @@ class alamoExistenciasDaniadas extends Component {
                   .catch(err => console.log(err))
               
               //Actualizamos cantidades
-              fetch('http://localhost:3001/api/leerellenado', requestOptions)
+              fetch('http://www.alamoinventario.com:80/api/leerellenado', requestOptions)
               .then(response => response.json())
               .then(data => {  
 
@@ -206,7 +206,7 @@ class alamoExistenciasDaniadas extends Component {
         }       
 
         //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
-        fetch('http://localhost:3001/api/leerellenado', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerellenado', requestOptions)
         .then(response => response.json())
         .then(data => {  
 
@@ -251,7 +251,7 @@ class alamoExistenciasDaniadas extends Component {
         })
 
         //Traeno los registros de dañados
-        fetch('http://localhost:3001/api/leerregistrodaniados/' + 'SinDato', requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerregistrodaniados/' + 'SinDato', requestOptions)
                 .then(response => response.json())
                 .then(data => {     
                     if(typeof data.err !== 'undefined' && data.err.message.length > 0){
@@ -286,7 +286,7 @@ class alamoExistenciasDaniadas extends Component {
           }), 
         }
     
-        fetch('http://localhost:3001/api/leerregistrodaniados/' + e.target.value, requestOptions)
+        fetch('http://www.alamoinventario.com:80/api/leerregistrodaniados/' + e.target.value, requestOptions)
             .then(response => response.json())
             .then(data => {
 
@@ -315,7 +315,7 @@ class alamoExistenciasDaniadas extends Component {
             }), 
           }
       
-          fetch('http://localhost:3001/api/leerRlotebotellasdaniadas/' + existencia + '/' + tipoe, requestOptions)
+          fetch('http://www.alamoinventario.com:80/api/leerRlotebotellasdaniadas/' + existencia + '/' + tipoe, requestOptions)
               .then(response => response.json())
               .then(data => {
   
