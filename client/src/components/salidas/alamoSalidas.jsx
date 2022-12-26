@@ -168,8 +168,10 @@ class AlamoSalidas extends Component {
                     //ME TRAIGO LAS EXISTENCIAS DISPONIBLES
                     fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
                     .then(response => response.json())
-                    .then(data => {  
-                      //console.log(data.data)            
+                    .then(data => { 
+
+                      console.log(data.data)  
+
                         if(typeof data.err !== 'undefined' && data.err.message.length > 0){
                           localStorage.clear();
                           this.props.logoutHandler();
@@ -227,7 +229,7 @@ class AlamoSalidas extends Component {
       fetch('http://www.alamoinventario.com:80/api/leerbotellasdisponiblessalida', requestOptions)
       .then(response => response.json())
       .then(data => {  
-        //console.log(data.data)            
+        console.log(data.data)            
           if(typeof data.err !== 'undefined' && data.err.message.length > 0){
             localStorage.clear();
             this.props.logoutHandler();
@@ -605,6 +607,7 @@ class AlamoSalidas extends Component {
             </Label> 
 
 
+            {/* 
             <Input
                 bsSize="sm"
                 className="mb-3"
@@ -628,6 +631,7 @@ class AlamoSalidas extends Component {
                   )
                 })}  
               </Input>
+            */}
 
               <Input
                 bsSize="sm"

@@ -34,6 +34,10 @@ import AlamoDashboardOtros from './components/AlamoDashboardOtros';
 import AlamoSalidas from './components/salidas/alamoSalidas';
 import AlamoSalidasDaniadas from './components/salidas/alamoExistenciasDaniadas';
 import AlamoSalidasDefectuosas from './components/salidas/alamoExistenciasDefectuosas';
+import AlamoInventarioVentas from './components/compras/AlamoInventario';
+import AlamoInventarioVentasTapas from './components/compras/AlamoInventarioTapas';
+import AlamoInventarioVentasEtiquetas from './components/compras/AlamoInventarioEtiquetas';
+import AlamoInventarioVentasOtros from './components/compras/AlamoInventarioOtros';
 //
 
 class App extends Component {
@@ -155,6 +159,13 @@ class App extends Component {
     })
   }
 
+  handleContabilidad(){
+    this.setState({
+      opcion: 'CONTABILIDAD',
+      user:'CONTABILIDAD'
+    })
+  }
+
   handleLogOut(){
     document.getElementById("burgerMenu").checked = false;  
     this.setState({
@@ -206,6 +217,13 @@ class App extends Component {
     })
   }
 
+  handleTapasAlamoC(){
+    document.getElementById("burgerMenu").checked = false;  
+    this.setState({
+      opcion: 'CONTABILIDAD_TAPAS'
+    })
+  }  
+
   handleEtiquetasAlamo(){
     document.getElementById("burgerMenu").checked = false;  
     this.setState({
@@ -213,10 +231,24 @@ class App extends Component {
     })
   }
 
+  handleEtiquetasAlamoC(){
+    document.getElementById("burgerMenu").checked = false;  
+    this.setState({
+      opcion: 'CONTABILIDAD_ETIQUETAS'
+    })
+  }
+
   handleOtrosAlamo(){
     document.getElementById("burgerMenu").checked = false;  
     this.setState({
       opcion: 'OTROS'
+    })
+  }
+
+  handleOtrosAlamoC(){
+    document.getElementById("burgerMenu").checked = false;  
+    this.setState({
+      opcion: 'CONTABILIDAD_OTROS'
     })
   }
 
@@ -233,9 +265,15 @@ class App extends Component {
       opcion: 'INVENTARIO',
     })
   }
+
+  handleInventariolamoC(){
+    document.getElementById("burgerMenu").checked = false;  
+    this.setState({
+      opcion: 'CONTABILIDAD',
+    })
+  }
   
   componentDidMount(){   
-
     const usertAuth = localStorage.getItem( 'usuario' )
     if(usertAuth === 'admin'){
       this.setState({
@@ -257,6 +295,11 @@ class App extends Component {
         user: 'SALIDAS'
       })
       this.handleSalidas()
+    }else if(usertAuth === 'contabilidad'){
+      this.setState({
+        user: 'CONTABILIDAD'
+      })
+      this.handleContabilidad()
     }else{
 
     }
@@ -297,7 +340,7 @@ class App extends Component {
   render(){
     const opcionEstado = () => {
       switch(this.state.opcion){
-        case 'LOGIN':                     return <AlamoLogIn logoutHandler={this.handleLogOut.bind(this)} loginHandler={this.handleLogInAlamo.bind(this)} inventarioHandler={this.handleInventarioUsuario.bind(this)} calidadHandler={this.handleCalidadUsuario.bind(this)} salidasHandler={this.handleSalidas.bind(this)}/>
+        case 'LOGIN':                     return <AlamoLogIn logoutHandler={this.handleLogOut.bind(this)} loginHandler={this.handleLogInAlamo.bind(this)} inventarioHandler={this.handleInventarioUsuario.bind(this)} calidadHandler={this.handleCalidadUsuario.bind(this)} salidasHandler={this.handleSalidas.bind(this)} contabilidadHandler={this.handleContabilidad.bind(this)}/>
         case 'INVENTARIO':                return <AlamoInventarioUser logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevisionInventarios.bind(this)}/>
         case 'CALIDAD':                   return <AlamoInventarioCalidad logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevisionCalidad.bind(this)} />
         case 'INVENTARIO_EXISTENCIAS':    return <AlamoExistenciasInventario logoutHandler={this.handleLogOut.bind(this)} existenciaItemAlamo={this.state.existenciaItem} />
@@ -318,6 +361,10 @@ class App extends Component {
         case 'SALIDAS':                   return <AlamoSalidas />
         case 'SALIDAS_DANIADAS':          return <AlamoSalidasDaniadas />
         case 'SALIDAS_DEFECTUOSAS':       return <AlamoSalidasDefectuosas />
+        case 'CONTABILIDAD':              return <AlamoInventarioVentas logoutHandler={this.handleLogOut.bind(this)} existencia={this.existenciaAlamoRevisionInventarios.bind(this)}/>
+        case 'CONTABILIDAD_TAPAS':        return <AlamoInventarioVentasTapas existencia={this.existenciaAlamoTapas.bind(this)}/>
+        case 'CONTABILIDAD_ETIQUETAS':    return <AlamoInventarioVentasEtiquetas existencia={this.existenciaAlamoEtiquetas.bind(this)}/>
+        case 'CONTABILIDAD_OTROS':        return <AlamoInventarioVentasOtros existencia={this.existenciaAlamoOtros.bind(this)}/>
       }
     }
     return (
@@ -383,6 +430,52 @@ class App extends Component {
                           <DropdownItem onClick={() => {this.handleEtiquetasAlamo()}}>Etiquetas  </DropdownItem>
                           <DropdownItem divider />
                           <DropdownItem onClick={() => {this.handleOtrosAlamo()}}>Plasticos y Carton  </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+
+                        <li><a href="#" onClick={() => {
+                                                    if(window.confirm('Seguro quiere salir ?')){
+                                                      localStorage.clear();
+                                                      this.handleLogOut();
+                                                    }else{
+
+                                                    }
+                                                  }}>Salir</a></li>
+                    </ul>
+                    <img className="logo" src={imgLogo}></img>
+                </div>
+            </nav> 
+
+          <div>{opcionEstado()}</div>
+          </>
+          )
+        }else if(this.state.user === 'CONTABILIDAD'){
+          return(
+            <>
+            <nav className="navbar">
+                <div className="navbar-container container">
+                    <input type="checkbox" name="" id="burgerMenu" />
+                    <div className="hamburger-lines">
+                        <span className="line line1"></span>
+                        <span className="line line2"></span>
+                        <span className="line line3"></span>
+                    </div>
+                    <ul className="menu-items">
+                        
+                        {/*<li><a href="#" onClick={() => {this.handleInventariolamo()}}>Inventario Alamo</a></li>*/}
+
+                        <Dropdown nav isOpen={this.state.dropdownI} toggle={this.toggleDropdownInventarios}>
+                        <DropdownToggle nav caret>
+                          Inventarios Alamo
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem onClick={() => {this.handleInventariolamoC()}}>Botellas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleTapasAlamoC()}}>Tapas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleEtiquetasAlamoC()}}>Etiquetas  </DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem onClick={() => {this.handleOtrosAlamoC()}}>Plasticos y Carton  </DropdownItem>
                         </DropdownMenu>
                       </Dropdown>
 

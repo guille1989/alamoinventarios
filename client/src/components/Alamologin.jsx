@@ -48,6 +48,8 @@ class Alamologin extends Component {
                             this.props.calidadHandler()
                         }else if(data.user === 'salidas'){
                             this.props.salidasHandler()
+                        }else if(data.user === 'contabilidad'){
+                            this.props.contabilidadHandler()
                         }
                         localStorage.setItem( 'usuario', data.user );
                         localStorage.setItem( 'token', data.token );
@@ -93,6 +95,9 @@ class Alamologin extends Component {
                                 </option>
                                 <option>
                                 salidas
+                                </option>
+                                <option>
+                                contabilidad
                                 </option>
                             </Input>
                             <Input 
