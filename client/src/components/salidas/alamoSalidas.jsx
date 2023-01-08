@@ -607,7 +607,7 @@ class AlamoSalidas extends Component {
             </Label> 
 
 
-            {/* 
+            
             <Input
                 bsSize="sm"
                 className="mb-3"
@@ -630,8 +630,7 @@ class AlamoSalidas extends Component {
                     <option>{item._id} - Cantidad Disponible: {Number(item.otros).toLocaleString('us')}</option>
                   )
                 })}  
-              </Input>
-            */}
+              </Input>            
 
               <Input
                 bsSize="sm"
