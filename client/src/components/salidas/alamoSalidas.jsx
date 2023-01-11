@@ -422,6 +422,7 @@ class AlamoSalidas extends Component {
             })}   
             </tbody>
             </Table>
+
             <Modal isOpen={this.state.modalAgregarExistencia}>
               <ModalHeader>Registrar Salida de Existencias</ModalHeader>
               <ModalBody>
@@ -451,10 +452,10 @@ class AlamoSalidas extends Component {
                 className="mb-3"
                 type="select"
                 onChange={(e) => {
-                    //console.log(e.target.value.split(" -", 1).pop())
-                    //console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
+                    console.log(e.target.value.split(" - C", 1).pop())
+                    console.log(parseInt(e.target.value.split(": ").pop().replace(',','')))
                     this.setState({
-                        tipoSalidaBotella: e.target.value.split(" -", 1).pop(),
+                        tipoSalidaBotella: e.target.value.split(" - C", 1).pop(),
                         cantidadlimiteBotella: parseInt(e.target.value.split(": ").pop().replace(',',''))
                     })
                 }}>

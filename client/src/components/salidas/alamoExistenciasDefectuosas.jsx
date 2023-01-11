@@ -483,7 +483,7 @@ class alamoExistenciasDefectuosas extends Component {
                 onChange={(e) => {    
                   document.getElementById("sLoteExistencia").value = "Seleccione Lote de Existencia"  
                     this.setState({
-                        tipoSalidaBotella: e.target.value.split(" -", 1).pop(),                        
+                        tipoSalidaBotella: e.target.value.split(" - C", 1).pop(),                        
                     })
                     this.handleRLlotebotellas(e.target.value.split(" :", 1).pop(), this.state.datoExistenciasRdaniadasTio)
                 }}>
